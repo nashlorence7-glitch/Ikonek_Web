@@ -613,7 +613,11 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 /* Business Website card: enough height that the front never clips and the button never sits on the flip hint */
 #packages .package-card.web-package,#packages .package-card.web-package .package-flip{min-height:700px}
 #packages .package-card.web-package .package-front{padding-bottom:52px}
-</style></head>
+</style><style>/* Only the visible face takes taps, so tapping Order on the back never hits the hidden front */
+.package-card.is-flipped .package-front{pointer-events:none}
+.package-card:not(.is-flipped) .package-back{pointer-events:none}
+.package-card .package-back .package-action{position:relative;z-index:3}</style>
+</head>
 <body>
 <div style="--accent: #1B9CFF; background: #04060A; color: #EEF3F9; font-family: 'Inter', system-ui, sans-serif; width: 100%; overflow-x: clip" data-canvas-width="1440" data-canvas-height="5200" data-document-role="page" data-label="iKONEK Landing Page">
 
@@ -822,7 +826,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <div><div class="package-name">Plain NFC Card</div><div class="package-sub">A clean card in black or white.</div></div>
 <div class="package-price"><span class="price-cur">PHP</span><span class="price-num">99</span></div>
 <ul class="package-list"><li>Plain NFC card in black or white</li><li>No printed design or logo</li><li>Linked to Messenger, Facebook or any link you choose</li></ul>
-<div class="package-action ghost-action">Choose this <span>↗</span></div><div class="flip-hint">Tap card to preview <span>↻</span></div>
+<div class="flip-hint">Tap card to preview <span>↻</span></div>
 </div>
 <div class="package-face package-back">
 <div class="back-top"><span class="back-kicker">PRODUCT PREVIEW</span><span class="back-close">↻ Flip back</span></div>
@@ -845,7 +849,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <div><div class="package-name">NFC Card</div><div class="package-sub">For people who just need the card.</div></div>
 <div class="package-price"><span class="price-cur">PHP</span><span class="price-num">149</span></div>
 <ul class="package-list"><li>Custom-printed NFC card</li><li>Linked to Messenger, Facebook or any link you choose</li><li>Ready to tap on delivery</li></ul>
-<div class="package-action ghost-action">Choose this <span>↗</span></div><div class="flip-hint">Tap card to preview <span>↻</span></div>
+<div class="flip-hint">Tap card to preview <span>↻</span></div>
 </div>
 <div class="package-face package-back">
 <div class="back-top"><span class="back-kicker">PRODUCT PREVIEW</span><span class="back-close">↻ Flip back</span></div>
@@ -873,7 +877,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <div><div class="package-title-row"><div class="package-name">Card + Digital Profile</div><span class="popular-pill">Most popular</span></div><div class="package-sub">The full iKONEK experience.</div></div>
 <div class="package-price"><span class="price-cur">PHP</span><span class="price-num">349</span></div>
 <ul class="package-list"><li>Custom-designed NFC card</li><li>Mobile-first digital profile page</li><li>Save-to-contacts button and QR code</li><li>Update your details anytime</li></ul>
-<div class="package-action primary-action">Choose this <span>↗</span></div><div class="flip-hint">Tap card to preview <span>↻</span></div>
+<div class="flip-hint">Tap card to preview <span>↻</span></div>
 </div>
 <div class="package-face package-back">
 <div class="back-top"><span class="back-kicker">PRODUCT PREVIEW</span><span class="back-close">↻ Flip back</span></div>
@@ -891,7 +895,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <div><div class="package-name">Digital Profile</div><div class="package-sub">Just the profile page, no card.</div></div>
 <div class="package-price price-text"><span>Ask for pricing</span></div>
 <ul class="package-list"><li>Mobile-first digital profile page</li><li>Save-to-contacts button and QR code</li><li>Share with a link or QR code</li><li>Update your details anytime</li></ul>
-<div class="package-action ghost-action">Choose this <span>↗</span></div><div class="flip-hint">Tap card to preview <span>↻</span></div>
+<div class="flip-hint">Tap card to preview <span>↻</span></div>
 </div>
 <div class="package-face package-back">
 <div class="back-top"><span class="back-kicker">PRODUCT PREVIEW</span><span class="back-close">↻ Flip back</span></div>
@@ -908,7 +912,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <div><div class="package-name">Google Review Card</div><div class="package-sub">Make it easy for happy customers to leave you a Google review.</div></div>
 <div class="package-price price-text"><span>Ask for pricing</span></div>
 <ul class="package-list"><li>Tap-to-review NFC experience</li><li>Google review call-to-action design</li><li>Premium custom-printed card</li></ul>
-<div class="package-action primary-action">Ask about this card <span>↗</span></div><div class="flip-hint">Tap card to preview <span>↻</span></div>
+<div class="flip-hint">Tap card to preview <span>↻</span></div>
 </div>
 <div class="package-face package-back google-review-back">
 <div class="back-top"><span class="back-kicker">PRODUCT PREVIEW</span><span class="back-close">↻ Flip back</span></div>
@@ -928,7 +932,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <div><div class="package-name">Business Website</div><div class="package-sub">A website for your shop or business.</div></div>
 <div class="package-price price-text"><span>Custom quotation</span></div>
 <ul class="package-list"><li>Home, products or services, about and contact pages</li><li>Works on phones, with Messenger and Facebook links</li><li>Your branding, photos and business details</li></ul>
-<div class="package-action ghost-action">Ask about a website <span>↗</span></div><div class="flip-hint">Tap card to preview <span>↻</span></div>
+<div class="flip-hint">Tap card to preview <span>↻</span></div>
 </div>
 <div class="package-face package-back">
 <div class="back-top"><span class="back-kicker">WEBSITE PREVIEW</span><span class="back-close">↻ Flip back</span></div>
@@ -1030,7 +1034,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 // Tap/click or press Enter/Space to flip each package into its product preview.
 document.querySelectorAll('.package-card').forEach(function(card){
   function flip(){var state=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(state));}
-  card.addEventListener('click',function(e){if(e.target.closest('a, button, .nfc-card-toggle, .nfc-finish-selector'))return;flip();});
+  card.addEventListener('click',function(e){if(e.target.closest('a, button, .package-action, .nfc-card-toggle, .nfc-finish-selector'))return;var od=document.getElementById('orderDlg');if((od&&od.open)||Date.now()-(window.__orderAt||0)<700)return;flip();});
   card.addEventListener('keydown',function(e){if(e.target.closest('button, a, .nfc-card-toggle, .nfc-finish-selector'))return;if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});
 });
 // NFC card flip is handled once below to avoid double-toggling the rotation state.
@@ -1130,14 +1134,15 @@ document.querySelectorAll('.package-card').forEach(function(card){
 // Supabase connection (publishable key is safe to expose; Row Level Security protects the data)
 (function(){
 var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc';
-var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},SPLIT={plain:['black','white'],nfc:['black','white']};
-function api(path,body){var o={headers:{apikey:KEY,'Content-Type':'application/json'}};if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
+var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']};
+function api(path,body){var o={cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json'}};if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
 var cards=[].slice.call(document.querySelectorAll('#packages .package-card'));
 function paint(){cards.forEach(function(c,i){var id=IDS[i];
- if(SPLIT[id]){SPLIT[id].forEach(function(f){var b=c.querySelector('.stock-badge[data-finish="'+f+'"]'),n=stock[id+'-'+f],t=f.charAt(0).toUpperCase()+f.slice(1);if(n==null||!b)return;b.setAttribute('aria-label',n>0?n+' '+f+' in stock':f+' sold out');b.classList.toggle('is-out',!(n>0));b.querySelector('span:last-child').textContent=n>0?t+' \u00b7 '+n+' left':t+' \u00b7 sold out'});return}
+ var pn=c.querySelector('.price-num');if(pn){var ps=(SPLIT[id]?SPLIT[id].map(function(f){return price[id+'-'+f]}):[price[id]]).filter(function(v){return v!=null&&!isNaN(v)});if(ps.length)pn.textContent=Number(Math.min.apply(null,ps)).toLocaleString('en-US',{maximumFractionDigits:2})}
+ if(SPLIT[id]){SPLIT[id].forEach(function(f){var b=c.querySelector('.stock-badge[data-finish="'+f+'"]'),n=stock[id+'-'+f],t=f.charAt(0).toUpperCase()+f.slice(1);if(n==null||!b)return;b.setAttribute('aria-label',n>0?n+' '+f+' in stock':f+' sold out');b.classList.toggle('is-out',!(n>0));var pp=price[id+'-'+f],pt=(pp!=null&&!isNaN(pp))?' \u00b7 PHP '+Number(pp).toLocaleString('en-US',{maximumFractionDigits:2}):'';b.querySelector('span:last-child').textContent=n>0?t+pt+' \u00b7 '+n+' left':t+pt+' \u00b7 sold out'});return}
  var n=stock[id],b=c.querySelector('.stock-badge');if(n==null||!b)return;b.setAttribute('aria-label',n+' items in stock');var s=b.querySelector('span:last-child');s.textContent='';if(n>0){s.appendChild(document.createTextNode(n+' '));var m=document.createElement('small');m.textContent='IN STOCK';s.appendChild(m)}else s.textContent='SOLD OUT'});showStock()}
-function loadStock(){return api('/rest/v1/products?select=id,stock&active=eq.true').then(function(r){return r.ok?r.json():[]}).then(function(rows){rows.forEach(function(r){stock[r.id]=r.stock});paint()}).catch(function(){})}
-loadStock();setInterval(function(){if(!document.hidden)loadStock()},60000);
+function loadStock(){return api('/rest/v1/products?select=id,stock,price&active=eq.true').then(function(r){return r.ok?r.json():[]}).then(function(rows){rows.forEach(function(r){stock[r.id]=r.stock;price[r.id]=r.price==null?null:Number(r.price)});paint()}).catch(function(){})}
+loadStock();setInterval(function(){if(!document.hidden)loadStock()},5000);document.addEventListener('visibilitychange',function(){if(!document.hidden)loadStock()});window.addEventListener('focus',loadStock);
 
 var dlg=document.getElementById('orderDlg'),of=document.getElementById('orderForm'),om=of.querySelector('.sb-msg');
 function msg(el,text,cls){el.textContent=text;el.className='sb-msg'+(cls?' '+cls:'')}
@@ -1147,7 +1152,7 @@ function showStock(){var id=of.product.value,n=stock[pid()];document.getElementB
  if(n!=null)of.qty.max=Math.max(1,Math.min(100,n))}
 of.product.addEventListener('change',showStock);of.finish.addEventListener('change',showStock);
 function openOrder(id,fin){of.reset();of.product.value=id;if(fin&&SPLIT[id])of.finish.value=fin==='white'?'White':'Black';msg(om,'');showStock();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
-cards.forEach(function(c,i){[].forEach.call(c.querySelectorAll('.primary-action'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var ab=c.querySelector('.nfc-finish-btn.is-active'),fin=ab?(ab.getAttribute('data-pl-choice')||ab.getAttribute('data-finish-choice')):null;openOrder(IDS[i],fin)})})});
+cards.forEach(function(c,i){[].forEach.call(c.querySelectorAll('.primary-action'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();window.__orderAt=Date.now();var ab=c.querySelector('.nfc-finish-btn.is-active'),fin=ab?(ab.getAttribute('data-pl-choice')||ab.getAttribute('data-finish-choice')):null;openOrder(IDS[i],fin)})})});
 document.getElementById('ordCancel').addEventListener('click',function(){dlg.close()});
 dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
 function lock(f,on){[].forEach.call(f.querySelectorAll('button'),function(b){b.disabled=on})}
