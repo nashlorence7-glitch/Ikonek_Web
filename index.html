@@ -645,7 +645,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <span class="live" style="width: 8px; height: 8px; border-radius: 999px; background: var(--accent); display: inline-block"></span>
 <span>The Smarter Way to Connect.</span>
 </div>
-<span id="viewCounter" aria-live="polite" style="display:none;align-items:center;gap:8px;border:1px solid #1A2B40;border-radius:999px;padding:8px 16px;font-size:14px;color:#9FB0C4"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span><b id="viewCount" style="color:#EEF3F9;font-weight:600">0</b> views &middot; <b id="visitorCount" style="color:#EEF3F9;font-weight:600">0</b> visitors</span></span>
+<span id="viewCounter" aria-live="polite" style="display:none;align-items:center;gap:8px;border:1px solid #1A2B40;border-radius:999px;padding:8px 16px;font-size:14px;color:#9FB0C4"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span><b id="visitorCount" style="color:#EEF3F9;font-weight:600">0</b> visitors</span></span>
 </div>
 <h1 class="rise d2" style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(44px, 7vw, 84px); line-height: 1.02; letter-spacing: -0.03em">The Smarter Way to Connect.<br><span class="hl"></span></h1>
 <p class="rise d3" style="margin: 0; font-size: 19px; line-height: 1.6; color: #9FB0C4; max-width: 540px">iKONEK makes NFC business cards, digital profile pages and websites for small businesses. One tap opens your business, your links and your contact details on any modern phone.</p>
@@ -1170,10 +1170,10 @@ inf.addEventListener('submit',function(e){e.preventDefault();
  api('/rest/v1/inquiries',{name:nm,contact:'Not provided',message:ms}).then(function(r){if(r.ok){msg(im,'Thanks! Your message was sent. We will get back to you soon.','ok');inf.reset()}else msg(im,'Could not send. Please try again or email us.','err')})
  .catch(function(){msg(im,'Network problem. Please try again.','err')}).then(function(){lock(inf,false)})});
 
-// Visit counter: one view per browser session, one unique visitor per browser
+// Visitor counter: one unique visitor per browser
 (function(){
 var box=document.getElementById('viewCounter');
-function show(d){if(!d||d.views==null)return;document.getElementById('viewCount').textContent=Number(d.views).toLocaleString();document.getElementById('visitorCount').textContent=Number(d.visitors).toLocaleString();box.style.display='flex'}
+function show(d){if(!d||d.visitors==null)return;document.getElementById('visitorCount').textContent=Number(d.visitors).toLocaleString();box.style.display='flex'}
 var isNew=false,counted=false;
 try{isNew=!localStorage.getItem('ikonek_visitor');counted=!!sessionStorage.getItem('ikonek_view')}catch(e){}
 var call=counted?api('/rest/v1/rpc/get_view_counts',{}):api('/rest/v1/rpc/register_view',{p_new_visitor:isNew});
