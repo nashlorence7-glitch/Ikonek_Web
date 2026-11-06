@@ -640,9 +640,12 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <section id="top" style="padding: 72px 24px 88px">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
 <div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px; align-items: flex-start">
-<div class="rise d1" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid #1A2B40; border-radius: 999px; padding: 8px 16px; font-size: 14px; color: #9FB0C4">
+<div class="rise d1" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+<div style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid #1A2B40; border-radius: 999px; padding: 8px 16px; font-size: 14px; color: #9FB0C4">
 <span class="live" style="width: 8px; height: 8px; border-radius: 999px; background: var(--accent); display: inline-block"></span>
 <span>The Smarter Way to Connect.</span>
+</div>
+<span id="viewCounter" aria-live="polite" style="display:none;align-items:center;gap:8px;border:1px solid #1A2B40;border-radius:999px;padding:8px 16px;font-size:14px;color:#9FB0C4"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span><b id="viewCount" style="color:#EEF3F9;font-weight:600">0</b> views &middot; <b id="visitorCount" style="color:#EEF3F9;font-weight:600">0</b> visitors</span></span>
 </div>
 <h1 class="rise d2" style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(44px, 7vw, 84px); line-height: 1.02; letter-spacing: -0.03em">The Smarter Way to Connect.<br><span class="hl"></span></h1>
 <p class="rise d3" style="margin: 0; font-size: 19px; line-height: 1.6; color: #9FB0C4; max-width: 540px">iKONEK makes NFC business cards, digital profile pages and websites for small businesses. One tap opens your business, your links and your contact details on any modern phone.</p>
@@ -866,7 +869,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <article class="package-card featured" tabindex="0" role="button" aria-label="Card plus Digital Profile. Tap to flip and preview product" aria-pressed="false">
 <div class="package-flip">
 <div class="package-face package-front">
-<div class="stock-badge" aria-label="12 items in stock"><span class="stock-dot"></span><span>12 <small>IN STOCK</small></span></div>
+<div class="stock-badge" aria-hidden="true" style="visibility:hidden"><span class="stock-dot"></span><span>0 <small>IN STOCK</small></span></div>
 <div><div class="package-title-row"><div class="package-name">Card + Digital Profile</div><span class="popular-pill">Most popular</span></div><div class="package-sub">The full iKONEK experience.</div></div>
 <div class="package-price"><span class="price-cur">PHP</span><span class="price-num">349</span></div>
 <ul class="package-list"><li>Custom-designed NFC card</li><li>Mobile-first digital profile page</li><li>Save-to-contacts button and QR code</li><li>Update your details anytime</li></ul>
@@ -1017,7 +1020,6 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <span style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 20px; letter-spacing: 0.02em; color: #EEF3F9">iKONEK</span>
 <span>NFC cards, digital profiles and business websites.</span>
 <span>© 2026 iKONEK. All rights reserved.</span>
-<span id="viewCounter" aria-live="polite" style="display:none;align-items:center;gap:8px;width:100%;justify-content:center;padding-top:8px;border-top:1px solid #152234;margin-top:4px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span><b id="viewCount" style="color:#EEF3F9;font-weight:600">0</b> views &middot; <b id="visitorCount" style="color:#EEF3F9;font-weight:600">0</b> visitors</span></span>
 </div>
 </footer>
 
@@ -1140,7 +1142,7 @@ loadStock();setInterval(function(){if(!document.hidden)loadStock()},60000);
 var dlg=document.getElementById('orderDlg'),of=document.getElementById('orderForm'),om=of.querySelector('.sb-msg');
 function msg(el,text,cls){el.textContent=text;el.className='sb-msg'+(cls?' '+cls:'')}
 function pid(){var id=of.product.value;return SPLIT[id]?id+'-'+of.finish.value.toLowerCase():id}
-function showStock(){var id=of.product.value,n=stock[pid()];document.getElementById('ordStock').textContent=n==null?'':(n>0?n+' in stock':'Sold out');document.getElementById('ordFinishL').style.display=NOF[id]?'none':'';
+function showStock(){var id=of.product.value,n=stock[pid()];document.getElementById('ordStock').textContent=(n==null||id==='profile')?'':(n>0?n+' in stock':'Sold out');document.getElementById('ordFinishL').style.display=NOF[id]?'none':'';
  [].forEach.call(of.finish.options,function(o){var k=stock[id+'-'+o.value.toLowerCase()];o.textContent=o.value+(SPLIT[id]&&k!=null?(k>0?' ('+k+' left)':' (sold out)'):'')});
  if(n!=null)of.qty.max=Math.max(1,Math.min(100,n))}
 of.product.addEventListener('change',showStock);of.finish.addEventListener('change',showStock);
