@@ -616,7 +616,17 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 </style><style>/* Only the visible face takes taps, so tapping Order on the back never hits the hidden front */
 .package-card.is-flipped .package-front{pointer-events:none}
 .package-card:not(.is-flipped) .package-back{pointer-events:none}
-.package-card .package-back .package-action{position:relative;z-index:3}</style>
+.package-card .package-back .package-action{position:relative;z-index:3}
+/* Two prices (black / white) on cards with finishes */
+#packages .package-card .package-price.price-dual{gap:30px;align-items:flex-end;flex-wrap:wrap}
+#packages .price-opt{display:flex;flex-direction:column;gap:10px;transition:opacity .25s}
+#packages .price-opt:not(.is-sel){opacity:.55}
+#packages .price-lbl{font:600 11px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#9FB0C4}
+#packages .price-row{display:flex;align-items:flex-end;gap:8px}
+#packages .package-card .package-price.price-dual .price-num{font-size:44px}
+#packages .package-card .package-price.price-dual .price-cur{padding-bottom:6px;font-size:14px}
+@media(max-width:760px){#packages .package-card .package-price.price-dual{gap:22px}#packages .package-card .package-price.price-dual .price-num{font-size:38px}}
+</style>
 </head>
 <body>
 <div style="--accent: #1B9CFF; background: #04060A; color: #EEF3F9; font-family: 'Inter', system-ui, sans-serif; width: 100%; overflow-x: clip" data-canvas-width="1440" data-canvas-height="5200" data-document-role="page" data-label="iKONEK Landing Page">
@@ -824,7 +834,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <div class="package-face package-front">
 <div class="stock-row" role="group" aria-label="Stock by finish"><div class="stock-badge" data-finish="black" aria-label="18 black in stock"><span class="stock-dot"></span><span>Black · 18 left</span></div><div class="stock-badge" data-finish="white" aria-label="12 white in stock"><span class="stock-dot"></span><span>White · 12 left</span></div></div>
 <div><div class="package-name">Plain NFC Card</div><div class="package-sub">A clean card in black or white.</div></div>
-<div class="package-price"><span class="price-cur">PHP</span><span class="price-num">99</span></div>
+<div class="package-price price-dual"><div class="price-opt is-sel" data-finish="black"><span class="price-lbl">Black</span><span class="price-row"><span class="price-cur">PHP</span><span class="price-num">99</span></span></div><div class="price-opt" data-finish="white"><span class="price-lbl">White</span><span class="price-row"><span class="price-cur">PHP</span><span class="price-num">99</span></span></div></div>
 <ul class="package-list"><li>Plain NFC card in black or white</li><li>No printed design or logo</li><li>Linked to Messenger, Facebook or any link you choose</li></ul>
 <div class="flip-hint">Tap card to preview <span>↻</span></div>
 </div>
@@ -847,7 +857,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <div class="package-face package-front">
 <div class="stock-row" role="group" aria-label="Stock by finish"><div class="stock-badge" data-finish="black" aria-label="14 black in stock"><span class="stock-dot"></span><span>Black · 14 left</span></div><div class="stock-badge" data-finish="white" aria-label="10 white in stock"><span class="stock-dot"></span><span>White · 10 left</span></div></div>
 <div><div class="package-name">NFC Card</div><div class="package-sub">For people who just need the card.</div></div>
-<div class="package-price"><span class="price-cur">PHP</span><span class="price-num">149</span></div>
+<div class="package-price price-dual"><div class="price-opt is-sel" data-finish="black"><span class="price-lbl">Black</span><span class="price-row"><span class="price-cur">PHP</span><span class="price-num">149</span></span></div><div class="price-opt" data-finish="white"><span class="price-lbl">White</span><span class="price-row"><span class="price-cur">PHP</span><span class="price-num">149</span></span></div></div>
 <ul class="package-list"><li>Custom-printed NFC card</li><li>Linked to Messenger, Facebook or any link you choose</li><li>Ready to tap on delivery</li></ul>
 <div class="flip-hint">Tap card to preview <span>↻</span></div>
 </div>
@@ -1140,7 +1150,7 @@ function priceOf(id,f){if(FIXED[id]!=null)return FIXED[id];var v=SPLIT[id]?price
 function api(path,body){var o={cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json'}};if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
 var cards=[].slice.call(document.querySelectorAll('#packages .package-card'));
 function paint(){cards.forEach(function(c,i){var id=IDS[i];
- var pn=c.querySelector('.price-num'),cp=priceOf(id);if(pn&&cp!=null){pn.textContent=fmt(cp);var bs=c.querySelector('.back-copy strong');if(bs)bs.textContent='PHP '+fmt(cp)}
+ var cp=priceOf(id);if(SPLIT[id]){SPLIT[id].forEach(function(f){var o=c.querySelector('.price-opt[data-finish="'+f+'"]'),pe=o&&o.querySelector('.price-num'),v=priceOf(id,f);if(o)o.classList.toggle('is-sel',f===sel[id]);if(pe&&v!=null)pe.textContent=fmt(v)})}else{var pn=c.querySelector('.price-num');if(pn&&cp!=null)pn.textContent=fmt(cp)}if(cp!=null){var bs=c.querySelector('.back-copy strong');if(bs)bs.textContent='PHP '+fmt(cp)}
  if(SPLIT[id]){SPLIT[id].forEach(function(f){var b=c.querySelector('.stock-badge[data-finish="'+f+'"]'),n=stock[id+'-'+f],t=f.charAt(0).toUpperCase()+f.slice(1);if(n==null||!b)return;b.setAttribute('aria-label',n>0?n+' '+f+' in stock':f+' sold out');b.classList.toggle('is-out',!(n>0));var pp=price[id+'-'+f],pt='';b.querySelector('span:last-child').textContent=n>0?t+pt+' \u00b7 '+n+' left':t+pt+' \u00b7 sold out'});return}
  if(NOSTOCK[id])return;var n=stock[id],b=c.querySelector('.stock-badge');if(n==null||!b)return;b.setAttribute('aria-label',n+' items in stock');var s=b.querySelector('span:last-child');s.textContent='';if(n>0){s.appendChild(document.createTextNode(n+' '));var m=document.createElement('small');m.textContent='IN STOCK';s.appendChild(m)}else s.textContent='SOLD OUT'});showStock()}
 function loadStock(){return api('/rest/v1/products?select=id,stock,price&active=eq.true').then(function(r){return r.ok?r.json():[]}).then(function(rows){rows.forEach(function(r){stock[r.id]=r.stock;price[r.id]=r.price==null?null:Number(r.price)});paint()}).catch(function(){})}
