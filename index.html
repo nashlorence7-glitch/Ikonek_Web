@@ -626,6 +626,9 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 #packages .package-card .package-price.price-dual .price-num{font-size:44px}
 #packages .package-card .package-price.price-dual .price-cur{padding-bottom:6px;font-size:14px}
 @media(max-width:760px){#packages .package-card .package-price.price-dual{gap:22px}#packages .package-card .package-price.price-dual .price-num{font-size:38px}}
+
+#packages .stock-badge.preorder-badge{border-color:rgba(27,156,255,.4);background:rgba(27,156,255,.1);color:#bfe3ff}
+#packages .stock-badge.preorder-badge .stock-dot{background:#1B9CFF;box-shadow:0 0 8px #1B9CFF}
 </style>
 </head>
 <body>
@@ -855,7 +858,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <article class="package-card" tabindex="0" role="button" aria-label="NFC Card. Tap to flip and preview product" aria-pressed="false">
 <div class="package-flip">
 <div class="package-face package-front">
-<div class="stock-row" role="group" aria-label="Stock by finish"><div class="stock-badge" data-finish="black" aria-label="14 black in stock"><span class="stock-dot"></span><span>Black · 14 left</span></div><div class="stock-badge" data-finish="white" aria-label="10 white in stock"><span class="stock-dot"></span><span>White · 10 left</span></div></div>
+<div class="stock-badge preorder-badge" aria-label="Available for pre-order"><span class="stock-dot"></span><span>Pre-order</span></div>
 <div><div class="package-name">NFC Card</div><div class="package-sub">For people who just need the card.</div></div>
 <div class="package-price price-dual"><div class="price-opt is-sel" data-finish="black"><span class="price-lbl">Black</span><span class="price-row"><span class="price-cur">PHP</span><span class="price-num">149</span></span></div><div class="price-opt" data-finish="white"><span class="price-lbl">White</span><span class="price-row"><span class="price-cur">PHP</span><span class="price-num">149</span></span></div></div>
 <ul class="package-list"><li>Custom-printed NFC card</li><li>Linked to Messenger, Facebook or any link you choose</li><li>Ready to tap on delivery</li></ul>
@@ -878,7 +881,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <div class="nfc-card-hint">Tap the card to view the reverse side · Select a finish above</div>
 </div>
 <div class="back-copy"><h3>Your custom NFC card</h3><p>A physical, custom-printed card that opens the link you choose when someone taps their phone.</p><strong>PHP 149</strong></div>
-<a class="package-action primary-action" href="#contact">Order this card <span>→</span></a>
+<a class="package-action primary-action" href="#contact">Pre-order this card <span>→</span></a>
 </div></div></article>
 <article class="package-card featured" tabindex="0" role="button" aria-label="Card plus Digital Profile. Tap to flip and preview product" aria-pressed="false">
 <div class="package-flip">
@@ -1144,7 +1147,7 @@ document.querySelectorAll('.package-card').forEach(function(card){
 // Supabase connection (publishable key is safe to expose; Row Level Security protects the data)
 (function(){
 var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc';
-var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={google:999},NOSTOCK={profile:1,digital:1,business:1},sel={plain:'black',nfc:'black'};
+var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={google:999},NOSTOCK={profile:1,digital:1,business:1,nfc:1},PRE={nfc:1},sel={plain:'black',nfc:'black'};
 function fmt(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:2})}
 function priceOf(id,f){if(FIXED[id]!=null)return FIXED[id];var v=SPLIT[id]?price[id+'-'+(f||sel[id])]:price[id];return(v==null||isNaN(v))?null:v}
 function api(path,body){var o={cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json'}};if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
@@ -1159,10 +1162,10 @@ loadStock();setInterval(function(){if(!document.hidden)loadStock()},5000);docume
 var dlg=document.getElementById('orderDlg'),of=document.getElementById('orderForm'),om=of.querySelector('.sb-msg');
 function msg(el,text,cls){el.textContent=text;el.className='sb-msg'+(cls?' '+cls:'')}
 function pid(){var id=of.product.value;return SPLIT[id]?id+'-'+of.finish.value.toLowerCase():id}
-function showStock(){var id=of.product.value,n=stock[pid()];document.getElementById('ordStock').textContent=(n==null||NOSTOCK[id])?'':(n>0?n+' in stock':'Sold out');document.getElementById('ordFinishL').style.display=NOF[id]?'none':'';
+function showStock(){var id=of.product.value,n=stock[pid()];document.getElementById('ordTitle').textContent=PRE[id]?'Pre-order your card':'Order your card';of.querySelector('.sb-btn.go').textContent=PRE[id]?'Place pre-order':'Place order';document.getElementById('ordStock').textContent=PRE[id]?'Pre-order':(n==null||NOSTOCK[id])?'':(n>0?n+' in stock':'Sold out');document.getElementById('ordFinishL').style.display=NOF[id]?'none':'';
  [].forEach.call(of.finish.options,function(o){var k=stock[id+'-'+o.value.toLowerCase()];o.textContent=o.value+(SPLIT[id]&&k!=null?(k>0?' ('+k+' left)':' (sold out)'):'')});
- [['plain','Plain NFC Card'],['nfc','NFC Card'],['google','Google Review Card']].forEach(function(p){var o=of.product.querySelector('option[value="'+p[0]+'"]'),v=priceOf(p[0],of.finish.value.toLowerCase());if(o&&v!=null)o.textContent=p[1]+' - PHP '+fmt(v)});
- if(n!=null)of.qty.max=Math.max(1,Math.min(100,n))}
+ [['plain','Plain NFC Card'],['nfc','NFC Card'],['google','Google Review Card']].forEach(function(p){var o=of.product.querySelector('option[value="'+p[0]+'"]'),v=priceOf(p[0],of.finish.value.toLowerCase());if(o&&v!=null)o.textContent=p[1]+' - PHP '+fmt(v)+(PRE[p[0]]?' (pre-order)':'')});
+ if(PRE[id])of.qty.max=100;else if(n!=null)of.qty.max=Math.max(1,Math.min(100,n))}
 of.product.addEventListener('change',showStock);of.finish.addEventListener('change',showStock);
 function openOrder(id,fin){of.reset();of.product.value=id;if(fin&&SPLIT[id])of.finish.value=fin==='white'?'White':'Black';msg(om,'');showStock();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
 cards.forEach(function(c,i){if(SPLIT[IDS[i]])[].forEach.call(c.querySelectorAll('[data-pl-choice],[data-finish-choice]'),function(b){b.addEventListener('click',function(){sel[IDS[i]]=b.getAttribute('data-pl-choice')||b.getAttribute('data-finish-choice');paint()})})});
@@ -1175,8 +1178,8 @@ of.addEventListener('submit',function(e){e.preventDefault();
  if(!nm||ct.length<3||!(q>=1&&q<=100)){msg(om,'Please enter your name, a contact (3+ characters) and a valid quantity.','err');return}
  if(of.website.value){msg(om,'Thanks! We got your order.','ok');return}
  lock(of,true);msg(om,'Placing your order...');
- api('/rest/v1/rpc/place_order',{p_product_id:pid(),p_quantity:q,p_name:nm,p_contact:ct,p_finish:NOF[of.product.value]?null:of.finish.value,p_link:of.link.value.trim()||null,p_notes:of.notes.value.trim()||null})
- .then(function(r){if(r.ok){msg(om,'Thanks! Your order is in. We will contact you shortly to confirm.','ok');of.reset();of.product.value=of.product.value;loadStock();return}
+ api('/rest/v1/rpc/place_order',{p_product_id:pid(),p_quantity:q,p_name:nm,p_contact:ct,p_finish:NOF[of.product.value]?null:of.finish.value,p_link:of.link.value.trim()||null,p_notes:(PRE[of.product.value]?('[PRE-ORDER] '+of.notes.value.trim()).trim():of.notes.value.trim())||null})
+ .then(function(r){if(r.ok){msg(om,PRE[of.product.value]?'Thanks! Your pre-order is in. We will contact you shortly to confirm.':'Thanks! Your order is in. We will contact you shortly to confirm.','ok');of.reset();of.product.value=of.product.value;loadStock();return}
   return r.json().catch(function(){return{}}).then(function(j){msg(om,/out_of_stock/.test(j.message||'')?'Sorry, there is not enough stock for that quantity.':'Could not place the order. Please try again or message us.','err');loadStock()})})
  .catch(function(){msg(om,'Network problem. Please try again.','err')}).then(function(){lock(of,false)})});
 
