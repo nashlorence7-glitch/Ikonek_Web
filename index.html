@@ -891,7 +891,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <article class="package-card" tabindex="0" role="button" aria-label="Digital Profile. Tap to flip and preview product" aria-pressed="false">
 <div class="package-flip">
 <div class="package-face package-front">
-<div class="stock-badge" aria-label="20 items in stock"><span class="stock-dot"></span><span>20 <small>IN STOCK</small></span></div>
+<div class="stock-badge" aria-hidden="true" style="visibility:hidden"><span class="stock-dot"></span><span>0 <small>IN STOCK</small></span></div>
 <div><div class="package-name">Digital Profile</div><div class="package-sub">Just the profile page, no card.</div></div>
 <div class="package-price price-text"><span>Ask for pricing</span></div>
 <ul class="package-list"><li>Mobile-first digital profile page</li><li>Save-to-contacts button and QR code</li><li>Share with a link or QR code</li><li>Update your details anytime</li></ul>
@@ -928,7 +928,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 <article class="package-card web-package" tabindex="0" role="button" aria-label="Business Website. Tap to flip and preview product" aria-pressed="false">
 <div class="package-flip">
 <div class="package-face package-front">
-<div class="stock-badge" aria-label="6 items in stock"><span class="stock-dot"></span><span>6 <small>IN STOCK</small></span></div>
+<div class="stock-badge" aria-hidden="true" style="visibility:hidden"><span class="stock-dot"></span><span>0 <small>IN STOCK</small></span></div>
 <div><div class="package-name">Business Website</div><div class="package-sub">A website for your shop or business.</div></div>
 <div class="package-price price-text"><span>Custom quotation</span></div>
 <ul class="package-list"><li>Home, products or services, about and contact pages</li><li>Works on phones, with Messenger and Facebook links</li><li>Your branding, photos and business details</li></ul>
@@ -1134,7 +1134,7 @@ document.querySelectorAll('.package-card').forEach(function(card){
 // Supabase connection (publishable key is safe to expose; Row Level Security protects the data)
 (function(){
 var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc';
-var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={google:999},sel={plain:'black',nfc:'black'};
+var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={google:999},NOSTOCK={profile:1,digital:1,business:1},sel={plain:'black',nfc:'black'};
 function fmt(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:2})}
 function priceOf(id,f){if(FIXED[id]!=null)return FIXED[id];var v=SPLIT[id]?price[id+'-'+(f||sel[id])]:price[id];return(v==null||isNaN(v))?null:v}
 function api(path,body){var o={cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json'}};if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
@@ -1142,14 +1142,14 @@ var cards=[].slice.call(document.querySelectorAll('#packages .package-card'));
 function paint(){cards.forEach(function(c,i){var id=IDS[i];
  var pn=c.querySelector('.price-num'),cp=priceOf(id);if(pn&&cp!=null){pn.textContent=fmt(cp);var bs=c.querySelector('.back-copy strong');if(bs)bs.textContent='PHP '+fmt(cp)}
  if(SPLIT[id]){SPLIT[id].forEach(function(f){var b=c.querySelector('.stock-badge[data-finish="'+f+'"]'),n=stock[id+'-'+f],t=f.charAt(0).toUpperCase()+f.slice(1);if(n==null||!b)return;b.setAttribute('aria-label',n>0?n+' '+f+' in stock':f+' sold out');b.classList.toggle('is-out',!(n>0));var pp=price[id+'-'+f],pt='';b.querySelector('span:last-child').textContent=n>0?t+pt+' \u00b7 '+n+' left':t+pt+' \u00b7 sold out'});return}
- var n=stock[id],b=c.querySelector('.stock-badge');if(n==null||!b)return;b.setAttribute('aria-label',n+' items in stock');var s=b.querySelector('span:last-child');s.textContent='';if(n>0){s.appendChild(document.createTextNode(n+' '));var m=document.createElement('small');m.textContent='IN STOCK';s.appendChild(m)}else s.textContent='SOLD OUT'});showStock()}
+ if(NOSTOCK[id])return;var n=stock[id],b=c.querySelector('.stock-badge');if(n==null||!b)return;b.setAttribute('aria-label',n+' items in stock');var s=b.querySelector('span:last-child');s.textContent='';if(n>0){s.appendChild(document.createTextNode(n+' '));var m=document.createElement('small');m.textContent='IN STOCK';s.appendChild(m)}else s.textContent='SOLD OUT'});showStock()}
 function loadStock(){return api('/rest/v1/products?select=id,stock,price&active=eq.true').then(function(r){return r.ok?r.json():[]}).then(function(rows){rows.forEach(function(r){stock[r.id]=r.stock;price[r.id]=r.price==null?null:Number(r.price)});paint()}).catch(function(){})}
 loadStock();setInterval(function(){if(!document.hidden)loadStock()},5000);document.addEventListener('visibilitychange',function(){if(!document.hidden)loadStock()});window.addEventListener('focus',loadStock);
 
 var dlg=document.getElementById('orderDlg'),of=document.getElementById('orderForm'),om=of.querySelector('.sb-msg');
 function msg(el,text,cls){el.textContent=text;el.className='sb-msg'+(cls?' '+cls:'')}
 function pid(){var id=of.product.value;return SPLIT[id]?id+'-'+of.finish.value.toLowerCase():id}
-function showStock(){var id=of.product.value,n=stock[pid()];document.getElementById('ordStock').textContent=(n==null||id==='profile')?'':(n>0?n+' in stock':'Sold out');document.getElementById('ordFinishL').style.display=NOF[id]?'none':'';
+function showStock(){var id=of.product.value,n=stock[pid()];document.getElementById('ordStock').textContent=(n==null||NOSTOCK[id])?'':(n>0?n+' in stock':'Sold out');document.getElementById('ordFinishL').style.display=NOF[id]?'none':'';
  [].forEach.call(of.finish.options,function(o){var k=stock[id+'-'+o.value.toLowerCase()];o.textContent=o.value+(SPLIT[id]&&k!=null?(k>0?' ('+k+' left)':' (sold out)'):'')});
  [['plain','Plain NFC Card'],['nfc','NFC Card'],['google','Google Review Card']].forEach(function(p){var o=of.product.querySelector('option[value="'+p[0]+'"]'),v=priceOf(p[0],of.finish.value.toLowerCase());if(o&&v!=null)o.textContent=p[1]+' - PHP '+fmt(v)});
  if(n!=null)of.qty.max=Math.max(1,Math.min(100,n))}
