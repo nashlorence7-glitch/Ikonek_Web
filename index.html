@@ -1426,7 +1426,7 @@ function endLoad(ok,doneTitle){return new Promise(function(r){
   setTimeout(function(){
    if(!ld.open){r();return}
    if(!ok){closeLd(r);return}
-   document.getElementById('ldTitle').textContent=doneTitle||'Done!';document.getElementById('ldText').textContent='Thank you!';ld.classList.add('done');
+   document.getElementById('ldTitle').textContent=doneTitle||'Done!';document.getElementById('ldText').textContent='Thank you! Check your email once accepted.';ld.classList.add('done');
    setTimeout(function(){closeLd(r)},1400)
   },w);return}
  var w2=Math.max(0,900-(Date.now()-ldAt));
@@ -1477,8 +1477,7 @@ of.addEventListener('submit',function(e){e.preventDefault();
   if(!ok){msg(om,'');return}
   lock(of,true);msg(om,'Placing your order...','load');showLoading(PRE[id]?'Placing your pre-order':'Placing your order','Please wait, do not close this page.',{progress:3000});
   api('/rest/v1/rpc/place_order',{p_product_id:pid(),p_quantity:q,p_name:nm,p_contact:ct,p_finish:NOF[id]?null:fin,p_link:null,p_notes:PRE[id]?'[PRE-ORDER]':null})
-  .then(function(r){return endLoad(r.ok,PRE[id]?'Pre-order placed!':'Order placed!').then(function(){if(r.ok){var okt=PRE[id]?'Your pre-order is in. We will contact you shortly to confirm.':'Your order is in. We will contact you shortly to confirm.';msg(om,'Thanks! '+okt,'ok');toast('ok',PRE[id]?'Pre-order placed!':'Order placed!','We will contact you shortly to confirm.',6000);
-   sendConfirm({email:ct,name:nm,package:rows[0][1],finish:NOF[id]?null:fin,quantity:q,total:unit!=null?unit*q:null,preorder:!!PRE[id]});
+  .then(function(r){return endLoad(r.ok,PRE[id]?'Pre-order placed!':'Order placed!').then(function(){if(r.ok){var okt=PRE[id]?'Your pre-order was received. We will email you once it is accepted.':'Your order was received. We will email you once it is accepted.';msg(om,'Thanks! '+okt,'ok');toast('ok',PRE[id]?'Pre-order placed!':'Order placed!','We will email you once it is accepted.',6000);
    of.reset();of.product.value=id;loadStock();closeOrder();return}
    return r.json().catch(function(){return{}}).then(function(j){var et=/out_of_stock/.test(j.message||'')?'Sorry, there is not enough stock for that quantity.':'Could not place the order. Please try again or message us.';msg(om,et,'err');toast('err','Order failed',et);loadStock()})})})
   .catch(function(){return endLoad(false).then(function(){msg(om,'Network problem. Please try again.','err');toast('err','Network problem','Your order was not sent. Please try again.')})}).then(function(){lock(of,false)})})});
