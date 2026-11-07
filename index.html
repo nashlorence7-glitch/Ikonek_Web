@@ -57,6 +57,30 @@ header.menu-open + .mscrim{opacity:1;visibility:visible;transition-delay:0s}
 @media (prefers-reduced-motion:reduce){.menu-btn span,.mnav,.mscrim{transition:none!important}}
 
 
+/* loading states */
+@keyframes ikSpin{to{transform:rotate(360deg)}}
+@keyframes ikShim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes ikBar{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
+@keyframes ikWave{0%,100%{opacity:.2}40%{opacity:1}}
+@keyframes ikFail{to{opacity:0;visibility:hidden}}
+#ikLoader{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:#04060A;color:#EEF3F9;transition:opacity .45s ease,visibility 0s linear .45s;animation:ikFail 0s linear 4s forwards}
+#ikLoader.done{opacity:0;visibility:hidden}
+.ik-word{font:500 30px/1 'Montserrat',system-ui,sans-serif;letter-spacing:.01em}
+.ik-w{opacity:.2;animation:ikWave 1.2s ease-in-out infinite}
+.ik-w2{animation-delay:.18s}.ik-w3{animation-delay:.36s}
+.ik-bar{width:120px;height:3px;border-radius:3px;background:#101a28;overflow:hidden}
+.ik-bar i{display:block;height:100%;width:45%;border-radius:3px;background:linear-gradient(90deg,transparent,#1B9CFF,transparent);animation:ikBar 1.1s ease-in-out infinite}
+.sb-btn.is-loading{pointer-events:none}
+.sb-btn.is-loading::before,.sb-msg.load::before{content:"";display:inline-block;width:14px;height:14px;margin-right:10px;vertical-align:-2px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:ikSpin .7s linear infinite}
+.sb-btn.go.is-loading[disabled]{opacity:.9}
+.sb-msg.load{color:#9FB0C4}
+.sb-msg.load::before{width:12px;height:12px;margin-right:8px;vertical-align:-1px;border-color:rgba(27,156,255,.25);border-top-color:#1B9CFF}
+.sb-form[aria-busy="true"] input,.sb-form[aria-busy="true"] select,.sb-form[aria-busy="true"] textarea{opacity:.6;pointer-events:none}
+#packages.data-loading .price-num{background:linear-gradient(90deg,rgba(255,255,255,.05) 25%,rgba(255,255,255,.2) 50%,rgba(255,255,255,.05) 75%);background-size:200% 100%;-webkit-background-clip:border-box;background-clip:border-box;border-radius:10px;animation:ikShim 1.3s linear infinite}
+#packages.data-loading .stock-badge span:last-child,#packages.data-loading .back-copy strong,#viewCounter.vc-loading b{background:linear-gradient(90deg,rgba(255,255,255,.05) 25%,rgba(255,255,255,.2) 50%,rgba(255,255,255,.05) 75%);background-size:200% 100%;border-radius:6px;animation:ikShim 1.3s linear infinite}
+#packages.data-loading .stock-badge span:last-child,#packages.data-loading .stock-badge span:last-child *,#packages.data-loading .back-copy strong,#viewCounter.vc-loading b{color:transparent!important}
+#viewCounter.vc-loading b{display:inline-block;min-width:24px}
+@media (prefers-reduced-motion:reduce){.ik-w,.ik-bar i,#packages.data-loading .price-num,#packages.data-loading .stock-badge span:last-child,#packages.data-loading .back-copy strong,#viewCounter.vc-loading b{animation:none!important}.ik-w{opacity:1}.sb-btn.is-loading::before,.sb-msg.load::before{animation-duration:1.6s}}
 /* cards */
 .lift{transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s ease,box-shadow .3s ease}
 .lift:hover{transform:translateY(-6px);border-color:var(--accent)!important;box-shadow:0 18px 40px rgba(0,0,0,.35)}
@@ -608,6 +632,53 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 #inqWrap{max-width:1200px;margin:28px auto 0;border:1px solid #152234;border-radius:28px;background:#070B11}
 #inqWrap .sb-form{max-width:620px;margin:0 auto;padding:40px 24px}
 @media(max-width:520px){.sb-row{flex-direction:column}.sb-form{padding:22px}}
+/* confirm + toast */
+.ord-pkg{display:flex;flex-direction:column;gap:6px;font:600 12px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#7fc4ff}
+.ord-pkg strong{font:600 15px/1.4 'Inter',sans-serif;letter-spacing:0;text-transform:none;color:#EEF3F9;background:#0c1520;border:1px solid #1c2d44;border-radius:12px;padding:12px 14px;min-height:46px;box-sizing:border-box;display:flex;align-items:center;overflow-wrap:anywhere}
+#cfmDlg{width:min(440px,calc(100vw - 32px))}
+#cfmDlg .sb-form{gap:16px}
+.cfm-list{display:grid;gap:10px;margin:0;padding:14px 16px;background:#101a28;border:1px solid #1c2d44;border-radius:14px}
+.cfm-list>div{display:flex;justify-content:space-between;gap:18px;font:400 14px/1.4 'Inter',sans-serif}
+.cfm-list dt{color:#9FB0C4;flex:none}
+.cfm-list dd{margin:0;text-align:right;color:#EEF3F9;font-weight:600;overflow-wrap:anywhere}
+.cfm-list>div.cfm-total{padding-top:10px;border-top:1px solid #1c2d44;font-size:16px}
+.cfm-list>div.cfm-total dd{color:#7fc4ff}
+.sb-btn.danger{background:#e5484d;border-color:#e5484d;color:#fff;box-shadow:0 0 24px rgba(229,72,77,.35)}
+#ikToasts{position:fixed;inset:auto 16px 16px auto;margin:0;padding:0;border:0;background:transparent;overflow:visible;width:min(380px,calc(100vw - 32px));z-index:2147483647;pointer-events:none;display:none;flex-direction:column;gap:10px}
+#ikToasts:popover-open{display:flex}
+#ikToasts:not([popover]){display:flex}
+.ik-toast{--tc:#1B9CFF;pointer-events:auto;cursor:pointer;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:#0A0F17;color:#EEF3F9;border:1px solid rgba(27,156,255,.35);border-left:4px solid var(--tc);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.55),0 0 30px rgba(27,156,255,.15);font:400 14px/1.4 'Inter',sans-serif;animation:ikToastIn .28s ease both}
+.ik-toast.ok{--tc:#5be3a1}.ik-toast.err{--tc:#ff8a8a}
+.ik-toast i{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:700 13px/1 'Inter',sans-serif;font-style:normal;color:#04060A;background:var(--tc)}
+.ik-toast b{display:block;font-weight:700;margin-bottom:2px}
+.ik-toast span{color:#9FB0C4}
+.ik-toast.out{animation:ikToastOut .22s ease both}
+@keyframes ikToastIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes ikToastOut{to{opacity:0;transform:translateY(8px)}}
+@media (max-width:520px){#ikToasts{inset:auto 12px 12px 12px;width:auto}}
+.ld-dlg{width:min(320px,calc(100vw - 48px));padding:0;border:1px solid rgba(27,156,255,.5);border-radius:24px;background:#0A0F17;color:#EEF3F9;box-shadow:0 0 70px rgba(27,156,255,.3)}
+.ld-dlg::backdrop{background:rgba(2,4,8,.8);backdrop-filter:blur(5px)}
+.ld-box{display:flex;flex-direction:column;align-items:center;gap:12px;padding:36px 28px;text-align:center}
+.ld-spin{width:60px;height:60px;border-radius:50%;background:conic-gradient(from 0deg,rgba(27,156,255,0) 0%,#1B9CFF 100%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));animation:ikSpin 1s linear infinite;will-change:transform}
+.ld-ring{position:relative;display:grid;place-items:center;filter:drop-shadow(0 0 12px rgba(27,156,255,.55))}
+.ld-ring::before{content:"";position:absolute;inset:0;border-radius:50%;border:5px solid rgba(27,156,255,.12)}
+.ld-box p{animation:ldPulse 1.8s ease-in-out infinite}
+.ld-dlg[open]{animation:ldIn .3s cubic-bezier(.2,.8,.2,1) both}
+.ld-dlg[open]::backdrop{animation:ldFade .3s ease both}
+.ld-dlg.closing{animation:ldOut .25s ease both}
+.ld-dlg.closing::backdrop{animation:ldFadeOut .25s ease both}
+#cfmDlg[open]{animation:ldIn .25s cubic-bezier(.2,.8,.2,1) both}
+#cfmDlg[open]::backdrop{animation:ldFade .25s ease both}
+@keyframes ldIn{from{opacity:0;transform:translateY(10px) scale(.95)}to{opacity:1;transform:none}}
+@keyframes ldOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(6px) scale(.97)}}
+@keyframes ldFade{from{opacity:0}to{opacity:1}}
+@keyframes ldFadeOut{from{opacity:1}to{opacity:0}}
+@keyframes ldPulse{0%,100%{opacity:.55}50%{opacity:1}}
+.ld-box h3{margin:6px 0 0;font:700 20px/1.2 'Montserrat',sans-serif}
+.ld-box p{margin:0;color:#9FB0C4;font:400 14px/1.4 'Inter',sans-serif}
+@media (prefers-reduced-motion:reduce){.ld-spin{animation-duration:2.4s}.ld-box p,.ld-dlg[open],.ld-dlg.closing,#cfmDlg[open],.ld-dlg[open]::backdrop,.ld-dlg.closing::backdrop,#cfmDlg[open]::backdrop{animation:none}}
+@media (prefers-reduced-motion:reduce){.ik-toast,.ik-toast.out{animation:none}}
+
 
 /* Per-finish stock (black / white) */
 #packages .stock-row{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
@@ -706,6 +777,13 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 </style>
 </head>
 <body>
+<div id="ikLoader" role="status" aria-label="Loading iKONEK">
+<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#1B9CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:scaleX(-1)"><path class="ik-w ik-w1" d="M7 8.5a5 5 0 0 1 0 7"/><path class="ik-w ik-w2" d="M11 6a9 9 0 0 1 0 12"/><path class="ik-w ik-w3" d="M15 3.5a13 13 0 0 1 0 17"/></svg>
+<div class="ik-word">iKONEK</div>
+<div class="ik-bar"><i></i></div>
+</div>
+<noscript><style>#ikLoader{display:none!important}</style></noscript>
+<script>(function(){var l=document.getElementById('ikLoader');function hide(){if(!l)return;l.classList.add('done');setTimeout(function(){if(l&&l.parentNode)l.parentNode.removeChild(l)},700)}if(document.readyState==='complete')hide();else window.addEventListener('load',hide);setTimeout(hide,3500)})();</script>
 <div style="--accent: #1B9CFF; background: #04060A; color: #EEF3F9; font-family: 'Inter', system-ui, sans-serif; width: 100%; overflow-x: clip" data-canvas-width="1440" data-canvas-height="5200" data-document-role="page" data-label="iKONEK Landing Page">
 
 <!-- NAV -->
@@ -927,7 +1005,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 </section>
 
 <!-- PACKAGES -->
-<section id="packages" style="padding: 104px 24px">
+<section id="packages" class="data-loading" style="padding: 104px 24px">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px">
 <div class="reveal" style="display: flex; flex-direction: column; gap: 14px; max-width: 680px">
 <div style="font-size: 14px; letter-spacing: 0.14em; color: var(--accent); font-weight: 600">PACKAGES</div>
@@ -1250,16 +1328,22 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <dialog id="orderDlg" class="sb-dlg" aria-labelledby="ordTitle"><form id="orderForm" class="sb-form" novalidate>
 <h3 id="ordTitle">Order your card</h3><p class="sb-sub" id="ordStock"></p>
 <input class="sb-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-<div class="sb-row"><label>Package<select name="product">
-<option value="plain">Plain NFC Card - PHP 99</option><option value="nfc">NFC Card - PHP 149</option><option value="profile">Card + Digital Profile - PHP 349</option><option value="digital">Digital Profile - PHP 149</option><option value="google">Google Review Card - PHP 999</option><option value="business">Business Website - custom quotation</option></select></label>
+<div class="sb-row"><div class="ord-pkg"><span>Package</span><strong id="ordPkg"></strong><select name="product" hidden aria-hidden="true" tabindex="-1">
+<option value="plain">Plain NFC Card - PHP 99</option><option value="nfc">NFC Card - PHP 149</option><option value="profile">Card + Digital Profile - PHP 349</option><option value="digital">Digital Profile - PHP 149</option><option value="google">Google Review Card - PHP 999</option><option value="business">Business Website - custom quotation</option></select></div>
 <label>Quantity<input name="qty" type="number" min="1" max="100" value="1"></label></div>
 <label id="ordFinishL">Finish<select name="finish"><option value="Black">Black</option><option value="White">White</option></select></label>
-<div class="sb-row"><label>Your name<input name="name" maxlength="120" required autocomplete="name"></label><label>Phone, email or Messenger<input name="contact" maxlength="200" required></label></div>
-<label>Link to open on tap (optional)<input name="link" maxlength="500" placeholder="Messenger, Facebook, website..."></label>
-<label>Notes (optional)<textarea name="notes" maxlength="1000"></textarea></label>
+<div class="sb-row"><label>Your name<input name="name" maxlength="120" required autocomplete="name"></label><label>Email<input name="contact" type="email" maxlength="200" required autocomplete="email" inputmode="email" placeholder="you@email.com"></label></div>
 <div class="sb-actions"><button class="sb-btn" type="button" id="ordCancel">Cancel</button><button class="sb-btn go" type="submit">Place order</button></div>
 <div class="sb-msg" role="status" aria-live="polite"></div>
 </form></dialog>
+
+<dialog id="ldDlg" class="ld-dlg" aria-labelledby="ldTitle" aria-describedby="ldText" role="alert"><div class="ld-box"><div class="ld-ring" aria-hidden="true"><div class="ld-spin"></div></div><h3 id="ldTitle">Loading</h3><p id="ldText"></p></div></dialog>
+<dialog id="cfmDlg" class="sb-dlg" aria-labelledby="cfmTitle" aria-describedby="cfmText"><div class="sb-form">
+<h3 id="cfmTitle">Are you sure?</h3><p class="sb-sub" id="cfmText"></p>
+<dl class="cfm-list" id="cfmList" hidden></dl>
+<div class="sb-actions"><button class="sb-btn" type="button" id="cfmNo">Cancel</button><button class="sb-btn go" type="button" id="cfmYes">Confirm</button></div>
+</div></dialog>
+<div id="ikToasts" popover="manual" role="region" aria-live="polite" aria-label="Notifications"></div>
 
 <script>
 // Supabase connection (publishable key is safe to expose; Row Level Security protects the data)
@@ -1268,14 +1352,51 @@ var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNa
 var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={google:999,digital:149},NOSTOCK={profile:1,digital:1,business:1,nfc:1},PRE={nfc:1},sel={plain:'black',nfc:'black'};
 function fmt(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:2})}
 function priceOf(id,f){if(FIXED[id]!=null)return FIXED[id];var v=SPLIT[id]?price[id+'-'+(f||sel[id])]:price[id];return(v==null||isNaN(v))?null:v}
+function sendConfirm(d){return fetch(URL_+'/functions/v1/order-confirmation',{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.ok}).catch(function(){return false})}
 function api(path,body){var o={cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json'}};if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
 var cards=[].slice.call(document.querySelectorAll('#packages .package-card'));
+
+var LBL={plain:'Plain NFC Card',nfc:'NFC Card',profile:'Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'};
+var tc=document.getElementById('ikToasts');
+function toast(type,title,text,ms){
+ var t=document.createElement('div');t.className='ik-toast '+(type||'info');t.setAttribute('role',type==='err'?'alert':'status');
+ var ic=document.createElement('i');ic.setAttribute('aria-hidden','true');ic.textContent=type==='ok'?'\u2713':type==='err'?'!':'i';
+ var bx=document.createElement('div'),b=document.createElement('b');b.textContent=title;bx.appendChild(b);
+ if(text){var sp=document.createElement('span');sp.textContent=text;bx.appendChild(sp)}
+ t.appendChild(ic);t.appendChild(bx);
+ while(tc.children.length>=4)tc.removeChild(tc.firstChild);
+ tc.appendChild(t);
+ try{if(tc.showPopover){if(tc.matches(':popover-open'))tc.hidePopover();tc.showPopover()}}catch(x){}
+ var gone=false;function dismiss(){if(gone)return;gone=true;t.classList.add('out');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);try{if(!tc.children.length&&tc.hidePopover&&tc.matches(':popover-open'))tc.hidePopover()}catch(x){}},230)}
+ t.addEventListener('click',dismiss);setTimeout(dismiss,ms||(type==='err'?6500:4500));
+}
+var cd=document.getElementById('cfmDlg'),cTitle=document.getElementById('cfmTitle'),cText=document.getElementById('cfmText'),cList=document.getElementById('cfmList'),cYes=document.getElementById('cfmYes'),cNo=document.getElementById('cfmNo'),cRes=null;
+function confirmBox(o){return new Promise(function(res){
+ if(cRes){var old=cRes;cRes=null;old(false)}
+ cRes=res;cTitle.textContent=o.title;cText.textContent=o.text||'';cText.hidden=!o.text;
+ cList.textContent='';(o.rows||[]).forEach(function(r){var d=document.createElement('div'),a=document.createElement('dt'),v=document.createElement('dd');a.textContent=r[0];v.textContent=r[1];d.appendChild(a);d.appendChild(v);if(r[2])d.className='cfm-total';cList.appendChild(d)});
+ cList.hidden=!(o.rows&&o.rows.length);
+ cYes.textContent=o.yes||'Confirm';cNo.textContent=o.no||'Cancel';cYes.className='sb-btn '+(o.danger?'danger':'go');
+ if(cd.showModal)cd.showModal();else cd.setAttribute('open','');
+ (o.danger?cNo:cYes).focus();
+})}
+function cfmDone(v){if(!cRes)return;var r=cRes;cRes=null;if(cd.close)cd.close();else cd.removeAttribute('open');r(v)}
+cYes.addEventListener('click',function(){cfmDone(true)});
+cNo.addEventListener('click',function(){cfmDone(false)});
+cd.addEventListener('cancel',function(e){e.preventDefault();cfmDone(false)});
+cd.addEventListener('click',function(e){if(e.target===cd)cfmDone(false)});
+var ld=document.getElementById('ldDlg'),ldAt=0;
+ld.addEventListener('cancel',function(e){e.preventDefault()});
+var ldT=0;
+function showLoading(t,x){clearTimeout(ldT);ld.classList.remove('closing');document.getElementById('ldTitle').textContent=t;document.getElementById('ldText').textContent=x||'';ldAt=Date.now();if(!ld.open){if(ld.showModal)ld.showModal();else ld.setAttribute('open','')}}
+function endLoad(){var w=Math.max(0,900-(Date.now()-ldAt));return new Promise(function(r){setTimeout(function(){if(!ld.open){r();return}ld.classList.add('closing');ldT=setTimeout(function(){ld.classList.remove('closing');if(ld.close)ld.close();else ld.removeAttribute('open');r()},250)},w)})}
 function paint(){cards.forEach(function(c,i){var id=IDS[i];
  var cp=priceOf(id);if(SPLIT[id]){SPLIT[id].forEach(function(f){var o=c.querySelector('.price-opt[data-finish="'+f+'"]'),pe=o&&o.querySelector('.price-num'),v=priceOf(id,f);if(o)o.classList.toggle('is-sel',f===sel[id]);if(pe&&v!=null)pe.textContent=fmt(v)})}else{var pn=c.querySelector('.price-num');if(pn&&cp!=null)pn.textContent=fmt(cp)}if(cp!=null){var bs=c.querySelector('.back-copy strong');if(bs)bs.textContent='PHP '+fmt(cp)}
  if(SPLIT[id]){SPLIT[id].forEach(function(f){var b=c.querySelector('.stock-badge[data-finish="'+f+'"]'),n=stock[id+'-'+f],t=f.charAt(0).toUpperCase()+f.slice(1);if(n==null||!b)return;b.setAttribute('aria-label',n>0?n+' '+f+' in stock':f+' sold out');b.classList.toggle('is-out',!(n>0));var pp=price[id+'-'+f],pt='';b.querySelector('span:last-child').textContent=n>0?t+pt+' \u00b7 '+n+' left':t+pt+' \u00b7 sold out'});return}
  if(NOSTOCK[id])return;var n=stock[id],b=c.querySelector('.stock-badge');if(n==null||!b)return;b.setAttribute('aria-label',n+' items in stock');var s=b.querySelector('span:last-child');s.textContent='';if(n>0){s.appendChild(document.createTextNode(n+' '));var m=document.createElement('small');m.textContent='IN STOCK';s.appendChild(m)}else s.textContent='SOLD OUT'});showStock()}
-function loadStock(){return api('/rest/v1/products?select=id,stock,price&active=eq.true').then(function(r){return r.ok?r.json():[]}).then(function(rows){rows.forEach(function(r){stock[r.id]=r.stock;price[r.id]=r.price==null?null:Number(r.price)});paint()}).catch(function(){})}
-loadStock();setInterval(function(){if(!document.hidden)loadStock()},5000);document.addEventListener('visibilitychange',function(){if(!document.hidden)loadStock()});window.addEventListener('focus',loadStock);
+function loadStock(){return api('/rest/v1/products?select=id,stock,price&active=eq.true').then(function(r){return r.ok?r.json():[]}).then(function(rows){rows.forEach(function(r){stock[r.id]=r.stock;price[r.id]=r.price==null?null:Number(r.price)});paint()}).catch(function(){}).then(doneLoad)}
+function doneLoad(){var pk=document.getElementById('packages');if(pk)pk.classList.remove('data-loading')}
+loadStock();setTimeout(doneLoad,8000);setInterval(function(){if(!document.hidden)loadStock()},5000);document.addEventListener('visibilitychange',function(){if(!document.hidden)loadStock()});window.addEventListener('focus',loadStock);
 
 var dlg=document.getElementById('orderDlg'),of=document.getElementById('orderForm'),om=of.querySelector('.sb-msg');
 function msg(el,text,cls){el.textContent=text;el.className='sb-msg'+(cls?' '+cls:'')}
@@ -1283,23 +1404,43 @@ function pid(){var id=of.product.value;return SPLIT[id]?id+'-'+of.finish.value.t
 function showStock(){var id=of.product.value,n=stock[pid()];document.getElementById('ordTitle').textContent=PRE[id]?'Pre-order your card':'Order your card';of.querySelector('.sb-btn.go').textContent=PRE[id]?'Place pre-order':'Place order';document.getElementById('ordStock').textContent=PRE[id]?'Pre-order':(n==null||NOSTOCK[id])?'':(n>0?n+' in stock':'Sold out');document.getElementById('ordFinishL').style.display=NOF[id]?'none':'';
  [].forEach.call(of.finish.options,function(o){var k=stock[id+'-'+o.value.toLowerCase()];o.textContent=o.value+(SPLIT[id]&&k!=null?(k>0?' ('+k+' left)':' (sold out)'):'')});
  [['plain','Plain NFC Card'],['nfc','NFC Card'],['digital','Digital Profile'],['google','Google Review Card']].forEach(function(p){var o=of.product.querySelector('option[value="'+p[0]+'"]'),v=priceOf(p[0],of.finish.value.toLowerCase());if(o&&v!=null)o.textContent=p[1]+' - PHP '+fmt(v)+(PRE[p[0]]?' (pre-order)':'')});
- if(PRE[id])of.qty.max=100;else if(n!=null)of.qty.max=Math.max(1,Math.min(100,n))}
-of.product.addEventListener('change',showStock);of.finish.addEventListener('change',showStock);
-function openOrder(id,fin){of.reset();of.product.value=id;if(fin&&SPLIT[id])of.finish.value=fin==='white'?'White':'Black';msg(om,'');showStock();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
-cards.forEach(function(c,i){if(SPLIT[IDS[i]])[].forEach.call(c.querySelectorAll('[data-pl-choice],[data-finish-choice]'),function(b){b.addEventListener('click',function(){sel[IDS[i]]=b.getAttribute('data-pl-choice')||b.getAttribute('data-finish-choice');paint()})})});
+ if(PRE[id])of.qty.max=100;else if(n!=null)of.qty.max=Math.max(1,Math.min(100,n));var pk=document.getElementById('ordPkg'),po=of.product.selectedOptions[0];if(pk&&po)pk.textContent=po.textContent}
+of.finish.addEventListener('change',function(){showStock();toast('info','Finish changed',of.finish.value)});
+function openOrder(id,fin){of.reset();of.product.value=id;if(fin&&SPLIT[id])of.finish.value=fin==='white'?'White':'Black';msg(om,'');showStock();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');toast('info',PRE[id]?'Pre-order form opened':'Order form opened',LBL[id]+(fin&&SPLIT[id]?' \u00b7 '+(fin==='white'?'White':'Black'):'')+' selected.')}
+cards.forEach(function(c,i){if(SPLIT[IDS[i]])[].forEach.call(c.querySelectorAll('[data-pl-choice],[data-finish-choice]'),function(b){b.addEventListener('click',function(){var nf=b.getAttribute('data-pl-choice')||b.getAttribute('data-finish-choice');if(sel[IDS[i]]!==nf)toast('info','Finish changed',LBL[IDS[i]]+' \u00b7 '+nf.charAt(0).toUpperCase()+nf.slice(1));sel[IDS[i]]=nf;paint()})})});
 cards.forEach(function(c,i){[].forEach.call(c.querySelectorAll('.primary-action'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();window.__orderAt=Date.now();var ab=c.querySelector('.nfc-finish-btn.is-active'),fin=ab?(ab.getAttribute('data-pl-choice')||ab.getAttribute('data-finish-choice')):null;openOrder(IDS[i],fin)})})});
-document.getElementById('ordCancel').addEventListener('click',function(){dlg.close()});
-dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
-function lock(f,on){[].forEach.call(f.querySelectorAll('button'),function(b){b.disabled=on})}
+function closeOrder(){if(dlg.close)dlg.close();else dlg.removeAttribute('open')}
+function orderDirty(){return !!(of.name.value.trim()||of.contact.value.trim()||of.qty.value!=='1')}
+function requestCloseOrder(){
+ if(of.getAttribute('aria-busy')==='true'){toast('info','Please wait','Your order is still being sent.');return}
+ if(!orderDirty()){closeOrder();toast('info','Order form closed','Nothing was submitted.');return}
+ confirmBox({title:'Cancel this order?',text:'The details you entered will be discarded.',yes:'Yes, cancel order',no:'Keep editing',danger:true}).then(function(ok){
+  if(ok){closeOrder();toast('info','Order cancelled','Nothing was submitted.')}else toast('info','Order kept','You can continue where you left off.')})}
+document.getElementById('ordCancel').addEventListener('click',requestCloseOrder);
+dlg.addEventListener('click',function(e){if(e.target===dlg)requestCloseOrder()});
+dlg.addEventListener('cancel',function(e){e.preventDefault();requestCloseOrder()});
+function lock(f,on){[].forEach.call(f.querySelectorAll('button'),function(b){b.disabled=on});var g=f.querySelector('.sb-btn.go');if(g)g.classList.toggle('is-loading',on);f.setAttribute('aria-busy',on?'true':'false')}
 of.addEventListener('submit',function(e){e.preventDefault();
- var q=parseInt(of.qty.value,10),nm=of.name.value.trim(),ct=of.contact.value.trim();
- if(!nm||ct.length<3||!(q>=1&&q<=100)){msg(om,'Please enter your name, a contact (3+ characters) and a valid quantity.','err');return}
+ var q=parseInt(of.qty.value,10),nm=of.name.value.trim(),ct=of.contact.value.trim(),id=of.product.value,fin=of.finish.value;
+ if(!nm||!(q>=1&&q<=100)){var t1='Please enter your name and a valid quantity.';msg(om,t1,'err');toast('err','Check your details',t1);if(!nm)of.name.focus();else of.qty.focus();return}
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ct)){var t0='Please enter a valid email address (e.g. you@email.com).';msg(om,t0,'err');toast('err','Email required',t0);of.contact.focus();return}
  if(of.website.value){msg(om,'Thanks! We got your order.','ok');return}
- lock(of,true);msg(om,'Placing your order...');
- api('/rest/v1/rpc/place_order',{p_product_id:pid(),p_quantity:q,p_name:nm,p_contact:ct,p_finish:NOF[of.product.value]?null:of.finish.value,p_link:of.link.value.trim()||null,p_notes:(PRE[of.product.value]?('[PRE-ORDER] '+of.notes.value.trim()).trim():of.notes.value.trim())||null})
- .then(function(r){if(r.ok){msg(om,PRE[of.product.value]?'Thanks! Your pre-order is in. We will contact you shortly to confirm.':'Thanks! Your order is in. We will contact you shortly to confirm.','ok');of.reset();of.product.value=of.product.value;loadStock();return}
-  return r.json().catch(function(){return{}}).then(function(j){msg(om,/out_of_stock/.test(j.message||'')?'Sorry, there is not enough stock for that quantity.':'Could not place the order. Please try again or message us.','err');loadStock()})})
- .catch(function(){msg(om,'Network problem. Please try again.','err')}).then(function(){lock(of,false)})});
+ var n=stock[pid()];
+ if(!PRE[id]&&!NOSTOCK[id]&&n!=null&&q>n){var t2=n>0?'Only '+n+' left in stock. Please lower the quantity.':'Sorry, this item is sold out.';msg(om,t2,'err');toast('err','Not enough stock',t2);return}
+ var unit=priceOf(id,fin.toLowerCase()),rows=[['Package',of.product.selectedOptions[0].textContent.replace(/\s+-\s+.*$/,'')]];
+ if(!NOF[id])rows.push(['Finish',fin]);
+ rows.push(['Quantity',String(q)]);
+ rows.push(['Name',nm],['Email',ct]);
+ if(unit!=null)rows.push(['Total','PHP '+fmt(unit*q),1]);else if(id==='business')rows.push(['Price','Custom quotation',1]);
+ confirmBox({title:PRE[id]?'Confirm your pre-order?':'Confirm your order?',text:'Please review the details below before we send it.',rows:rows,yes:PRE[id]?'Yes, place pre-order':'Yes, place order',no:'Review details'}).then(function(ok){
+  if(!ok){msg(om,'');toast('info',PRE[id]?'Pre-order not placed':'Order not placed','You can keep editing your details.');return}
+  lock(of,true);msg(om,'Placing your order...','load');showLoading(PRE[id]?'Placing your pre-order':'Placing your order','Please wait, do not close this page.');
+  api('/rest/v1/rpc/place_order',{p_product_id:pid(),p_quantity:q,p_name:nm,p_contact:ct,p_finish:NOF[id]?null:fin,p_link:null,p_notes:PRE[id]?'[PRE-ORDER]':null})
+  .then(function(r){return endLoad().then(function(){if(r.ok){var okt=PRE[id]?'Your pre-order is in. We will contact you shortly to confirm.':'Your order is in. We will contact you shortly to confirm.';msg(om,'Thanks! '+okt,'ok');toast('ok',PRE[id]?'Pre-order placed':'Order placed',okt,6500);
+   sendConfirm({email:ct,name:nm,package:rows[0][1],finish:NOF[id]?null:fin,quantity:q,total:unit!=null?unit*q:null,preorder:!!PRE[id]}).then(function(sent){if(sent)toast('ok','Confirmation email sent','Check your inbox at '+ct+' (and your spam folder).',7000)});
+   of.reset();of.product.value=id;loadStock();closeOrder();return}
+   return r.json().catch(function(){return{}}).then(function(j){var et=/out_of_stock/.test(j.message||'')?'Sorry, there is not enough stock for that quantity.':'Could not place the order. Please try again or message us.';msg(om,et,'err');toast('err','Order failed',et);loadStock()})})})
+  .catch(function(){return endLoad().then(function(){msg(om,'Network problem. Please try again.','err');toast('err','Network problem','Your order was not sent. Please try again.')})}).then(function(){lock(of,false)})})});
 
 var FACEBOOK_URL='https://www.facebook.com/profile.php?id=61596054820328',INSTAGRAM_URL='https://www.instagram.com/_ikonek';
 var MESSENGER_URL='';
@@ -1319,9 +1460,17 @@ function openMsg(interest){mf.reset();mf.hidden=false;mdone.hidden=true;msg(mm,'
 function closeMsg(){if(md.close)md.close();else md.removeAttribute('open')}
 document.getElementById('msgBtn').addEventListener('click',function(e){e.preventDefault();openMsg()});
 document.getElementById('quoteBtn').addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openMsg('Business Website')});
-['msgClose','msgCancel','msgDoneClose'].forEach(function(id){document.getElementById(id).addEventListener('click',closeMsg)});
-md.addEventListener('click',function(e){if(e.target===md)closeMsg()});
-function bad(el,t){el.setAttribute('aria-invalid','true');msg(mm,t,'err');el.focus();return false}
+function msgDirty(){return !!(!mf.hidden&&(mf.name.value.trim()||mf.business.value.trim()||mf.contact.value.trim()||mf.message.value.trim()))}
+function requestCloseMsg(){
+ if(mf.getAttribute('aria-busy')==='true'){toast('info','Please wait','Your message is still being sent.');return}
+ if(!msgDirty()){closeMsg();return}
+ confirmBox({title:'Discard this message?',text:'What you wrote will be lost.',yes:'Yes, discard',no:'Keep writing',danger:true}).then(function(ok){
+  if(ok){closeMsg();toast('info','Message discarded','Nothing was sent.')}else toast('info','Message kept','You can continue writing.')})}
+['msgClose','msgCancel'].forEach(function(id){document.getElementById(id).addEventListener('click',requestCloseMsg)});
+document.getElementById('msgDoneClose').addEventListener('click',closeMsg);
+md.addEventListener('click',function(e){if(e.target===md)requestCloseMsg()});
+md.addEventListener('cancel',function(e){e.preventDefault();requestCloseMsg()});
+function bad(el,t){el.setAttribute('aria-invalid','true');msg(mm,t,'err');toast('err','Check your details',t);el.focus();return false}
 mf.addEventListener('submit',function(e){e.preventDefault();
  var nm=mf.name.value.trim(),ct=mf.contact.value.trim(),ms=mf.message.value.trim(),me=methodVal(),bz=mf.business.value.trim(),it=(mf.querySelector('input[name=interest]:checked')||{}).value;
  if(!nm)return bad(mf.name,'Please enter your name.');
@@ -1331,23 +1480,26 @@ mf.addEventListener('submit',function(e){e.preventDefault();
  if(ms.length<5)return bad(mf.message,'Please tell us a little about what you need.');
  if(mf.website.value){mf.hidden=true;mdone.hidden=false;return}
  var body=(it?'Interested in: '+it+'\n':'')+(bz?'Business: '+bz+'\n':'')+'Preferred contact: '+me+'\n\n'+ms;
- lock(mf,true);msg(mm,'Sending...');
- api('/rest/v1/inquiries',{name:nm,contact:(me+': '+ct).slice(0,200),message:body}).then(function(r){
-  if(r.ok){document.getElementById('msgDoneTxt').textContent='Thanks, '+nm.split(' ')[0]+'. We will reach out to you via '+(me==='Call or text'?'call or text':me)+' soon.';mf.hidden=true;mdone.hidden=false;mdone.focus()}
-  else msg(mm,'Could not send. Please try again or call or email us.','err')})
- .catch(function(){msg(mm,'Network problem. Please try again.','err')}).then(function(){lock(mf,false)})});
+ var rows=[['Name',nm]];if(bz)rows.push(['Business',bz]);if(it)rows.push(['Interested in',it]);rows.push([me,ct],['Message',ms.slice(0,100)+(ms.length>100?'\u2026':'')]);
+ confirmBox({title:'Send this message?',text:'Please review before we send it.',rows:rows,yes:'Yes, send message',no:'Review details'}).then(function(ok){
+  if(!ok){msg(mm,'');toast('info','Message not sent','You can keep editing it.');return}
+  lock(mf,true);msg(mm,'Sending...','load');showLoading('Sending your message','Please wait a moment.');
+  api('/rest/v1/inquiries',{name:nm,contact:(me+': '+ct).slice(0,200),message:body}).then(function(r){return endLoad().then(function(){
+   if(r.ok){document.getElementById('msgDoneTxt').textContent='Thanks, '+nm.split(' ')[0]+'. We will reach out to you via '+(me==='Call or text'?'call or text':me)+' soon.';mf.hidden=true;mdone.hidden=false;mdone.focus();toast('ok','Message sent','We will get back to you soon.',6000)}
+   else{msg(mm,'Could not send. Please try again or call or email us.','err');toast('err','Message failed','Could not send. Please try again or call or email us.')}})})
+  .catch(function(){return endLoad().then(function(){msg(mm,'Network problem. Please try again.','err');toast('err','Network problem','Your message was not sent. Please try again.')})}).then(function(){lock(mf,false)})})});
 
 // Visitor counter: one unique visitor per browser
 (function(){
 var box=document.getElementById('viewCounter');
-function show(d){if(!d||d.visitors==null)return;document.getElementById('visitorCount').textContent=Number(d.visitors).toLocaleString();box.style.display='flex'}
+function show(d){if(!d||d.visitors==null)return;document.getElementById('visitorCount').textContent=Number(d.visitors).toLocaleString();box.dataset.ok='1';box.style.display='flex'}
 var isNew=false,counted=false;
 try{isNew=!localStorage.getItem('ikonek_visitor');counted=!!sessionStorage.getItem('ikonek_view')}catch(e){}
-var call=counted?api('/rest/v1/rpc/get_view_counts',{}):api('/rest/v1/rpc/register_view',{p_new_visitor:isNew});
+box.style.display='flex';box.classList.add('vc-loading');var call=counted?api('/rest/v1/rpc/get_view_counts',{}):api('/rest/v1/rpc/register_view',{p_new_visitor:isNew});
 call.then(function(r){return r.ok?r.json():null}).then(function(d){
  if(!d)return;
  if(!counted){try{sessionStorage.setItem('ikonek_view','1');localStorage.setItem('ikonek_visitor','1')}catch(e){}}
- show(d)}).catch(function(){});
+ show(d)}).catch(function(){}).then(function(){box.classList.remove('vc-loading');if(!box.dataset.ok)box.style.display='none'});
 })();
 })();
 </script>
