@@ -799,6 +799,35 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 .soc[hidden]{display:none}
 .soc svg{width:20px;height:20px}
 .soc:hover,.soc:focus-visible{background:#1B9CFF;border-color:#1B9CFF;color:#fff;transform:translateY(-2px);box-shadow:0 0 22px rgba(27,156,255,.45);outline:0}
+
+/* ===== Mobile: packages as a compact 2-column grid; a tapped tile expands to full width ===== */
+@media(max-width:620px){
+#packages{padding:72px 14px!important}
+#packages .package-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+#packages .package-grid>.package-card,#packages .package-grid>.package-card:nth-child(n),#packages .package-grid>.package-card:last-child{grid-column:auto!important;min-height:255px!important;border-radius:16px}
+#packages .package-grid>.package-card .package-flip,#packages .package-grid>.package-card.web-package .package-flip{min-height:255px!important}
+#packages .package-grid>.package-card.is-flipped{grid-column:1/-1!important;min-height:660px!important}
+#packages .package-grid>.package-card.is-flipped .package-flip{min-height:660px!important}
+#packages .package-grid>.package-card.web-package.is-flipped,#packages .package-grid>.package-card.web-package.is-flipped .package-flip{min-height:700px!important}
+#packages .package-card .package-face{border-radius:16px}
+#packages .package-card .package-front{padding:14px 12px 30px!important;gap:6px!important}
+#packages .package-card .package-front .package-list{display:none!important}
+#packages .package-card .package-front .stock-badge{margin:0 0 4px!important;font-size:10.5px!important}
+#packages .package-card .package-front .stock-row{gap:4px 8px;flex-wrap:wrap}
+#packages .package-card .package-front .stock-badge small{font-size:10px!important}
+#packages .package-card .package-front>.stock-badge+div,#packages .package-card .package-front>.stock-row+div{min-height:0!important}
+#packages .package-card .package-front .package-name{font-size:15px!important;line-height:1.25!important}
+#packages .package-card .package-front .package-title-row{flex-wrap:wrap;gap:6px}
+#packages .package-card .package-front .popular-pill{font-size:9px!important;padding:3px 7px!important}
+#packages .package-card .package-front .package-sub{font-size:11.5px!important;line-height:1.4!important;margin-top:4px!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#packages .package-card .package-front .package-price{margin:auto 0 0!important;padding:0!important;gap:4px!important}
+#packages .package-grid .package-card .package-front .price-num{font-size:26px!important}
+#packages .package-grid .package-card .package-front .price-cur{font-size:10px!important;padding-bottom:3px!important}
+#packages .package-grid .package-card .package-front .package-price.price-dual{gap:12px!important}
+#packages .package-grid .package-card .package-front .price-lbl{font-size:9.5px!important}
+#packages .package-grid .package-card .package-front .package-price.price-text{font-size:14px!important}
+#packages .package-card .package-front .flip-hint{font-size:10px!important;bottom:8px!important}
+}
 </style>
 </head>
 <body>
@@ -1247,7 +1276,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 
 // Tap/click or press Enter/Space to flip each package into its product preview.
 document.querySelectorAll('.package-card').forEach(function(card){
-  function flip(){var state=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(state));}
+  function flip(){var state=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(state));if(state&&window.matchMedia('(max-width:620px)').matches){var rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;requestAnimationFrame(function(){card.scrollIntoView({behavior:rm?'auto':'smooth',block:'center'})})}}
   card.addEventListener('click',function(e){if(e.target.closest('a, button, .package-action, .nfc-card-toggle, .nfc-finish-selector'))return;var od=document.getElementById('orderDlg');if((od&&od.open)||Date.now()-(window.__orderAt||0)<700)return;flip();});
   card.addEventListener('keydown',function(e){if(e.target.closest('button, a, .nfc-card-toggle, .nfc-finish-selector'))return;if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});
 });
