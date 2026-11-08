@@ -943,7 +943,7 @@ img{height:auto}
 
 /* ----- the live card (inside the phone) ----- */
 .ph.ks-ph{width:320px}
-.ks-card{--ha:#12304f;--hb:#1b4a73;--bgc:linear-gradient(160deg,#0b1a2e 0%,#12304f 55%,#1b4a73 100%);--ink:#f4f7fb;--sub:rgba(244,247,251,.78);--acc:#e2b866;--accink:#1a1405;--rad:14px;--heroH:125;--pz:100;--px:50;--py:25;--bo:100;--nameff:Montserrat,sans-serif;--bioff:'Playfair Display',serif;--biosz:15;--panel:rgba(255,255,255,.08);--line:rgba(255,255,255,.14);
+.ks-card{--ha:#12304f;--hb:#1b4a73;--bgc:linear-gradient(160deg,#0b1a2e 0%,#12304f 55%,#1b4a73 100%);--ink:#f4f7fb;--sub:rgba(244,247,251,.78);--acc:#e2b866;--accink:#1a1405;--rad:14px;--heroH:150;--pz:100;--px:50;--py:25;--bo:100;--nameff:Montserrat,sans-serif;--bioff:'Playfair Display',serif;--biosz:15;--panel:rgba(255,255,255,.08);--line:rgba(255,255,255,.14);
  height:600px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;border-radius:36px;background:var(--bgc) center/cover;color:var(--ink);font-family:Inter,system-ui,sans-serif;text-align:center;padding-bottom:28px;transition:background .3s,color .3s}
 .ks-card::-webkit-scrollbar{display:none}
 .ks-card.light{--ink:#10202f;--sub:rgba(16,32,47,.75);--panel:rgba(16,32,47,.07);--line:rgba(16,32,47,.16)}
@@ -990,6 +990,39 @@ img{height:auto}
 .ks-card.dense .ks-links{gap:5px}.ks-card.dense .ks-lk{padding:8px 12px}
 @media(max-width:560px){.ph.ks-ph{width:300px}}
 @media(min-width:1001px){.ks-sticky{position:sticky;top:90px;align-self:flex-start}}
+
+/* ----- signature look (matches the OneTap profile) ----- */
+.ks-card{background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px,var(--bgc) center/cover}
+.ks-card.nogrid,.ks-card.light{background:var(--bgc) center/cover}
+.ks-hero.card{width:calc(100% - 24px);margin:12px 12px 0;border-radius:26px;border:1px solid rgba(80,140,255,.5);box-shadow:0 0 0 1px rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.4)}
+.ks-card.left .ks-htext{padding:0 26px;bottom:9%}
+.ks-card.line .ks-htext::before{content:"";display:block;width:32px;height:2px;background:var(--acc);margin-bottom:14px}
+.ks-card.left.line .ks-htext::before{margin-left:0}
+.ks-card:not(.left).line .ks-htext::before{margin-left:auto;margin-right:auto}
+.ks-card.caps .ks-name{text-transform:uppercase;letter-spacing:.02em;font-size:30px}
+.ks-card.biocaps .ks-bio{text-transform:uppercase;letter-spacing:.16em;font-style:normal!important;color:var(--sub);text-align:center}
+.ks-card.biocaps.left .ks-bio{text-align:center}
+.ks-q.tile{width:50px;height:50px;border:2px solid rgba(255,255,255,.9);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.35);background-clip:padding-box;backdrop-filter:none}
+.ks-card.save-white .ks-save{background:#f4f8fc;border-color:#f4f8fc;color:#10202f;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.ks-lk .t{font-family:var(--linkff);font-size:17px;letter-spacing:.04em}
+.ks-card.ls-stagger .ks-lk{box-shadow:0 8px 20px rgba(0,0,0,.28)}
+.ks-card.ls-stagger .ks-lk:nth-child(odd){margin-left:18px;transform:rotate(.5deg)}
+.ks-card.ls-stagger .ks-lk:nth-child(even){margin-right:18px;margin-left:0;transform:rotate(-.5deg)}
+.ks-card.ls-stagger .ks-lk:nth-child(3n){margin-left:9px;margin-right:9px}
+.ks-card.ls-stagger .ks-lk:hover{transform:translateY(-2px)}
+.ks-card.light .ks-hero.card{border-color:rgba(16,32,47,.25)}
+
+#ksSendDlg{border:1px solid #22364E;border-radius:20px;background:#0A0F17;color:#e8eef6;padding:0;width:min(440px,calc(100vw - 28px));font-family:Inter,sans-serif}
+#ksSendDlg::backdrop{background:rgba(0,0,0,.65)}
+#ksSendDlg form{padding:22px;display:flex;flex-direction:column;gap:12px}
+#ksSendDlg h3{margin:0;font:700 20px Montserrat,sans-serif}
+#ksSendDlg p{margin:0;color:#9FB0C4;font-size:14px;line-height:1.5}
+#ksSendDlg label{display:flex;flex-direction:column;gap:6px;font:600 13px Inter;color:#9FB0C4}
+#ksSendDlg input[type=text],#ksSendDlg textarea{background:#0d1622;border:1px solid #22364E;color:#e8eef6;border-radius:10px;padding:12px;font:400 16px Inter,sans-serif;width:100%;box-sizing:border-box}
+#ksSendDlg input:focus,#ksSendDlg textarea:focus{outline:2px solid #1B9CFF;outline-offset:1px}
+.ks-dact{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:4px}
+.ks-dact .ks-btn{min-height:44px}
+#ksSendDlg .ks-dmsg{font-weight:600;min-height:1em}
 /* ===== Card Studio: mobile full-screen mode ===== */
 .ks-openbtn{display:none}
 @media(max-width:820px){
@@ -1166,13 +1199,13 @@ body.ks-lock{overflow:hidden}
 <div style="font-size: 14px; letter-spacing: 0.14em; color: var(--accent); font-weight: 600">TRY IT YOURSELF</div>
 <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(32px, 4.5vw, 52px); line-height: 1.08; letter-spacing: -0.02em">Design your card. Watch it change live.</h2>
 <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #9FB0C4; max-width: 500px">Pick a theme, swap the layout, change fonts and colors, add your own photo and links. This is the same kind of profile people see when they tap your card.</p>
-<p style="margin: 0; font-size: 13px; color: #7F91A6">Your edits stay on your device. Happy with it? Tap "Get this design made" and we build it for you.</p>
+<p style="margin: 0; font-size: 13px; color: #7F91A6">Your edits stay on your device until you tap "Send my design". Then we build it for you.</p>
 <div class="ks-wrap" id="ksWrap" aria-label="Customize your card">
 <div class="ks-tabs" role="tablist" id="ksTabs">
 <button role="tab" aria-selected="true" data-p="theme">Theme</button><button role="tab" aria-selected="false" data-p="photo">Photo</button><button role="tab" aria-selected="false" data-p="layout">Layout</button><button role="tab" aria-selected="false" data-p="text">Text &amp; fonts</button><button role="tab" aria-selected="false" data-p="links">Links</button>
 </div>
 <div class="ks-pane on" id="ks-theme"></div><div class="ks-pane" id="ks-photo"></div><div class="ks-pane" id="ks-layout"></div><div class="ks-pane" id="ks-text"></div><div class="ks-pane" id="ks-links"></div>
-<div class="ks-foot"><button class="ks-btn" id="ksRand" type="button">🎲 Surprise me</button><button class="ks-btn" id="ksReset" type="button">Reset</button><button class="ks-btn pri" id="ksOrder" type="button">Get this design made →</button></div>
+<div class="ks-foot"><button class="ks-btn" id="ksRand" type="button">🎲 Surprise me</button><button class="ks-btn" id="ksReset" type="button">Reset</button><button class="ks-btn" id="ksDl" type="button">Save file</button><button class="ks-btn pri" id="ksOrder" type="button">Send my design →</button></div>
 </div>
 <div class="ks-toast" id="ksToast" role="status" aria-live="polite"></div>
 
@@ -1795,6 +1828,7 @@ call.then(function(r){return r.ok?r.json():null}).then(function(d){
 <script>(function(){
 var $=function(i){return document.getElementById(i)},card=$('ksCard');if(!card)return;
 var THEMES={
+abyss:{l:'Abyss',css:'linear-gradient(160deg,#00101b 0%,#031c2e 100%)',ha:'#0f2a4a',hb:'#1b4a73',acc:'#e2b866'},
 midnight:{l:'Midnight',css:'linear-gradient(160deg,#0b1a2e 0%,#12304f 55%,#1b4a73 100%)',ha:'#12304f',hb:'#1b4a73',acc:'#e2b866'},
 slate:{l:'Slate',css:'linear-gradient(160deg,#1f2933 0%,#323f4b 100%)',ha:'#3e4c59',hb:'#616e7c',acc:'#7dd3fc'},
 forest:{l:'Forest',css:'linear-gradient(160deg,#0f2a22 0%,#1d4d3c 100%)',ha:'#1d4d3c',hb:'#2f855a',acc:'#a7f3d0'},
@@ -1802,14 +1836,14 @@ burgundy:{l:'Burgundy',css:'linear-gradient(160deg,#2a0f1a 0%,#5a1f36 100%)',ha:
 sunset:{l:'Sunset',css:'linear-gradient(160deg,#2b1055 0%,#7a2c6b 55%,#e8586a 100%)',ha:'#7a2c6b',hb:'#f59e0b',acc:'#ffd166'},
 ocean:{l:'Ocean',css:'linear-gradient(160deg,#021b3a 0%,#05507a 60%,#0aa5c4 100%)',ha:'#05507a',hb:'#0aa5c4',acc:'#fde68a'},
 light:{l:'Light',css:'linear-gradient(160deg,#eef2f7 0%,#cfd9e6 100%)',ha:'#3b6ea5',hb:'#7aa7d6',acc:'#1d4ed8',light:1}};
-var FONTS=['Montserrat','Playfair Display','Bebas Neue','Inter','Poppins','Oswald','Pacifico','Space Grotesk','Cormorant Garamond','Georgia'];
+var FONTS=['Bebas Neue','Montserrat','Playfair Display','Bebas Neue','Inter','Poppins','Oswald','Pacifico','Space Grotesk','Cormorant Garamond','Georgia'];
 var PRE={'Montserrat':1,'Playfair Display':1,'Bebas Neue':1,'Inter':1,'Georgia':1},loaded={};
 function loadFont(n){if(PRE[n]||loaded[n])return;loaded[n]=1;var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+n.replace(/ /g,'+')+':ital,wght@0,400;0,700;1,400&display=swap';document.head.appendChild(l)}
 var TYPES={facebook:['Facebook','#1877f2','f'],instagram:['Instagram','#d6249f','Ig'],x:['X','#111','X'],youtube:['YouTube','#e11d48','▶'],tiktok:['TikTok','#111','Tk'],linkedin:['LinkedIn','#0a66c2','in'],whatsapp:['WhatsApp','#25d366','Wa'],messenger:['Messenger','#0084ff','Ms'],website:['Website','#64748b','www'],phone:['Call','#16a34a','☎'],email:['Email','#ea580c','✉'],other:['Link','#6366f1','↗']};
-var D={theme:'midnight',bgColor:'',bgImg:'',ha:'#12304f',hb:'#1b4a73',acc:'#e2b866',photo:'',pz:100,px:50,py:25,bo:100,heroH:125,shape:'wave',align:'center',name:'Your Name',title:'Business Owner',company:'Your Brand',bio:"Helping you grow your business. Let's connect!",phone:'',email:'',nameFont:'Montserrat',bioFont:'Playfair Display',bioSize:15,bioItalic:true,ls:'list',bs:'glass',rad:14,dense:false,quick:true,save:true,saveStyle:'filled',links:[{t:'facebook',l:'Facebook',u:''},{t:'instagram',l:'Instagram',u:''},{t:'whatsapp',l:'WhatsApp',u:''},{t:'website',l:'My Website',u:''}]};
+var D={theme:'abyss',bgColor:'',bgImg:'',ha:'#0f2a4a',hb:'#1b4a73',acc:'#e2b866',photo:'',pz:100,px:50,py:25,bo:100,heroH:150,shape:'card',align:'left',line:true,grid:true,caps:true,biocaps:true,linkFont:'Bebas Neue',quick:['email','website','whatsapp','share'],name:'Your Name',title:'',company:'Your Brand',bio:'Your Title | Your Skill | Your Passion',phone:'',email:'',nameFont:'Bebas Neue',bioFont:'Bebas Neue',bioSize:15,bioItalic:false,ls:'stagger',bs:'glass',rad:14,dense:false,showQuick:true,save:true,saveStyle:'white',links:[{t:'facebook',l:'Facebook',u:''},{t:'instagram',l:'Instagram',u:''},{t:'tiktok',l:'TikTok',u:''},{t:'website',l:'My Website',u:''}]};
 var S=JSON.parse(JSON.stringify(D));
-try{var sv=localStorage.getItem('ik-card-studio');if(sv){var o=JSON.parse(sv);for(var k in o)if(k in D)S[k]=o[k]}}catch(e){}
-function persist(){try{localStorage.setItem('ik-card-studio',JSON.stringify(S))}catch(e){}}
+try{var sv=localStorage.getItem('ik-card-studio-v2');if(sv){var o=JSON.parse(sv);for(var k in o)if(k in D)S[k]=o[k]}}catch(e){}
+function persist(){try{localStorage.setItem('ik-card-studio-v2',JSON.stringify(S))}catch(e){}}
 function toast(m){var t=$('ksToast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){t.classList.remove('on')},2200)}
 function lum(h){var n=parseInt(h.slice(1),16);return(.299*(n>>16)+.587*((n>>8)&255)+.114*(n&255))/255}
 function hex(v){return/^#[0-9a-f]{6}$/i.test(v)}
@@ -1826,19 +1860,21 @@ function apply(){
  st.setProperty('--rad',S.rad+'px');st.setProperty('--heroH',S.heroH);
  st.setProperty('--pz',S.pz);st.setProperty('--px',S.px);st.setProperty('--py',S.py);st.setProperty('--bo',S.bo);
  loadFont(S.nameFont);loadFont(S.bioFont);
- st.setProperty('--nameff',"'"+S.nameFont+"',sans-serif");st.setProperty('--bioff',"'"+S.bioFont+"',serif");st.setProperty('--biosz',S.bioSize);
+ st.setProperty('--nameff',"'"+S.nameFont+"',sans-serif");st.setProperty('--bioff',"'"+S.bioFont+"',serif");st.setProperty('--biosz',S.bioSize);loadFont(S.linkFont);st.setProperty('--linkff',"'"+S.linkFont+"',sans-serif");
  var bio=$('ksBio');bio.style.fontStyle=S.bioItalic?'italic':'normal';
- var c=card.classList;c.toggle('light',light);c.toggle('left',S.align==='left');c.toggle('dense',!!S.dense);c.toggle('hide-quick',!S.quick);c.toggle('hide-save',!S.save);c.toggle('save-out',S.saveStyle==='outline');
- ['list','tiles','pills'].forEach(function(x){c.toggle('ls-'+x,S.ls===x)});['glass','solid','out'].forEach(function(x){c.toggle('btn-'+x,S.bs===x)});
+ var c=card.classList;c.toggle('light',light);c.toggle('left',S.align==='left');c.toggle('dense',!!S.dense);c.toggle('hide-quick',!S.showQuick);c.toggle('line',!!S.line);c.toggle('caps',!!S.caps);c.toggle('biocaps',!!S.biocaps);c.toggle('nogrid',!S.grid);c.toggle('hide-save',!S.save);c.toggle('save-out',S.saveStyle==='outline');c.toggle('save-white',S.saveStyle==='white');
+ ['list','tiles','pills','stagger'].forEach(function(x){c.toggle('ls-'+x,S.ls===x)});['glass','solid','out'].forEach(function(x){c.toggle('btn-'+x,S.bs===x)});
  $('ksHero').className='ks-hero '+S.shape;
  $('ksPhoto').style.backgroundImage=S.photo?'url("'+S.photo+'")':'none';
  var nm=S.name.trim();$('ksName').textContent=nm||'Your Name';$('ksTitle').textContent=S.title;$('ksComp').textContent=S.company;bio.textContent=S.bio;
  $('ksInit').textContent=S.photo?'':nm.split(/\s+/).map(function(w){return w[0]||''}).join('').slice(0,2).toUpperCase();
  // quick round icons
  var q=$('ksQuick');q.textContent='';
- [['phone','☎',safeHref('phone',S.phone)],['email','✉',safeHref('email',S.email)]].forEach(function(r){var a=el('a','ks-q',r[1]);a.href=r[2];a.setAttribute('aria-label',TYPES[r[0]][0]);q.appendChild(a)});
- var sh=el('a','ks-q');sh.href='#';sh.setAttribute('aria-label','Share');sh.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>';
- sh.onclick=function(e){e.preventDefault();var u=location.href;if(navigator.share)navigator.share({title:S.name,url:u}).catch(function(){});else copy(u,'Link copied')};q.appendChild(sh);
+ S.quick.forEach(function(t){if(t==='share')return;var T2=TYPES[t]||TYPES.other,u='';
+  if(t==='phone')u=safeHref('phone',S.phone);else if(t==='email')u=safeHref('email',S.email);else{var m=S.links.filter(function(l){return l.t===t})[0];u=m?safeHref(t,m.u):'#'}
+  var a=el('a','ks-q tile',T2[2]);a.style.background=T2[1];a.href=u;a.setAttribute('aria-label',T2[0]);if(/^https?:/.test(u)){a.target='_blank';a.rel='noopener noreferrer'}q.appendChild(a)});
+ var sh=el('a','ks-q tile');sh.style.background='#334155';sh.href='#';sh.setAttribute('aria-label','Share');sh.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8-4"/></svg>';
+ sh.onclick=function(e){e.preventDefault();var u=location.href;if(navigator.share)navigator.share({title:S.name,url:u}).catch(function(){});else copy(u,'Link copied')};if(S.quick.indexOf('share')>-1)q.appendChild(sh);
  // link buttons
  var box=$('ksLinks');box.textContent='';
  S.links.forEach(function(l){var T2=TYPES[l.t]||TYPES.other,h=safeHref(l.t,l.u),a=el('a','ks-lk');a.href=h;
@@ -1857,8 +1893,8 @@ function file(id,l){return'<label class="ks-btn ks-file">'+l+'<input type="file"
 var YN=[['true','On'],['false','Off']];
 $('ks-theme').innerHTML='<div class="ks-sec">Style presets</div><div class="ks-sw" id="ksSw"></div><div class="ks-sec">Fine-tune colors</div>'+color('bgColor','Page color')+color('ha','Picture 1')+color('hb','Picture 2')+color('acc','Accent')+'<div class="ks-sec">Page background image</div>'+file('ksBgFile','Upload image')+' <button class="ks-btn" id="ksBgClear" type="button">Remove</button><p class="ks-note">Images stay on your device. Nothing is uploaded.</p>';
 $('ks-photo').innerHTML='<div class="ks-sec">Your picture</div>'+file('ksPhFile','Upload photo')+' <button class="ks-btn" id="ksPhClear" type="button">Remove</button><p class="ks-note">A clear, well-lit photo works best. Faces sit nicely near the top.</p>'+slider('pz','Zoom',100,260,'%')+slider('px','Left / right',0,100,'%')+slider('py','Up / down',0,100,'%')+slider('bo','Opacity',0,100,'%');
-$('ks-layout').innerHTML='<div class="ks-sec">Header</div>'+chips('shape','Edge',[['wave','Wave'],['round','Curve'],['flat','Rounded']])+slider('heroH','Height',70,170,'')+chips('align','Text',[['center','Center'],['left','Left']])+'<div class="ks-sec">Buttons</div>'+chips('ls','Arrangement',[['list','List'],['tiles','Tiles'],['pills','Pills']])+chips('bs','Fill',[['glass','Glass'],['solid','Solid'],['out','Outline']])+slider('rad','Roundness',0,30,'px')+chips('dense','Spacing',[['false','Roomy'],['true','Compact']])+'<div class="ks-sec">Show / hide</div>'+chips('quick','Round icons',YN)+chips('save','Save button',YN)+chips('saveStyle','Save style',[['filled','Filled'],['outline','Outline']]);
-$('ks-text').innerHTML='<div class="ks-sec">Your details</div>'+text('name','Name','Your name')+text('title','Title','e.g. Photographer')+text('company','Brand','e.g. Studio 88')+'<div class="ks-row" style="align-items:flex-start"><label>Bio</label><textarea data-k="bio" maxlength="200" rows="3"></textarea></div>'+text('phone','Phone','+63 917 123 4567')+text('email','Email','you@mail.com')+'<div class="ks-sec">Fonts</div>'+fontSel('nameFont','Name font')+fontSel('bioFont','Bio font')+slider('bioSize','Bio size',11,22,'px')+chips('bioItalic','Bio style',[['true','Italic'],['false','Regular']]);
+$('ks-layout').innerHTML='<div class="ks-sec">Header</div>'+chips('shape','Edge',[['card','Card'],['wave','Wave'],['round','Curve'],['flat','Rounded']])+slider('heroH','Height',70,170,'')+chips('align','Text',[['left','Left'],['center','Center']])+chips('line','Accent line',YN)+chips('grid','Grid pattern',YN)+'<div class="ks-sec">Buttons</div>'+chips('ls','Arrangement',[['stagger','Stagger'],['list','List'],['tiles','Tiles'],['pills','Pills']])+chips('bs','Fill',[['glass','Glass'],['solid','Solid'],['out','Outline']])+slider('rad','Roundness',0,30,'px')+chips('dense','Spacing',[['false','Roomy'],['true','Compact']])+'<div class="ks-sec">Show / hide</div>'+chips('showQuick','Round icons',YN)+chips('save','Save button',YN)+chips('saveStyle','Save style',[['white','White'],['filled','Accent'],['outline','Outline']]);
+$('ks-text').innerHTML='<div class="ks-sec">Your details</div>'+text('name','Name','Your name')+text('title','Title','e.g. Photographer')+text('company','Brand','e.g. Studio 88')+'<div class="ks-row" style="align-items:flex-start"><label>Bio</label><textarea data-k="bio" maxlength="200" rows="3"></textarea></div>'+text('phone','Phone','+63 917 123 4567')+text('email','Email','you@mail.com')+'<div class="ks-sec">Fonts</div>'+fontSel('nameFont','Name font')+fontSel('bioFont','Bio font')+fontSel('linkFont','Button font')+chips('caps','Name caps',YN)+chips('biocaps','Bio caps',YN)+slider('bioSize','Bio size',11,22,'px')+chips('bioItalic','Bio style',[['true','Italic'],['false','Regular']]);
 var swb=$('ksSw');Object.keys(THEMES).forEach(function(k){var b=el('button');b.type='button';b.title=THEMES[k].l;b.setAttribute('aria-label',THEMES[k].l);b.dataset.theme=k;b.style.background=THEMES[k].css;swb.appendChild(b)});
 function buildLinks(){var p=$('ks-links');p.textContent='';
  S.links.forEach(function(l,i){var d=el('div','ks-link'),a=document.createElement('input');a.type='text';a.value=l.l;a.placeholder='Label';a.dataset.li=i;a.dataset.f='l';a.maxLength=30;
@@ -1867,6 +1903,8 @@ function buildLinks(){var p=$('ks-links');p.textContent='';
   d.append(a,x,u);p.appendChild(d)});
  var add=el('div','ks-row');var s=document.createElement('select');s.id='ksAddT';Object.keys(TYPES).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=TYPES[k][0];s.appendChild(o)});
  var b=el('button','ks-btn pri','+ Add');b.type='button';b.id='ksAdd';add.append(s,b);p.appendChild(add);
+ var qs=el('div','ks-sec','Round icons under your bio');p.appendChild(qs);var qc=el('div','ks-chips');
+ ['phone','email','whatsapp','website','facebook','instagram','tiktok','linkedin','youtube','share'].forEach(function(t){var b=el('button',null,t==='share'?'Share':TYPES[t][0]);b.type='button';b.dataset.q=t;b.setAttribute('aria-pressed',String(S.quick.indexOf(t)>-1));qc.appendChild(b)});p.appendChild(qc);
  p.appendChild(el('p','ks-note','Up to 8 links. Leave a link empty to preview the layout.'))}
 buildLinks();
 function cast(v){return v==='true'?true:v==='false'?false:v}
@@ -1884,6 +1922,7 @@ W.addEventListener('input',function(e){var n=e.target;
 W.addEventListener('click',function(e){var n=e.target.closest('button');if(!n)return;
  if(n.dataset.k&&n.dataset.v!=null){S[n.dataset.k]=cast(n.dataset.v);apply()}
  else if(n.dataset.theme){var T=THEMES[n.dataset.theme];S.theme=n.dataset.theme;S.bgColor='';S.bgImg='';S.ha=T.ha;S.hb=T.hb;S.acc=T.acc;apply()}
+ else if(n.dataset.q){var i=S.quick.indexOf(n.dataset.q);if(i>-1)S.quick.splice(i,1);else if(S.quick.length<5)S.quick.push(n.dataset.q);else return toast('Up to 5 icons');n.setAttribute('aria-pressed',String(S.quick.indexOf(n.dataset.q)>-1));apply()}
  else if(n.dataset.del!=null){S.links.splice(+n.dataset.del,1);buildLinks();apply()}
  else if(n.id==='ksAdd'){if(S.links.length>=8)return toast('Maximum 8 links');var t=$('ksAddT').value;S.links.push({t:t,l:TYPES[t][0],u:''});buildLinks();apply()}
  else if(n.id==='ksBgClear'){S.bgImg='';apply()}
@@ -1891,16 +1930,40 @@ W.addEventListener('click',function(e){var n=e.target.closest('button');if(!n)re
  else if(n.id==='ksReset'){S=JSON.parse(JSON.stringify(D));buildLinks();apply();toast('Back to the original')}
  else if(n.id==='ksRand')rand()
  else if(n.id==='ksOrder')order()
+ else if(n.id==='ksDl')saveFile()
  else if(n.parentNode&&n.parentNode.id==='ksTabs'){W.querySelectorAll('#ksTabs button').forEach(function(b){b.setAttribute('aria-selected',String(b===n))});W.querySelectorAll('.ks-pane').forEach(function(p){p.classList.toggle('on',p.id==='ks-'+n.dataset.p)})}});
 function img(input,key,max){input.addEventListener('change',function(){var f=input.files[0];if(!f)return;if(!/^image\//.test(f.type))return toast('Please choose an image');
  var r=new FileReader();r.onload=function(){var i=new Image();i.onload=function(){var s=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);c.getContext('2d').drawImage(i,0,0,c.width,c.height);S[key]=c.toDataURL('image/jpeg',.82);apply()};i.onerror=function(){toast('Could not read that image')};i.src=r.result};r.readAsDataURL(f);input.value=''})}
 img($('ksPhFile'),'photo',900);img($('ksBgFile'),'bgImg',1000);
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
-function rand(){var k=pick(Object.keys(THEMES)),T=THEMES[k];S.theme=k;S.bgColor='';S.bgImg='';S.ha=T.ha;S.hb=T.hb;S.acc=T.acc;S.shape=pick(['wave','round','flat']);S.ls=pick(['list','tiles','pills']);S.bs=pick(['glass','solid','out']);S.rad=pick([4,10,14,20,28]);S.nameFont=pick(FONTS);S.bioFont=pick(FONTS);S.align=pick(['center','left']);apply()}
+function rand(){var k=pick(Object.keys(THEMES)),T=THEMES[k];S.theme=k;S.bgColor='';S.bgImg='';S.ha=T.ha;S.hb=T.hb;S.acc=T.acc;S.shape=pick(['card','wave','round','flat']);S.ls=pick(['stagger','list','tiles','pills']);S.bs=pick(['glass','solid','out']);S.rad=pick([4,10,14,20,28]);S.nameFont=pick(FONTS);S.bioFont=pick(FONTS);S.align=pick(['center','left']);apply()}
 function copy(t,m){var d=function(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();toast(m)};if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){toast(m)},d);else d()}
-function order(){var c=JSON.parse(JSON.stringify(S));c.photo=c.photo?'(photo uploaded)':'';c.bgImg=c.bgImg?'(image uploaded)':'';
- var msg='My custom card design:\n'+JSON.stringify(c);copy(msg,'Design copied. Paste it in the contact form.');
- var ct=document.getElementById('contact');if(ct){ct.scrollIntoView({behavior:'smooth'});var ta=ct.querySelector('textarea');if(ta&&!ta.value){ta.value=msg;ta.dispatchEvent(new Event('input',{bubbles:true}))}}}
+
+var SB_URL='https://avukmhbcpqhigdcwxlxw.supabase.co',SB_KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc',MAIL='ikonek79@gmail.com';
+function slug(){return(S.name||'profile').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'profile'}
+function designJSON(){return{app:'ikonek-card-design',version:1,createdAt:new Date().toISOString(),design:S}}
+function download(name,type,text){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1500)}
+function standalone(){
+ var css='';[].slice.call(document.styleSheets).forEach(function(sh){try{[].slice.call(sh.cssRules).forEach(function(r){if(r.selectorText&&/\.ks-(card|hero|photo|tint|init|htext|name|title|comp|bio|quick|q|save|links|lk|ti)\b/.test(r.selectorText))css+=r.cssText+'\n'})}catch(e){}});
+ var fonts=[S.nameFont,S.bioFont,S.linkFont].filter(function(f,i,a){return a.indexOf(f)===i&&f!=='Georgia'}).map(function(f){return'family='+f.replace(/ /g,'+')+':ital,wght@0,400;0,700;1,400'}).join('&');
+ var data=JSON.stringify(designJSON()).replace(/</g,'\\u003c');
+ var clone=card.cloneNode(true);clone.removeAttribute('id');
+ return'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(S.name||'Digital Profile')+'</title><link href="https://fonts.googleapis.com/css2?'+fonts+'&display=swap" rel="stylesheet"><style>body{margin:0;background:#05080d;display:flex;justify-content:center}.ks-card{height:auto!important;min-height:100vh;width:100%;max-width:440px;border-radius:0!important;overflow:visible!important}'+css+'</style></head><body>'+clone.outerHTML+'<script type="application/json" id="ikonek-design">'+data+'<\/script></body></html>'}
+function saveFile(){download('ikonek-'+slug()+'.html','text/html',standalone());toast('File saved. Open it to preview your profile.')}
+var dlg=document.createElement('dialog');dlg.id='ksSendDlg';
+dlg.innerHTML='<form method="dialog" id="ksSendForm" autocomplete="on"><h3>Send your design to iKONEK</h3><p>We will build this profile for you and message you to confirm.</p><label>Your name<input type="text" id="ksCn" required maxlength="80" autocomplete="name"></label><label>Phone, email or Messenger link<input type="text" id="ksCm" required maxlength="120" autocomplete="off" placeholder="So we can reach you"></label><label>Anything else? (optional)<textarea id="ksCnote" maxlength="500" rows="3"></textarea></label><input type="text" id="ksHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0"><div class="ks-dact"><button type="button" class="ks-btn" id="ksCx">Cancel</button><button type="button" class="ks-btn" id="ksCdl">Save file</button><button type="submit" class="ks-btn pri" id="ksCgo">Send</button></div><p class="ks-dmsg" id="ksDmsg" role="status"></p></form>';
+document.body.appendChild(dlg);
+function openSend(){$('ksDmsg').textContent='';dlg.showModal?dlg.showModal():dlg.setAttribute('open','')}
+function closeSend(){dlg.close?dlg.close():dlg.removeAttribute('open')}
+$('ksCx').onclick=closeSend;$('ksCdl').onclick=saveFile;
+dlg.addEventListener('click',function(e){if(e.target===dlg)closeSend()});
+$('ksSendForm').addEventListener('submit',function(e){e.preventDefault();if($('ksHp').value)return closeSend();
+ var go=$('ksCgo'),msg=$('ksDmsg');go.disabled=true;go.textContent='Sending…';msg.textContent='';
+ var body={contact_name:$('ksCn').value.trim(),contact_method:$('ksCm').value.trim(),note:$('ksCnote').value.trim()||null,design:designJSON()};
+ fetch(SB_URL+'/rest/v1/card_designs',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(body)}).then(function(r){
+  if(!r.ok)throw new Error(r.status);msg.style.color='#6ee7a0';msg.textContent='Sent! We will contact you soon.';go.textContent='Sent ✓';setTimeout(function(){closeSend();go.disabled=false;go.textContent='Send'},2200)
+ }).catch(function(){saveFile();msg.style.color='#ffb4a2';msg.textContent='Could not send right now. Your file was saved. Please email it to '+MAIL+'.';go.disabled=false;go.textContent='Try again'})});
+function order(){openSend()}
 $('ksSave').addEventListener('click',function(){var n=S.name.trim().split(/\s+/),v=['BEGIN:VCARD','VERSION:3.0','N:'+(n.slice(1).join(' ')||'')+';'+n[0]+';;;','FN:'+S.name,S.company?'ORG:'+S.company:'',S.title?'TITLE:'+S.title:'',S.phone?'TEL:'+S.phone:'',S.email?'EMAIL:'+S.email:'','END:VCARD'].filter(Boolean).join('\r\n');
  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([v],{type:'text/vcard'}));a.download=(S.name||'contact')+'.vcf';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000)});
 apply();
@@ -1912,7 +1975,7 @@ ov.innerHTML='<div class="ks-bar"><span>Design your profile</span><button type="
 document.body.appendChild(ov);
 var stage=document.getElementById('ksStage'),sheet=document.getElementById('ksSheet'),handle=document.getElementById('ksHandle');
 var phHome={p:ph.parentNode,n:ph.nextSibling},wHome={p:W.parentNode,n:W.nextSibling};
-var btn=document.createElement('button');btn.type='button';btn.className='ks-openbtn';btn.innerHTML='✨ Customize my profile';
+var btn=document.createElement('button');btn.type='button';btn.className='ks-openbtn';btn.innerHTML='Customize my profile';
 phHome.p.appendChild(btn);
 function fit(){if(!ov.classList.contains('on'))return;var r=stage.getBoundingClientRect(),w=ph.offsetWidth,h=ph.offsetHeight||626;
  var s=Math.min(1,(r.height-12)/h,(r.width-16)/w);ph.style.transform='translateX(-50%) scale('+Math.max(.3,s)+')'}
@@ -1924,7 +1987,6 @@ document.getElementById('ksDone').addEventListener('click',close);
 handle.addEventListener('click',function(){var m=sheet.classList.toggle('min');handle.setAttribute('aria-expanded',String(!m));handle.firstChild&&0;handle.textContent=m?'Tap to edit':'Tap to preview full screen';setTimeout(fit,280)});
 // keep the preview in view when a tab is picked on a minimized sheet
 W.addEventListener('click',function(e){if(e.target.closest('#ksTabs button')&&sheet.classList.contains('min')){sheet.classList.remove('min');handle.textContent='Tap to preview full screen';setTimeout(fit,280)}},true);
-document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#ksOrder'))close()},true);
 document.getElementById('ksLinks').addEventListener('click',function(e){if(ov.classList.contains('on')&&e.target.closest('a'))e.preventDefault()},true);
 document.getElementById('ksQuick').addEventListener('click',function(e){if(ov.classList.contains('on')&&e.target.closest('a')&&e.target.closest('a').getAttribute('href')!=='#')e.preventDefault()},true);
 window.addEventListener('resize',fit);window.addEventListener('orientationchange',function(){setTimeout(fit,200)});
