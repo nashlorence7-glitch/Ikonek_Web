@@ -847,6 +847,24 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 #packages .package-card .package-back .nfc-card-caption-divider,#packages .package-card .package-back .nfc-card-hint{display:none!important}
 #packages .package-card .package-back .pl-product-stage .nfc-card-caption>span:last-child{display:none!important}
 #packages .package-card .package-back .nfc-card-caption{white-space:nowrap}
+/* Product first: the tile opens on the product preview; tapping flips to the details */
+#packages .package-grid>.package-card .package-flip{transform:rotateY(180deg)}
+#packages .package-grid>.package-card.is-flipped .package-flip{transform:rotateY(0deg)}
+#packages .package-grid>.package-card .package-back{pointer-events:auto!important}
+#packages .package-grid>.package-card .package-front{pointer-events:none!important}
+#packages .package-grid>.package-card.is-flipped .package-back{pointer-events:none!important}
+#packages .package-grid>.package-card.is-flipped .package-front{pointer-events:auto!important}
+#packages .package-card .package-back .back-close{font-size:0!important;color:#1B9CFF}
+#packages .package-card .package-back .back-close::after{content:"Details \21BB";font-size:10.5px;letter-spacing:0}
+#packages .package-card .package-front .package-sub{display:none!important}
+#packages .package-card .package-front .package-list{display:flex!important;flex-direction:column;gap:5px!important;font-size:10.5px!important;line-height:1.35!important;margin:4px 0 0!important}
+#packages .package-card .package-front .package-list li{padding:0 0 0 16px!important;font-size:11.5px!important;line-height:1.3!important}
+#packages .package-card .package-back .pl-card[data-finish="black"]{box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),0 0 18px rgba(27,156,255,.18)!important}
+#packages .package-card .package-front .package-list li:before{width:11px!important;height:11px!important;top:2px!important;background-size:contain!important;background-repeat:no-repeat!important}
+#packages .package-card .package-front .flip-hint{font-size:0!important}
+#packages .package-card .package-front .flip-hint span{display:none!important}
+#packages .package-card .package-front .flip-hint::after{content:"\21BB  Back to product";font-size:10px;color:#1B9CFF}
+
 #packages .package-card .package-back .cd-stage,#packages .package-card .package-back .google-review-stage,#packages .package-card .package-back .ws-preview{zoom:.45;margin:auto 0!important;max-width:none!important;width:100%}
 #packages .package-card .package-back .google-review-stage,#packages .package-card .package-back .ws-preview{zoom:.5}
 #packages .package-card .package-back .cd-chip,#packages .package-card .package-back .google-review-caption{display:none!important}
