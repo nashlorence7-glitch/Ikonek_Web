@@ -990,6 +990,40 @@ img{height:auto}
 .ks-card.dense .ks-links{gap:5px}.ks-card.dense .ks-lk{padding:8px 12px}
 @media(max-width:560px){.ph.ks-ph{width:300px}}
 @media(min-width:1001px){.ks-sticky{position:sticky;top:90px;align-self:flex-start}}
+/* ===== Card Studio: mobile full-screen mode ===== */
+.ks-openbtn{display:none}
+@media(max-width:820px){
+ .ks-wrap{display:none}
+ .ks-wrap.ks-in{display:flex;flex-direction:column;max-width:none;border:0;border-radius:22px 22px 0 0;height:100%;border-top:1px solid #22364E}
+ .ks-sticky{position:static!important}
+ .ks-openbtn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;max-width:320px;margin:22px auto 0;padding:16px 20px;border:0;border-radius:16px;background:#1B9CFF;color:#04101c;font:700 16px Inter,sans-serif;box-shadow:0 10px 30px rgba(27,156,255,.35);cursor:pointer}
+ .ks-sticky{flex-direction:column;align-items:center}
+}
+#ksOv{position:fixed;inset:0;z-index:9999;display:none;flex-direction:column;background:radial-gradient(circle at 50% 0,#0e2236,#05080d 70%);height:100vh;height:100dvh}
+#ksOv.on{display:flex}
+.ks-bar{flex:none;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top));color:#fff;font:700 16px Inter,sans-serif}
+.ks-bar button{min-height:44px;padding:0 20px;border:0;border-radius:12px;background:#1B9CFF;color:#04101c;font:700 15px Inter,sans-serif}
+.ks-stage{flex:1;min-height:0;position:relative;overflow:hidden}
+.ks-stage .ks-ph{position:absolute;left:50%;top:6px;transform-origin:top center;margin:0}
+.ks-sheet{flex:none;height:50dvh;height:50vh;height:50dvh;display:flex;flex-direction:column;min-height:0;transition:height .25s}
+.ks-sheet.min{height:auto}
+.ks-sheet.min .ks-pane,.ks-sheet.min .ks-foot{display:none!important}
+.ks-handle{flex:none;display:block;width:100%;height:28px;border:0;background:#070B11;border-radius:22px 22px 0 0;color:#7F91A6;font:600 12px Inter,sans-serif;cursor:pointer}
+.ks-handle::before{content:"";display:block;width:44px;height:4px;border-radius:4px;background:#2a4660;margin:0 auto 3px}
+.ks-sheet .ks-wrap{flex:1;min-height:0}
+.ks-sheet .ks-pane.on{flex:1;min-height:0;max-height:none}
+.ks-sheet .ks-foot{padding-bottom:max(12px,env(safe-area-inset-bottom));flex-wrap:nowrap;overflow-x:auto}
+.ks-sheet .ks-foot .ks-btn{flex:none}
+/* bigger touch targets + no iOS zoom */
+.ks-sheet input[type=text],.ks-sheet select,.ks-sheet textarea{font-size:16px;padding:12px}
+.ks-sheet .ks-tabs button{min-height:44px;font-size:14px}
+.ks-sheet .ks-chips button,.ks-sheet .ks-btn{min-height:40px;font-size:14px}
+.ks-sheet .ks-sw button{width:52px;height:52px}
+.ks-sheet .ks-row{flex-wrap:wrap}.ks-sheet .ks-row>label{flex:1 0 100%}
+.ks-sheet .ks-row input[type=range]{height:34px}
+.ks-sheet input[type=color]{width:60px;height:44px}
+.ks-sheet .ks-x{width:44px;min-height:44px}
+body.ks-lock{overflow:hidden}
 </style></head>
 <body>
 <div id="ikLoader" role="status" aria-label="Loading iKONEK">
@@ -1870,5 +1904,32 @@ function order(){var c=JSON.parse(JSON.stringify(S));c.photo=c.photo?'(photo upl
 $('ksSave').addEventListener('click',function(){var n=S.name.trim().split(/\s+/),v=['BEGIN:VCARD','VERSION:3.0','N:'+(n.slice(1).join(' ')||'')+';'+n[0]+';;;','FN:'+S.name,S.company?'ORG:'+S.company:'',S.title?'TITLE:'+S.title:'',S.phone?'TEL:'+S.phone:'',S.email?'EMAIL:'+S.email:'','END:VCARD'].filter(Boolean).join('\r\n');
  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([v],{type:'text/vcard'}));a.download=(S.name||'contact')+'.vcf';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000)});
 apply();
+})();
+</script><script>(function(){
+var mq=window.matchMedia('(max-width:820px)'),W=document.getElementById('ksWrap'),ph=document.querySelector('.ks-ph');if(!W||!ph)return;
+var ov=document.createElement('div');ov.id='ksOv';ov.setAttribute('role','dialog');ov.setAttribute('aria-label','Design your profile');
+ov.innerHTML='<div class="ks-bar"><span>Design your profile</span><button type="button" id="ksDone">Done</button></div><div class="ks-stage" id="ksStage"></div><div class="ks-sheet" id="ksSheet"><button class="ks-handle" id="ksHandle" type="button" aria-expanded="true">Tap to preview full screen</button></div>';
+document.body.appendChild(ov);
+var stage=document.getElementById('ksStage'),sheet=document.getElementById('ksSheet'),handle=document.getElementById('ksHandle');
+var phHome={p:ph.parentNode,n:ph.nextSibling},wHome={p:W.parentNode,n:W.nextSibling};
+var btn=document.createElement('button');btn.type='button';btn.className='ks-openbtn';btn.innerHTML='✨ Customize my profile';
+phHome.p.appendChild(btn);
+function fit(){if(!ov.classList.contains('on'))return;var r=stage.getBoundingClientRect(),w=ph.offsetWidth,h=ph.offsetHeight||626;
+ var s=Math.min(1,(r.height-12)/h,(r.width-16)/w);ph.style.transform='translateX(-50%) scale('+Math.max(.3,s)+')'}
+function open(){if(!mq.matches)return;stage.appendChild(ph);sheet.appendChild(W);W.classList.add('ks-in');ov.classList.add('on');document.body.classList.add('ks-lock');sheet.classList.remove('min');setTimeout(fit,30)}
+function close(){if(!ov.classList.contains('on'))return;ov.classList.remove('on');document.body.classList.remove('ks-lock');W.classList.remove('ks-in');ph.style.transform='';
+ phHome.p.insertBefore(ph,phHome.n&&phHome.n.parentNode===phHome.p?phHome.n:btn);wHome.p.insertBefore(W,wHome.n&&wHome.n.parentNode===wHome.p?wHome.n:null)}
+btn.addEventListener('click',open);
+document.getElementById('ksDone').addEventListener('click',close);
+handle.addEventListener('click',function(){var m=sheet.classList.toggle('min');handle.setAttribute('aria-expanded',String(!m));handle.firstChild&&0;handle.textContent=m?'Tap to edit':'Tap to preview full screen';setTimeout(fit,280)});
+// keep the preview in view when a tab is picked on a minimized sheet
+W.addEventListener('click',function(e){if(e.target.closest('#ksTabs button')&&sheet.classList.contains('min')){sheet.classList.remove('min');handle.textContent='Tap to preview full screen';setTimeout(fit,280)}},true);
+document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#ksOrder'))close()},true);
+document.getElementById('ksLinks').addEventListener('click',function(e){if(ov.classList.contains('on')&&e.target.closest('a'))e.preventDefault()},true);
+document.getElementById('ksQuick').addEventListener('click',function(e){if(ov.classList.contains('on')&&e.target.closest('a')&&e.target.closest('a').getAttribute('href')!=='#')e.preventDefault()},true);
+window.addEventListener('resize',fit);window.addEventListener('orientationchange',function(){setTimeout(fit,200)});
+if(window.ResizeObserver)new ResizeObserver(fit).observe(stage);
+mq.addEventListener&&mq.addEventListener('change',function(){if(!mq.matches)close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
 })();
 </script></body></html>
