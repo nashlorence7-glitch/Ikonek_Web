@@ -869,6 +869,22 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 #packages .package-card .package-back .google-review-stage,#packages .package-card .package-back .ws-preview{zoom:.5}
 #packages .package-card .package-back .cd-chip,#packages .package-card .package-back .google-review-caption{display:none!important}
 }
+/* ===== Desktop/tablet: same product-first behavior ===== */
+@media(min-width:621px){
+#packages .package-grid>.package-card .package-flip{transform:rotateY(180deg)}
+#packages .package-grid>.package-card.is-flipped .package-flip{transform:rotateY(0deg)}
+#packages .package-grid>.package-card .package-back{pointer-events:auto!important}
+#packages .package-grid>.package-card .package-front{pointer-events:none!important}
+#packages .package-grid>.package-card.is-flipped .package-back{pointer-events:none!important}
+#packages .package-grid>.package-card.is-flipped .package-front{pointer-events:auto!important}
+#packages .package-card:hover .package-back{border-color:#1B9CFF}
+#packages .package-card .package-back .pl-card[data-finish="black"]{box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),0 0 18px rgba(27,156,255,.18)!important}
+#packages .package-card .package-back .back-close{font-size:0!important;color:#1B9CFF}
+#packages .package-card .package-back .back-close::after{content:"Details \21BB";font-size:12px;letter-spacing:0}
+#packages .package-card .package-front .flip-hint{font-size:0!important}
+#packages .package-card .package-front .flip-hint span{display:none!important}
+#packages .package-card .package-front .flip-hint::after{content:"\21BB  Back to product";font-size:13px;color:#1B9CFF}
+}
 </style>
 </head>
 <body>
