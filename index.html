@@ -800,33 +800,56 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 .soc svg{width:20px;height:20px}
 .soc:hover,.soc:focus-visible{background:#1B9CFF;border-color:#1B9CFF;color:#fff;transform:translateY(-2px);box-shadow:0 0 22px rgba(27,156,255,.45);outline:0}
 
-/* ===== Mobile: packages as a compact 2-column grid; a tapped tile expands to full width ===== */
+/* ===== Mobile packages: fixed-size 2-column tiles. Flipping never changes the tile size. ===== */
 @media(max-width:620px){
 #packages{padding:72px 14px!important}
-#packages .package-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
-#packages .package-grid>.package-card,#packages .package-grid>.package-card:nth-child(n),#packages .package-grid>.package-card:last-child{grid-column:auto!important;min-height:255px!important;border-radius:16px}
-#packages .package-grid>.package-card .package-flip,#packages .package-grid>.package-card.web-package .package-flip{min-height:255px!important}
-#packages .package-grid>.package-card.is-flipped{grid-column:1/-1!important;min-height:660px!important}
-#packages .package-grid>.package-card.is-flipped .package-flip{min-height:660px!important}
-#packages .package-grid>.package-card.web-package.is-flipped,#packages .package-grid>.package-card.web-package.is-flipped .package-flip{min-height:700px!important}
-#packages .package-card .package-face{border-radius:16px}
-#packages .package-card .package-front{padding:14px 12px 30px!important;gap:6px!important}
+#packages .package-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;--tile-h:312px}
+#packages .package-grid>.package-card,#packages .package-grid>.package-card:nth-child(n),#packages .package-grid>.package-card:last-child{grid-column:auto!important;height:var(--tile-h)!important;min-height:var(--tile-h)!important;border-radius:18px;-webkit-tap-highlight-color:transparent;transition:transform .15s ease}
+#packages .package-grid>.package-card:not(.is-flipped):active{transform:scale(.97)}
+#packages .package-grid>.package-card .package-flip{height:100%!important;min-height:0!important}
+#packages .package-card .package-face{border-radius:18px;overflow:hidden}
+#packages .package-card .package-front{padding:14px 12px 32px!important;gap:6px!important}
 #packages .package-card .package-front .package-list{display:none!important}
-#packages .package-card .package-front .stock-badge{margin:0 0 4px!important;font-size:10.5px!important}
-#packages .package-card .package-front .stock-row{gap:4px 8px;flex-wrap:wrap}
+#packages .package-card .package-front .stock-badge{margin:0 0 2px!important;font-size:10.5px!important}
+#packages .package-card .package-front .stock-row{gap:3px 8px;flex-wrap:wrap}
 #packages .package-card .package-front .stock-badge small{font-size:10px!important}
 #packages .package-card .package-front>.stock-badge+div,#packages .package-card .package-front>.stock-row+div{min-height:0!important}
 #packages .package-card .package-front .package-name{font-size:15px!important;line-height:1.25!important}
 #packages .package-card .package-front .package-title-row{flex-wrap:wrap;gap:6px}
 #packages .package-card .package-front .popular-pill{font-size:9px!important;padding:3px 7px!important}
-#packages .package-card .package-front .package-sub{font-size:11.5px!important;line-height:1.4!important;margin-top:4px!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-#packages .package-card .package-front .package-price{margin:auto 0 0!important;padding:0!important;gap:4px!important}
+#packages .package-card .package-front .package-sub{font-size:11.5px!important;line-height:1.4!important;margin-top:4px!important;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#packages .package-card .package-front .package-price{margin:auto 0 0!important;padding:0!important;gap:4px!important;border:0!important;min-height:0!important;align-items:flex-end!important;flex-wrap:nowrap!important}
+#packages .package-grid .package-card .package-front .package-price.price-dual .price-opt{gap:3px}
+#packages .package-grid .package-card .package-front .package-price.price-dual .price-num{font-size:22px!important}
+#packages .package-grid .package-card .package-front .package-price.price-dual .price-row{gap:3px}
+#packages .package-grid .package-card .package-front .package-price.price-dual .price-cur{font-size:9px!important}
 #packages .package-grid .package-card .package-front .price-num{font-size:26px!important}
 #packages .package-grid .package-card .package-front .price-cur{font-size:10px!important;padding-bottom:3px!important}
-#packages .package-grid .package-card .package-front .package-price.price-dual{gap:12px!important}
+#packages .package-grid .package-card .package-front .package-price.price-dual{gap:10px!important}
 #packages .package-grid .package-card .package-front .price-lbl{font-size:9.5px!important}
 #packages .package-grid .package-card .package-front .package-price.price-text{font-size:14px!important}
-#packages .package-card .package-front .flip-hint{font-size:10px!important;bottom:8px!important}
+#packages .package-card .package-front .flip-hint{font-size:10px!important;bottom:9px!important}
+#packages .package-card .package-back{padding:10px!important;gap:6px!important}
+#packages .package-card .package-back .back-top{justify-content:flex-end;min-height:16px}
+#packages .package-card .package-back .back-kicker{display:none}
+#packages .package-card .package-back .back-close{font-size:10.5px}
+#packages .package-card .package-back .back-copy{text-align:center}
+#packages .package-card .package-back .back-copy h3{font-size:12.5px!important;line-height:1.25;margin:0!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#packages .package-card .package-back .back-copy p{display:none!important}
+#packages .package-card .package-back .back-copy strong{font-size:15px!important;margin-top:3px!important}
+#packages .package-card .package-back .package-action{min-height:38px!important;padding:0 8px;font-size:12px!important;line-height:1.15;gap:4px;flex:none}
+#packages .package-card .package-back .package-action span{font-size:14px!important}
+#packages .package-card .package-back .nfc-product-stage,#packages .package-card .package-back .pl-product-stage{margin:auto 0!important;gap:4px!important;max-width:none}
+#packages .package-card .package-back .nfc-finish-selector{width:100%;gap:3px;padding:3px}
+#packages .package-card .package-back .nfc-finish-btn{flex:1;padding:7px 4px!important;font-size:9px!important;letter-spacing:.03em}
+#packages .package-card .package-back .nfc-card-toggle,#packages .package-card .package-back .pl-card-view{padding:2px 0!important}
+#packages .package-card .package-back .nfc-card-caption{font-size:8.5px;gap:4px;letter-spacing:.05em}
+#packages .package-card .package-back .nfc-card-caption-divider,#packages .package-card .package-back .nfc-card-hint{display:none!important}
+#packages .package-card .package-back .pl-product-stage .nfc-card-caption>span:last-child{display:none!important}
+#packages .package-card .package-back .nfc-card-caption{white-space:nowrap}
+#packages .package-card .package-back .cd-stage,#packages .package-card .package-back .google-review-stage,#packages .package-card .package-back .ws-preview{zoom:.45;margin:auto 0!important;max-width:none!important;width:100%}
+#packages .package-card .package-back .google-review-stage,#packages .package-card .package-back .ws-preview{zoom:.5}
+#packages .package-card .package-back .cd-chip,#packages .package-card .package-back .google-review-caption{display:none!important}
 }
 </style>
 </head>
@@ -1276,7 +1299,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 
 // Tap/click or press Enter/Space to flip each package into its product preview.
 document.querySelectorAll('.package-card').forEach(function(card){
-  function flip(){var state=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(state));if(state&&window.matchMedia('(max-width:620px)').matches){var rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;requestAnimationFrame(function(){card.scrollIntoView({behavior:rm?'auto':'smooth',block:'center'})})}}
+  function flip(){var state=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(state));}
   card.addEventListener('click',function(e){if(e.target.closest('a, button, .package-action, .nfc-card-toggle, .nfc-finish-selector'))return;var od=document.getElementById('orderDlg');if((od&&od.open)||Date.now()-(window.__orderAt||0)<700)return;flip();});
   card.addEventListener('keydown',function(e){if(e.target.closest('button, a, .nfc-card-toggle, .nfc-finish-selector'))return;if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});
 });
