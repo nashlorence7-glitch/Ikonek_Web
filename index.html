@@ -1199,13 +1199,13 @@ body.ks-lock{overflow:hidden}
 <div style="font-size: 14px; letter-spacing: 0.14em; color: var(--accent); font-weight: 600">TRY IT YOURSELF</div>
 <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(32px, 4.5vw, 52px); line-height: 1.08; letter-spacing: -0.02em">Design your card. Watch it change live.</h2>
 <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #9FB0C4; max-width: 500px">Pick a theme, swap the layout, change fonts and colors, add your own photo and links. This is the same kind of profile people see when they tap your card.</p>
-<p style="margin: 0; font-size: 13px; color: #7F91A6">Your edits stay on your device until you tap "Send my design". To transfer your design into the New Web Template, tap "Copy template" and paste it into the template’s Import tab.</p>
+<p style="margin: 0; font-size: 13px; color: #7F91A6">Your edits stay on your device until you tap "Send my design". Then we build it for you.</p>
 <div class="ks-wrap" id="ksWrap" aria-label="Customize your card">
 <div class="ks-tabs" role="tablist" id="ksTabs">
 <button role="tab" aria-selected="true" data-p="theme">Theme</button><button role="tab" aria-selected="false" data-p="photo">Photo</button><button role="tab" aria-selected="false" data-p="layout">Layout</button><button role="tab" aria-selected="false" data-p="text">Text &amp; fonts</button><button role="tab" aria-selected="false" data-p="links">Links</button>
 </div>
 <div class="ks-pane on" id="ks-theme"></div><div class="ks-pane" id="ks-photo"></div><div class="ks-pane" id="ks-layout"></div><div class="ks-pane" id="ks-text"></div><div class="ks-pane" id="ks-links"></div>
-<div class="ks-foot"><button class="ks-btn" id="ksRand" type="button">🎲 Surprise me</button><button class="ks-btn" id="ksReset" type="button">Reset</button><button class="ks-btn" id="ksCopy" type="button">Copy template</button><button class="ks-btn" id="ksDl" type="button">Save file</button><button class="ks-btn pri" id="ksOrder" type="button">Send my design →</button></div>
+<div class="ks-foot"><button class="ks-btn" id="ksRand" type="button">🎲 Surprise me</button><button class="ks-btn" id="ksReset" type="button">Reset</button><button class="ks-btn" id="ksDl" type="button">Save file</button><button class="ks-btn pri" id="ksOrder" type="button">Send my design →</button></div>
 </div>
 <div class="ks-toast" id="ksToast" role="status" aria-live="polite"></div>
 
@@ -1930,7 +1930,6 @@ W.addEventListener('click',function(e){var n=e.target.closest('button');if(!n)re
  else if(n.id==='ksReset'){S=JSON.parse(JSON.stringify(D));buildLinks();apply();toast('Back to the original')}
  else if(n.id==='ksRand')rand()
  else if(n.id==='ksOrder')order()
- else if(n.id==='ksCopy')copy(JSON.stringify(designJSON(),null,2),'Profile design copied. Paste it into the New Web Template.')
  else if(n.id==='ksDl')saveFile()
  else if(n.parentNode&&n.parentNode.id==='ksTabs'){W.querySelectorAll('#ksTabs button').forEach(function(b){b.setAttribute('aria-selected',String(b===n))});W.querySelectorAll('.ks-pane').forEach(function(p){p.classList.toggle('on',p.id==='ks-'+n.dataset.p)})}});
 function img(input,key,max){input.addEventListener('change',function(){var f=input.files[0];if(!f)return;if(!/^image\//.test(f.type))return toast('Please choose an image');
