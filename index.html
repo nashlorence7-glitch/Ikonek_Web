@@ -1648,7 +1648,7 @@ document.querySelectorAll('.package-card').forEach(function(card){
 // Supabase connection (publishable key is safe to expose; Row Level Security protects the data)
 (function(){
 var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc';
-var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={google:999,digital:149},NOSTOCK={profile:1,digital:1,business:1,nfc:1},PRE={nfc:1},sel={plain:'black',nfc:'black'};
+var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={},NOSTOCK={profile:1,digital:1,business:1,nfc:1},PRE={nfc:1},sel={plain:'black',nfc:'black'};
 function fmt(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:2})}
 function priceOf(id,f){if(FIXED[id]!=null)return FIXED[id];var v=SPLIT[id]?price[id+'-'+(f||sel[id])]:price[id];return(v==null||isNaN(v))?null:v}
 function sendConfirm(d){return fetch(URL_+'/functions/v1/order-confirmation',{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.ok}).catch(function(){return false})}
