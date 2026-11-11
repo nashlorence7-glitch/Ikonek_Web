@@ -1069,7 +1069,7 @@ body.ks-lock{overflow:hidden}
 
 /* ===== Reviews / testimonials ===== */
 @media(min-width:961px) and (max-width:1120px){.navlinks{gap:20px!important;font-size:14px!important}}
-#reviews{position:relative;overflow:hidden;background:#070B11;border-top:1px solid #152234;border-bottom:1px solid #152234}
+#reviews{position:relative;overflow:hidden;border-top:1px solid #152234}
 #reviews:before{content:"";position:absolute;inset:-20% -10% auto auto;width:560px;height:560px;border-radius:50%;background:radial-gradient(closest-side,rgba(27,156,255,.16),transparent);pointer-events:none;animation:rvFloat 14s ease-in-out infinite alternate}
 @keyframes rvFloat{to{transform:translate(-60px,50px) scale(1.12)}}
 .rv-wrap{position:relative;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
@@ -1147,6 +1147,89 @@ body.ks-lock{overflow:hidden}
 .rv-shake{animation:rvShake .4s}
 @keyframes rvShake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 @media(prefers-reduced-motion:reduce){#reviews:before,.rv-empty .rv-bigstars,.rv-sk{animation:none}.rv-card,.rv-card .rv-star,.rv-bar i b{transition:none}.rv-card{opacity:1;transform:none}.rv-card .rv-star{transform:none}.rv-summary .rv-bar i b{width:var(--w)}}
+
+/* Discounted prices */
+.price-was{color:#7F91A6;text-decoration:line-through;text-decoration-color:rgba(255,107,107,.9);text-decoration-thickness:2px;font:500 14px/1.2 'Inter',sans-serif;white-space:nowrap}
+.price-was[hidden],.price-save[hidden]{display:none}
+#packages .price-opt .price-was{margin-top:-2px}
+.price-save{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin:8px 0 0}
+.save-pill{font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.08em;padding:6px 10px;border-radius:999px;background:rgba(255,107,107,.14);border:1px solid rgba(255,107,107,.45);color:#ffb3b3;animation:savePulse 2.6s ease-in-out infinite}
+@keyframes savePulse{50%{box-shadow:0 0 16px rgba(255,107,107,.35)}}
+.back-copy .price-was{margin-left:10px;font-size:13px}
+.pick-p{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+@media(max-width:620px){#packages .package-front .price-save{margin-top:4px;gap:4px 6px}#packages .package-front .price-was{font-size:10.5px}#packages .package-front .save-pill{font-size:8.5px;padding:4px 6px;letter-spacing:.04em}}
+@media(prefers-reduced-motion:reduce){.save-pill{animation:none}}
+
+/* Promo pricing: more marketing */
+.price-save{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin:10px 0 0}
+.save-pill{display:none}
+.save-amt{display:inline-flex;align-items:center;gap:7px;font:700 13px/1.2 'Inter',sans-serif;color:#5be3a1}
+.save-amt:before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#5be3a1;box-shadow:0 0 0 0 rgba(91,227,161,.6);animation:saveDot 2s ease-out infinite}
+@keyframes saveDot{to{box-shadow:0 0 0 9px rgba(91,227,161,0)}}
+.promo-burst{position:absolute;top:12px;right:12px;z-index:3;width:58px;height:58px;border-radius:50%;display:grid;place-content:center;text-align:center;overflow:hidden;color:#fff;
+  background:radial-gradient(circle at 30% 22%,#ffa366,#ff4d5e 70%);box-shadow:0 8px 22px rgba(255,77,94,.45),0 0 0 3px rgba(255,255,255,.12);transform:rotate(10deg);
+  animation:burstPop .7s cubic-bezier(.3,1.6,.5,1) both,burstWig 5s 1.6s ease-in-out infinite}
+.promo-burst[hidden]{display:none}
+.promo-burst b{font:800 19px/1 'Montserrat',sans-serif;letter-spacing:-.03em}
+.promo-burst small{font:700 8px/1.15 'Inter',sans-serif;letter-spacing:.12em}
+.promo-burst:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.6) 50%,transparent 65%);transform:translateX(-130%);animation:burstShine 3.6s 1s ease-in-out infinite}
+@keyframes burstPop{0%{transform:scale(0) rotate(-40deg)}100%{transform:scale(1) rotate(10deg)}}
+@keyframes burstWig{0%,88%,100%{transform:rotate(10deg)}92%{transform:rotate(2deg) scale(1.08)}96%{transform:rotate(14deg) scale(1.04)}}
+@keyframes burstShine{0%,55%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
+#packages .package-card.has-promo .package-front .price-num{background:linear-gradient(180deg,#fff,#9fd3ff);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:none!important}
+#packages.data-loading .package-card.has-promo .price-num{-webkit-background-clip:border-box;background-clip:border-box}
+.package-card.has-promo:not(.featured) .package-front{box-shadow:inset 0 0 0 1px rgba(255,107,107,.18)}
+.back-copy .price-was{margin-left:10px;font-size:13px}
+.pick-opt{position:relative}
+.pick-p{grid-row:1 / span 3;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.pick-s{grid-column:1;font:700 12px/1.3 'Inter',sans-serif;color:#5be3a1}
+.pick-s[hidden]{display:none}
+.pick-tag{position:absolute;top:-9px;right:14px;font:700 9px/1 'Inter',sans-serif;letter-spacing:.1em;padding:5px 9px;border-radius:999px;background:var(--accent);color:#fff;box-shadow:0 0 16px rgba(27,156,255,.5)}
+.pick-opt[data-pick="profile"]{border-color:rgba(27,156,255,.6);background:linear-gradient(180deg,#10213a,#0e1826)}
+@media(max-width:620px){
+ #packages .package-front .promo-burst{top:6px;right:6px;width:38px;height:38px}
+ #packages .package-front .promo-burst b{font-size:12px}
+ #packages .package-front .promo-burst small{font-size:5.5px;letter-spacing:.06em}
+ #packages .package-front .price-save{margin-top:4px;gap:2px 6px}
+ #packages .package-front .price-was{font-size:10.5px}
+ #packages .package-front .save-amt{font-size:9.5px;gap:4px}
+ #packages .package-front .save-amt:before{width:5px;height:5px}
+}
+@media(prefers-reduced-motion:reduce){.promo-burst,.promo-burst:after,.save-amt:before{animation:none}}
+
+/* Fix: keep the Order button inside the flipped tile (preview shrinks instead of pushing the button out) */
+@media(min-width:621px){
+ #packages .package-card .package-back .cd-stage{flex:0 1 330px;min-height:210px}
+ #packages .package-card .package-back .back-copy{flex:none}
+ #packages .package-card .package-back .package-action{flex:none}
+}
+/* Discount tag: roomier rounded tag instead of a cramped circle */
+.promo-burst{width:auto;height:auto;min-width:64px;padding:10px 12px 9px;border-radius:16px;top:14px;right:14px;gap:3px;
+  background:linear-gradient(145deg,#ff8a4c,#ff3d5a);box-shadow:0 10px 26px rgba(255,61,90,.45),inset 0 1px 0 rgba(255,255,255,.4),0 0 0 3px rgba(255,255,255,.1)}
+.promo-burst b{font-size:26px;line-height:.95}
+.promo-burst small{font-size:9px;letter-spacing:.16em;opacity:.95}
+.promo-burst small:first-child:not(:last-child){opacity:.85}
+@media(max-width:620px){#packages .package-front .promo-burst{min-width:0;padding:0;border-radius:11px;gap:1px}}
+
+/* Discount tag v3: gradient pill (purple to brand blue) */
+.promo-burst{display:inline-flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;width:auto;height:auto;min-width:0;padding:9px 16px;border-radius:999px;top:16px;right:16px;white-space:nowrap;text-transform:uppercase;transform:none;
+  background:linear-gradient(90deg,#a23df0 0%,#6a5bff 52%,#1B9CFF 100%);color:#fff;
+  box-shadow:0 8px 22px rgba(106,91,255,.42),inset 0 1px 0 rgba(255,255,255,.28);
+  animation:tagPop .6s cubic-bezier(.3,1.6,.5,1) both,tagGlow 3.2s 1.2s ease-in-out infinite}
+.promo-burst b{font:800 14px/1 'Montserrat',sans-serif;letter-spacing:.02em}
+.promo-burst small{font:700 11px/1 'Inter',sans-serif;letter-spacing:.1em;opacity:1}
+.promo-burst small:first-child:not(:last-child){opacity:.8;font-size:10px}
+.promo-burst:after{background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%)}
+@keyframes tagPop{0%{transform:scale(.4) translateY(-8px);opacity:0}100%{transform:none;opacity:1}}
+@keyframes tagGlow{50%{box-shadow:0 8px 30px rgba(27,156,255,.6),inset 0 1px 0 rgba(255,255,255,.28)}}
+.pick-tag{background:linear-gradient(90deg,#a23df0,#1B9CFF);box-shadow:0 0 16px rgba(106,91,255,.45)}
+@media(max-width:620px){
+ #packages .package-front .promo-burst{top:8px;right:8px;width:auto;height:auto;min-width:0;padding:5px 9px;border-radius:999px;gap:3px}
+ #packages .package-front .promo-burst b{font-size:10.5px}
+ #packages .package-front .promo-burst small{font-size:8px;letter-spacing:.06em}
+ #packages .package-front .promo-burst small:first-child:not(:last-child){display:none}
+}
+@media(prefers-reduced-motion:reduce){.promo-burst,.promo-burst:after{animation:none}}
 </style></head>
 <body>
 <div id="ikLoader" role="status" aria-label="Loading iKONEK">
@@ -1167,11 +1250,11 @@ body.ks-lock{overflow:hidden}
 </a>
 <nav class="navlinks" style="display: flex; gap: 32px; font-size: 15px; color: #9FB0C4">
 <a class="navlink" href="#services">What we make</a>
+<a class="navlink" href="#reviews">Reviews</a>
 <a class="navlink" href="#finishes">Cards</a>
 <a class="navlink" href="#demo">Prototypes</a>
 <a class="navlink" href="#how">How it works</a>
 <a class="navlink" href="#packages">Packages</a>
-<a class="navlink" href="#reviews">Reviews</a>
 <a class="navlink" href="#faq">FAQ</a>
 </nav>
 <div class="hdr-right">
@@ -1183,11 +1266,11 @@ body.ks-lock{overflow:hidden}
 <div class="mnav" id="mnav">
 <nav class="mnav-in" aria-label="Main">
 <a class="mlink" href="#services">What we make</a>
+<a class="mlink" href="#reviews">Reviews</a>
 <a class="mlink" href="#finishes">Cards</a>
 <a class="mlink" href="#demo">Prototypes</a>
 <a class="mlink" href="#how">How it works</a>
 <a class="mlink" href="#packages">Packages</a>
-<a class="mlink" href="#reviews">Reviews</a>
 <a class="mlink" href="#faq">FAQ</a>
 </nav>
 <div class="mnav-cta"><a class="btn btn-primary" href="#contact">Get your card</a><a class="mnav-inq" id="mnavInq" href="#contact">Inquire</a></div>
@@ -1285,6 +1368,114 @@ body.ks-lock{overflow:hidden}
 </section>
 
 <!-- LIVE PREVIEW -->
+<section id="reviews" style="padding: 104px 24px">
+<div class="rv-wrap">
+<div class="rv-head reveal">
+<div class="rv-eyebrow">TESTIMONIALS</div>
+<h2>What our customers say.</h2>
+<p>Real words from people and businesses who tap with iKONEK. Used our card or profile? Tell others how it went.</p>
+</div>
+<div class="rv-summary reveal" id="rvSummary">
+<div class="rv-score" id="rvScore" hidden><div class="rv-avg" id="rvAvg">0.0</div><div class="rv-stars" id="rvAvgStars" aria-hidden="true"></div><div class="rv-count" id="rvCount"></div></div>
+<div class="rv-bars" id="rvBars" hidden></div>
+<button class="rv-write" id="rvWrite" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Write a review</button>
+</div>
+<div class="rv-filters" id="rvFilters" role="group" aria-label="Filter reviews by rating" hidden></div>
+<div class="rv-grid" id="rvGrid" aria-live="polite"><div class="rv-sk"></div><div class="rv-sk"></div><div class="rv-sk"></div></div>
+<div class="rv-empty" id="rvEmpty" hidden><div class="rv-bigstars" aria-hidden="true">★★★★★</div><h3>No reviews yet</h3><p>Be the first to share your experience with iKONEK. It takes less than a minute.</p></div>
+<div class="rv-more" id="rvMore" hidden><button type="button">Show more reviews</button></div>
+</div>
+</section>
+<dialog id="rvDlg" class="sb-dlg" aria-labelledby="rvTitle">
+<form id="rvForm" class="sb-form" novalidate>
+<h3 id="rvTitle">Share your experience</h3>
+<p class="sb-sub">Your review appears on the site after we approve it.</p>
+<input class="sb-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave this field empty">
+<div class="rv-pick"><span id="rvRateL">Your rating *</span><div class="rv-pickrow" role="radiogroup" aria-labelledby="rvRateL" id="rvPick"></div></div>
+<div class="sb-row"><label>Your name *<input name="name" maxlength="60" required autocomplete="name" placeholder="Juan Dela Cruz"></label><label>Business <em style="text-transform:none;letter-spacing:0;font-weight:400;color:#7F91A6">(optional)</em><input name="business" maxlength="80" autocomplete="organization" placeholder="e.g. Santos Bakery"></label></div>
+<label>Your review *<textarea name="message" maxlength="500" required placeholder="What did you like? How is the card or profile working for you?"></textarea></label>
+<div class="rv-cnt" id="rvCnt">0 / 500</div>
+<div class="sb-actions"><button class="sb-btn" type="button" id="rvCancel">Cancel</button><button class="sb-btn go" type="submit">Submit review</button></div>
+<div class="sb-msg" role="status" aria-live="polite" id="rvMsg"></div>
+</form>
+<div class="rv-done" id="rvDone" hidden tabindex="-1"><div class="msg-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#5be3a1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>Thank you!</h3><p>Your review was received. It will show up here once we approve it.</p><button class="sb-btn go" type="button" id="rvDoneClose">Close</button></div>
+</dialog>
+<script>
+(function(){
+var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc',PAGE=6;
+var $=function(id){return document.getElementById(id)};
+var grid=$('rvGrid'),filters=$('rvFilters'),empty=$('rvEmpty'),more=$('rvMore'),summary=$('rvSummary'),dlg=$('rvDlg'),form=$('rvForm'),msg=$('rvMsg');
+var all=[],filter=0,shown=PAGE,rating=0,openedAt=0,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+var LABELS=['','Poor','Fair','Good','Very good','Excellent'];
+function starsEl(n,cls){var w=document.createElement('span');w.className='rv-stars'+(cls?' '+cls:'');w.setAttribute('role','img');w.setAttribute('aria-label',n+' out of 5 stars');for(var i=0;i<5;i++){var x=document.createElement('span');x.className='rv-star'+(i<Math.round(n)?' on':'');x.style.setProperty('--i',i);x.setAttribute('aria-hidden','true');x.textContent='\u2605';w.appendChild(x)}return w}
+function hue(str){var h=0;for(var i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))%360;return 190+(h%90)}
+function ago(d){var t=new Date(d).getTime();if(isNaN(t))return'';var s=(Date.now()-t)/1000,u=[['year',31536000],['month',2592000],['week',604800],['day',86400],['hour',3600],['minute',60]];try{var f=new Intl.RelativeTimeFormat('en',{numeric:'auto'});for(var i=0;i<u.length;i++){if(s>=u[i][1])return f.format(-Math.floor(s/u[i][1]),u[i][0])}return'just now'}catch(e){return''}}
+function initials(n){var p=n.trim().split(/\s+/);return((p[0]||'?')[0]+(p.length>1?p[p.length-1][0]:'')).toUpperCase()}
+function io(cb,opts){if(!('IntersectionObserver' in window)||reduce)return null;return new IntersectionObserver(cb,opts)}
+var cardIO=io(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');cardIO.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+function card(r,i){var c=document.createElement('article');c.className='rv-card';c.style.setProperty('--d',(i%PAGE)*80+'ms');
+ c.appendChild(starsEl(r.rating));
+ var p=document.createElement('p');p.className='rv-msg';p.textContent=r.message;c.appendChild(p);
+ var w=document.createElement('div');w.className='rv-who';
+ var av=document.createElement('div');av.className='rv-av';av.style.setProperty('--h',hue(r.name));av.textContent=initials(r.name);av.setAttribute('aria-hidden','true');
+ var t=document.createElement('div'),n=document.createElement('div');n.className='rv-nm';n.textContent=r.name;var sb=document.createElement('div');sb.className='rv-sub';sb.textContent=[r.business,ago(r.created_at)].filter(Boolean).join(' \u00b7 ');
+ t.appendChild(n);t.appendChild(sb);w.appendChild(av);w.appendChild(t);c.appendChild(w);
+ if(cardIO)cardIO.observe(c);else c.classList.add('in');return c}
+function list(){return all.filter(function(r){return !filter||(filter===3?r.rating<=3:r.rating===filter)})}
+function render(append){var l=list(),from=append?grid.children.length:0;if(!append)grid.textContent='';
+ l.slice(from,shown).forEach(function(r,i){grid.appendChild(card(r,i))});
+ more.hidden=l.length<=shown;grid.hidden=!l.length}
+function chips(){filters.textContent='';var defs=[[0,'All'],[5,'5 \u2605'],[4,'4 \u2605'],[3,'3 \u2605 & below']];
+ defs.forEach(function(d){var n=all.filter(function(r){return !d[0]||(d[0]===3?r.rating<=3:r.rating===d[0])}).length;if(d[0]&&!n)return;
+  var b=document.createElement('button');b.type='button';b.className='rv-chip'+(filter===d[0]?' is-active':'');b.textContent=d[1]+' ('+n+')';b.setAttribute('aria-pressed',filter===d[0]);
+  b.onclick=function(){filter=d[0];shown=PAGE;chips();grid.style.opacity=0;setTimeout(function(){render();grid.style.opacity=1},150)};filters.appendChild(b)});
+ filters.hidden=all.length<2}
+grid.style.transition='opacity .15s';
+function countUp(el,to,dec){if(reduce){el.textContent=to.toFixed(dec);return}var t0=null,d=1100;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);el.textContent=(to*e).toFixed(dec);if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+function stats(){var n=all.length,sc=$('rvScore'),bars=$('rvBars');sc.hidden=bars.hidden=!n;summary.style.gridTemplateColumns=n?'':'1fr';if(!n)return;
+ var avg=all.reduce(function(a,r){return a+r.rating},0)/n;$('rvCount').textContent='Based on '+n+' review'+(n>1?'s':'');
+ var as=$('rvAvgStars');as.textContent='';as.appendChild(starsEl(avg));$('rvAvgStars').firstChild.querySelectorAll('.rv-star').forEach(function(x){x.style.transform='none'});
+ bars.textContent='';for(var k=5;k>=1;k--){var c=all.filter(function(r){return r.rating===k}).length,row=document.createElement('div');row.className='rv-bar';row.style.setProperty('--k',5-k);row.style.setProperty('--w',(c/n*100)+'%');row.innerHTML='<span>'+k+' \u2605</span><i><b></b></i><span>'+c+'</span>';bars.appendChild(row)}
+ var run=function(){summary.classList.add('in');countUp($('rvAvg'),avg,1)};
+ var o=io(function(es){if(es[0].isIntersecting){run();o.disconnect()}},{threshold:.4});if(o)o.observe(summary);else run()}
+function load(){fetch(URL_+'/rest/v1/reviews?select=name,business,rating,message,created_at&approved=eq.true&order=created_at.desc&limit=100',{cache:'no-store',headers:{apikey:KEY}})
+ .then(function(r){return r.ok?r.json():[]}).catch(function(){return[]}).then(function(rows){
+  all=(rows||[]).filter(function(r){return r&&r.name&&r.message&&r.rating>=1&&r.rating<=5});grid.textContent='';
+  if(!all.length){grid.hidden=true;empty.hidden=false;return}
+  empty.hidden=true;stats();chips();render()})}
+more.firstChild.onclick=function(){var before=grid.children.length;shown+=PAGE;render(true);var n=grid.children[before];if(n&&n.scrollIntoView&&!reduce)n.scrollIntoView({behavior:'smooth',block:'center'})};
+// star picker
+var pick=$('rvPick'),lbl=document.createElement('span');lbl.className='rv-lbl';
+function paintPick(v){[].forEach.call(pick.querySelectorAll('button'),function(b,i){b.classList.toggle('on',i<v)});lbl.textContent=LABELS[v]||''}
+for(var i=1;i<=5;i++)(function(i){var b=document.createElement('button');b.type='button';b.textContent='\u2605';b.setAttribute('role','radio');b.setAttribute('aria-checked','false');b.setAttribute('aria-label',i+' star'+(i>1?'s':'')+' - '+LABELS[i]);
+ b.onmouseenter=function(){paintPick(i)};b.onfocus=function(){paintPick(i)};b.onmouseleave=b.onblur=function(){paintPick(rating)};
+ b.onclick=function(){rating=i;paintPick(i);[].forEach.call(pick.querySelectorAll('button'),function(x,k){x.setAttribute('aria-checked',k===i-1);x.classList.remove('pop')});void b.offsetWidth;b.classList.add('pop');msg.textContent='';msg.className='sb-msg'};
+ pick.appendChild(b)})(i);
+pick.appendChild(lbl);
+function say(t,c){msg.textContent=t;msg.className='sb-msg'+(c?' '+c:'')}
+function openDlg(){form.reset();form.hidden=false;$('rvDone').hidden=true;rating=0;paintPick(0);$('rvCnt').textContent='0 / 500';say('');openedAt=Date.now();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
+function closeDlg(){if(dlg.close)dlg.close();else dlg.removeAttribute('open')}
+$('rvWrite').onclick=openDlg;empty.onclick=null;$('rvCancel').onclick=closeDlg;$('rvDoneClose').onclick=closeDlg;
+dlg.addEventListener('click',function(e){if(e.target===dlg)closeDlg()});
+form.message.addEventListener('input',function(){$('rvCnt').textContent=form.message.value.length+' / 500'});
+function bad(el,t){say(t,'err');el.classList.remove('rv-shake');void el.offsetWidth;el.classList.add('rv-shake');if(el.focus&&el.tagName!=='DIV')el.focus()}
+form.addEventListener('submit',function(e){e.preventDefault();
+ var nm=form.name.value.trim(),bz=form.business.value.trim(),tx=form.message.value.trim();
+ if(form.website.value){form.hidden=true;$('rvDone').hidden=false;return}
+ if(!rating){bad(pick,'Please choose a star rating.');return}
+ if(nm.length<2){bad(form.name,'Please enter your name.');return}
+ if(tx.length<10){bad(form.message,'Please write at least 10 characters.');return}
+ if(/https?:\/\/|www\./i.test(tx+nm+bz)){bad(form.message,'Please remove links from your review.');return}
+ if(Date.now()-openedAt<3000){say('Please take a moment to review your message, then submit again.','err');return}
+ try{var last=+localStorage.getItem('ik_rv_t')||0;if(Date.now()-last<60000){say('You just sent a review. Please wait a minute before sending another.','err');return}}catch(_){}
+ var btn=form.querySelector('.sb-btn.go');btn.disabled=true;btn.classList.add('is-loading');say('Sending...','load');form.setAttribute('aria-busy','true');
+ fetch(URL_+'/rest/v1/reviews',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name:nm,business:bz||null,rating:rating,message:tx})})
+ .then(function(r){if(!r.ok)throw 0;try{localStorage.setItem('ik_rv_t',String(Date.now()))}catch(_){}form.hidden=true;var d=$('rvDone');d.hidden=false;d.focus()})
+ .catch(function(){say('Could not send your review. Please try again in a moment or message us.','err')})
+ .then(function(){btn.disabled=false;btn.classList.remove('is-loading');form.setAttribute('aria-busy','false')})});
+load();
+})();
+</script>
 <section id="demo" style="padding: 104px 24px; background: #070B11; border-top: 1px solid #152234; border-bottom: 1px solid #152234">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 64px">
 <div class="reveal" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 20px; align-items: flex-start">
@@ -1470,7 +1661,7 @@ body.ks-lock{overflow:hidden}
 <span class="cd-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 8.5a5 5 0 0 1 0 7"/><path d="M11 6a9 9 0 0 1 0 12"/><path d="M15 3.5a13 13 0 0 1 0 17"/></svg>Tap once. Profile opens.</span>
 <img width="900" height="568" decoding="async" class="cd-card" alt="iKONEK NFC card" src="img-5-7f93c93e.webp">
 <div class="cd-phone" aria-hidden="true"><div class="cd-screen cd-shot"><div class="pf"><img width="605" height="1203" decoding="async" loading="lazy" src="img-1-8dc9c4bc.webp" alt=""></div></div></div></div>
-<div class="back-copy"><h3>Card + digital profile</h3><p>Tap your NFC card and your mobile profile opens: contact details, links, QR code and a save-to-contacts button, always up to date. Choose the iKONEK card or a plain card when you order.</p><strong>PHP 349</strong></div>
+<div class="back-copy"><h3>Card + digital profile</h3><p>Tap your NFC card and your mobile profile opens: contact details, links, QR code and a save-to-contacts button, always up to date.</p><strong>PHP 349</strong></div>
 <a class="package-action primary-action" href="#contact">Get the full package <span>→</span></a>
 </div></div></article>
 <article class="package-card" tabindex="0" role="button" aria-label="Digital Profile. Tap to flip and preview product" aria-pressed="false">
@@ -1533,114 +1724,6 @@ body.ks-lock{overflow:hidden}
 </div></section>
 
 <!-- FAQ -->
-<section id="reviews" style="padding: 104px 24px">
-<div class="rv-wrap">
-<div class="rv-head reveal">
-<div class="rv-eyebrow">TESTIMONIALS</div>
-<h2>What our customers say.</h2>
-<p>Real words from people and businesses who tap with iKONEK. Used our card or profile? Tell others how it went.</p>
-</div>
-<div class="rv-summary reveal" id="rvSummary">
-<div class="rv-score" id="rvScore" hidden><div class="rv-avg" id="rvAvg">0.0</div><div class="rv-stars" id="rvAvgStars" aria-hidden="true"></div><div class="rv-count" id="rvCount"></div></div>
-<div class="rv-bars" id="rvBars" hidden></div>
-<button class="rv-write" id="rvWrite" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Write a review</button>
-</div>
-<div class="rv-filters" id="rvFilters" role="group" aria-label="Filter reviews by rating" hidden></div>
-<div class="rv-grid" id="rvGrid" aria-live="polite"><div class="rv-sk"></div><div class="rv-sk"></div><div class="rv-sk"></div></div>
-<div class="rv-empty" id="rvEmpty" hidden><div class="rv-bigstars" aria-hidden="true">★★★★★</div><h3>No reviews yet</h3><p>Be the first to share your experience with iKONEK. It takes less than a minute.</p></div>
-<div class="rv-more" id="rvMore" hidden><button type="button">Show more reviews</button></div>
-</div>
-</section>
-<dialog id="rvDlg" class="sb-dlg" aria-labelledby="rvTitle">
-<form id="rvForm" class="sb-form" novalidate>
-<h3 id="rvTitle">Share your experience</h3>
-<p class="sb-sub">Your review appears on the site after we approve it.</p>
-<input class="sb-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave this field empty">
-<div class="rv-pick"><span id="rvRateL">Your rating *</span><div class="rv-pickrow" role="radiogroup" aria-labelledby="rvRateL" id="rvPick"></div></div>
-<div class="sb-row"><label>Your name *<input name="name" maxlength="60" required autocomplete="name" placeholder="Juan Dela Cruz"></label><label>Business <em style="text-transform:none;letter-spacing:0;font-weight:400;color:#7F91A6">(optional)</em><input name="business" maxlength="80" autocomplete="organization" placeholder="e.g. Santos Bakery"></label></div>
-<label>Your review *<textarea name="message" maxlength="500" required placeholder="What did you like? How is the card or profile working for you?"></textarea></label>
-<div class="rv-cnt" id="rvCnt">0 / 500</div>
-<div class="sb-actions"><button class="sb-btn" type="button" id="rvCancel">Cancel</button><button class="sb-btn go" type="submit">Submit review</button></div>
-<div class="sb-msg" role="status" aria-live="polite" id="rvMsg"></div>
-</form>
-<div class="rv-done" id="rvDone" hidden tabindex="-1"><div class="msg-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#5be3a1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>Thank you!</h3><p>Your review was received. It will show up here once we approve it.</p><button class="sb-btn go" type="button" id="rvDoneClose">Close</button></div>
-</dialog>
-<script>
-(function(){
-var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc',PAGE=6;
-var $=function(id){return document.getElementById(id)};
-var grid=$('rvGrid'),filters=$('rvFilters'),empty=$('rvEmpty'),more=$('rvMore'),summary=$('rvSummary'),dlg=$('rvDlg'),form=$('rvForm'),msg=$('rvMsg');
-var all=[],filter=0,shown=PAGE,rating=0,openedAt=0,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
-var LABELS=['','Poor','Fair','Good','Very good','Excellent'];
-function starsEl(n,cls){var w=document.createElement('span');w.className='rv-stars'+(cls?' '+cls:'');w.setAttribute('role','img');w.setAttribute('aria-label',n+' out of 5 stars');for(var i=0;i<5;i++){var x=document.createElement('span');x.className='rv-star'+(i<Math.round(n)?' on':'');x.style.setProperty('--i',i);x.setAttribute('aria-hidden','true');x.textContent='\u2605';w.appendChild(x)}return w}
-function hue(str){var h=0;for(var i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))%360;return 190+(h%90)}
-function ago(d){var t=new Date(d).getTime();if(isNaN(t))return'';var s=(Date.now()-t)/1000,u=[['year',31536000],['month',2592000],['week',604800],['day',86400],['hour',3600],['minute',60]];try{var f=new Intl.RelativeTimeFormat('en',{numeric:'auto'});for(var i=0;i<u.length;i++){if(s>=u[i][1])return f.format(-Math.floor(s/u[i][1]),u[i][0])}return'just now'}catch(e){return''}}
-function initials(n){var p=n.trim().split(/\s+/);return((p[0]||'?')[0]+(p.length>1?p[p.length-1][0]:'')).toUpperCase()}
-function io(cb,opts){if(!('IntersectionObserver' in window)||reduce)return null;return new IntersectionObserver(cb,opts)}
-var cardIO=io(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');cardIO.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
-function card(r,i){var c=document.createElement('article');c.className='rv-card';c.style.setProperty('--d',(i%PAGE)*80+'ms');
- c.appendChild(starsEl(r.rating));
- var p=document.createElement('p');p.className='rv-msg';p.textContent=r.message;c.appendChild(p);
- var w=document.createElement('div');w.className='rv-who';
- var av=document.createElement('div');av.className='rv-av';av.style.setProperty('--h',hue(r.name));av.textContent=initials(r.name);av.setAttribute('aria-hidden','true');
- var t=document.createElement('div'),n=document.createElement('div');n.className='rv-nm';n.textContent=r.name;var sb=document.createElement('div');sb.className='rv-sub';sb.textContent=[r.business,ago(r.created_at)].filter(Boolean).join(' \u00b7 ');
- t.appendChild(n);t.appendChild(sb);w.appendChild(av);w.appendChild(t);c.appendChild(w);
- if(cardIO)cardIO.observe(c);else c.classList.add('in');return c}
-function list(){return all.filter(function(r){return !filter||(filter===3?r.rating<=3:r.rating===filter)})}
-function render(append){var l=list(),from=append?grid.children.length:0;if(!append)grid.textContent='';
- l.slice(from,shown).forEach(function(r,i){grid.appendChild(card(r,i))});
- more.hidden=l.length<=shown;grid.hidden=!l.length}
-function chips(){filters.textContent='';var defs=[[0,'All'],[5,'5 \u2605'],[4,'4 \u2605'],[3,'3 \u2605 & below']];
- defs.forEach(function(d){var n=all.filter(function(r){return !d[0]||(d[0]===3?r.rating<=3:r.rating===d[0])}).length;if(d[0]&&!n)return;
-  var b=document.createElement('button');b.type='button';b.className='rv-chip'+(filter===d[0]?' is-active':'');b.textContent=d[1]+' ('+n+')';b.setAttribute('aria-pressed',filter===d[0]);
-  b.onclick=function(){filter=d[0];shown=PAGE;chips();grid.style.opacity=0;setTimeout(function(){render();grid.style.opacity=1},150)};filters.appendChild(b)});
- filters.hidden=all.length<2}
-grid.style.transition='opacity .15s';
-function countUp(el,to,dec){if(reduce){el.textContent=to.toFixed(dec);return}var t0=null,d=1100;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);el.textContent=(to*e).toFixed(dec);if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
-function stats(){var n=all.length,sc=$('rvScore'),bars=$('rvBars');sc.hidden=bars.hidden=!n;summary.style.gridTemplateColumns=n?'':'1fr';if(!n)return;
- var avg=all.reduce(function(a,r){return a+r.rating},0)/n;$('rvCount').textContent='Based on '+n+' review'+(n>1?'s':'');
- var as=$('rvAvgStars');as.textContent='';as.appendChild(starsEl(avg));$('rvAvgStars').firstChild.querySelectorAll('.rv-star').forEach(function(x){x.style.transform='none'});
- bars.textContent='';for(var k=5;k>=1;k--){var c=all.filter(function(r){return r.rating===k}).length,row=document.createElement('div');row.className='rv-bar';row.style.setProperty('--k',5-k);row.style.setProperty('--w',(c/n*100)+'%');row.innerHTML='<span>'+k+' \u2605</span><i><b></b></i><span>'+c+'</span>';bars.appendChild(row)}
- var run=function(){summary.classList.add('in');countUp($('rvAvg'),avg,1)};
- var o=io(function(es){if(es[0].isIntersecting){run();o.disconnect()}},{threshold:.4});if(o)o.observe(summary);else run()}
-function load(){fetch(URL_+'/rest/v1/reviews?select=name,business,rating,message,created_at&approved=eq.true&order=created_at.desc&limit=100',{cache:'no-store',headers:{apikey:KEY}})
- .then(function(r){return r.ok?r.json():[]}).catch(function(){return[]}).then(function(rows){
-  all=(rows||[]).filter(function(r){return r&&r.name&&r.message&&r.rating>=1&&r.rating<=5});grid.textContent='';
-  if(!all.length){grid.hidden=true;empty.hidden=false;return}
-  empty.hidden=true;stats();chips();render()})}
-more.firstChild.onclick=function(){var before=grid.children.length;shown+=PAGE;render(true);var n=grid.children[before];if(n&&n.scrollIntoView&&!reduce)n.scrollIntoView({behavior:'smooth',block:'center'})};
-// star picker
-var pick=$('rvPick'),lbl=document.createElement('span');lbl.className='rv-lbl';
-function paintPick(v){[].forEach.call(pick.querySelectorAll('button'),function(b,i){b.classList.toggle('on',i<v)});lbl.textContent=LABELS[v]||''}
-for(var i=1;i<=5;i++)(function(i){var b=document.createElement('button');b.type='button';b.textContent='\u2605';b.setAttribute('role','radio');b.setAttribute('aria-checked','false');b.setAttribute('aria-label',i+' star'+(i>1?'s':'')+' - '+LABELS[i]);
- b.onmouseenter=function(){paintPick(i)};b.onfocus=function(){paintPick(i)};b.onmouseleave=b.onblur=function(){paintPick(rating)};
- b.onclick=function(){rating=i;paintPick(i);[].forEach.call(pick.querySelectorAll('button'),function(x,k){x.setAttribute('aria-checked',k===i-1);x.classList.remove('pop')});void b.offsetWidth;b.classList.add('pop');msg.textContent='';msg.className='sb-msg'};
- pick.appendChild(b)})(i);
-pick.appendChild(lbl);
-function say(t,c){msg.textContent=t;msg.className='sb-msg'+(c?' '+c:'')}
-function openDlg(){form.reset();form.hidden=false;$('rvDone').hidden=true;rating=0;paintPick(0);$('rvCnt').textContent='0 / 500';say('');openedAt=Date.now();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
-function closeDlg(){if(dlg.close)dlg.close();else dlg.removeAttribute('open')}
-$('rvWrite').onclick=openDlg;empty.onclick=null;$('rvCancel').onclick=closeDlg;$('rvDoneClose').onclick=closeDlg;
-dlg.addEventListener('click',function(e){if(e.target===dlg)closeDlg()});
-form.message.addEventListener('input',function(){$('rvCnt').textContent=form.message.value.length+' / 500'});
-function bad(el,t){say(t,'err');el.classList.remove('rv-shake');void el.offsetWidth;el.classList.add('rv-shake');if(el.focus&&el.tagName!=='DIV')el.focus()}
-form.addEventListener('submit',function(e){e.preventDefault();
- var nm=form.name.value.trim(),bz=form.business.value.trim(),tx=form.message.value.trim();
- if(form.website.value){form.hidden=true;$('rvDone').hidden=false;return}
- if(!rating){bad(pick,'Please choose a star rating.');return}
- if(nm.length<2){bad(form.name,'Please enter your name.');return}
- if(tx.length<10){bad(form.message,'Please write at least 10 characters.');return}
- if(/https?:\/\/|www\./i.test(tx+nm+bz)){bad(form.message,'Please remove links from your review.');return}
- if(Date.now()-openedAt<3000){say('Please take a moment to review your message, then submit again.','err');return}
- try{var last=+localStorage.getItem('ik_rv_t')||0;if(Date.now()-last<60000){say('You just sent a review. Please wait a minute before sending another.','err');return}}catch(_){}
- var btn=form.querySelector('.sb-btn.go');btn.disabled=true;btn.classList.add('is-loading');say('Sending...','load');form.setAttribute('aria-busy','true');
- fetch(URL_+'/rest/v1/reviews',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name:nm,business:bz||null,rating:rating,message:tx})})
- .then(function(r){if(!r.ok)throw 0;try{localStorage.setItem('ik_rv_t',String(Date.now()))}catch(_){}form.hidden=true;var d=$('rvDone');d.hidden=false;d.focus()})
- .catch(function(){say('Could not send your review. Please try again in a moment or message us.','err')})
- .then(function(){btn.disabled=false;btn.classList.remove('is-loading');form.setAttribute('aria-busy','false')})});
-load();
-})();
-</script>
 <section id="faq" style="padding: 104px 24px; background: #070B11; border-top: 1px solid #152234">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
 <div class="reveal" style="display: flex; flex-direction: column; gap: 14px">
@@ -1839,7 +1922,7 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <dialog id="pickDlg" class="sb-dlg" aria-labelledby="pickTitle"><div class="sb-form">
 <h3 id="pickTitle">Choose your card</h3><p class="sb-sub">Both come with your digital profile page.</p>
 <div class="pick-list">
-<button type="button" class="pick-opt" data-pick="profile"><span class="pick-t">iKONEK Card + Digital Profile</span><span class="pick-d">Custom-designed iKONEK NFC card</span><span class="pick-p">PHP <b id="pickP1">349</b></span></button>
+<button type="button" class="pick-opt" data-pick="profile"><span class="pick-tag">MOST POPULAR</span><span class="pick-t">iKONEK Card + Digital Profile</span><span class="pick-d">Custom-designed iKONEK NFC card</span><span class="pick-s" id="pickS" hidden></span><span class="pick-p"><s class="price-was" id="pickW" hidden></s>PHP <b id="pickP1">349</b></span></button>
 <button type="button" class="pick-opt" data-pick="plainprofile"><span class="pick-t">Plain Card + Digital Profile</span><span class="pick-d">Plain NFC card, no printed design</span><span class="pick-p">PHP <b id="pickP2">249</b></span></button>
 </div>
 <div class="sb-actions"><button class="sb-btn" type="button" id="pickCancel">Cancel</button></div>
@@ -1919,7 +2002,31 @@ function endLoad(ok,doneTitle){return new Promise(function(r){
   },w);return}
  var w2=Math.max(0,900-(Date.now()-ldAt));
  setTimeout(function(){if(!ld.open){r();return}closeLd(r)},w2)})}
-function paint(){cards.forEach(function(c,i){var id=IDS[i];
+// Original (crossed-out) prices. Edit these numbers to change them. The bundle's original = card + digital profile.
+var ORIG={nfc:{black:499,white:489},digital:499};ORIG.profile=ORIG.nfc.black+ORIG.digital;
+function origOf(id,f){if(id==='nfc')return ORIG.nfc[f||'black'];if(id==='digital')return ORIG.digital;if(id==='profile')return ORIG.profile;return null}
+function pctOff(o,p){return(o&&p!=null&&o>p)?Math.round((o-p)/o*100):0}
+function decorate(c,id){var front=c.querySelector('.package-front'),pr=front&&front.querySelector('.package-price');if(!pr)return;
+ var fs=SPLIT[id]||[null],best=0,bestAmt=0,single=null;
+ fs.forEach(function(f){var o=origOf(id,f),p=priceOf(id,f),k=pctOff(o,p);if(k){if(k>best)best=k;if(o-p>bestAmt)bestAmt=o-p}
+  if(f){var opt=pr.querySelector('.price-opt[data-finish="'+f+'"]');if(opt){var w=opt.querySelector('.price-was');if(!w){w=document.createElement('s');w.className='price-was';opt.appendChild(w)}w.textContent=k?'PHP '+fmt(o):'';w.hidden=!k}}
+  else if(k)single=o});
+ var row=front.querySelector('.price-save'),burst=front.querySelector('.promo-burst');
+ c.classList.toggle('has-promo',!!best);
+ if(!best){if(row)row.hidden=true;if(burst)burst.hidden=true}else{
+  var sig=single+'|'+best+'|'+bestAmt+'|'+fs.length;
+  if(!row){row=document.createElement('div');row.className='price-save';pr.parentNode.insertBefore(row,pr.nextSibling)}
+  row.hidden=false;
+  if(row.getAttribute('data-sig')!==sig){row.setAttribute('data-sig',sig);row.textContent='';
+   if(single!=null){var s1=document.createElement('s');s1.className='price-was';s1.textContent='PHP '+fmt(single);row.appendChild(s1)}
+   var b=document.createElement('span');b.className='save-amt';b.textContent=(fs.length>1?'Save up to PHP ':'You save PHP ')+fmt(bestAmt);row.appendChild(b)}
+  if(!burst){burst=document.createElement('div');burst.className='promo-burst';front.appendChild(burst)}
+  burst.hidden=false;
+  if(burst.getAttribute('data-sig')!==sig){burst.setAttribute('data-sig',sig);burst.setAttribute('role','img');burst.setAttribute('aria-label',(fs.length>1?'Up to ':'')+best+' percent off');burst.innerHTML=(fs.length>1?'<small>UP TO</small>':'')+'<b>'+best+'%</b><small>OFF</small>'}}
+ var bs=c.querySelector('.back-copy strong');if(bs){var bf=SPLIT[id]?sel[id]:null,o2=origOf(id,bf),p2=priceOf(id,bf),bw=c.querySelector('.back-copy .price-was');
+  if(!bw){bw=document.createElement('s');bw.className='price-was';bs.parentNode.insertBefore(bw,bs.nextSibling)}
+  bw.textContent=pctOff(o2,p2)?'PHP '+fmt(o2):'';bw.hidden=!pctOff(o2,p2)}}
+function paint(){cards.forEach(function(c,i){var id=IDS[i];decorate(c,id);
  var cp=priceOf(id);if(SPLIT[id]){SPLIT[id].forEach(function(f){var o=c.querySelector('.price-opt[data-finish="'+f+'"]'),pe=o&&o.querySelector('.price-num'),v=priceOf(id,f);if(o)o.classList.toggle('is-sel',f===sel[id]);if(pe&&v!=null)pe.textContent=fmt(v)})}else{var pn=c.querySelector('.price-num');if(pn&&cp!=null)pn.textContent=fmt(cp)}if(cp!=null){var bs=c.querySelector('.back-copy strong');if(bs)bs.textContent='PHP '+fmt(cp)}
  if(SPLIT[id]){SPLIT[id].forEach(function(f){var b=c.querySelector('.stock-badge[data-finish="'+f+'"]'),n=stock[id+'-'+f],t=f.charAt(0).toUpperCase()+f.slice(1);if(n==null||!b)return;b.setAttribute('aria-label',n>0?n+' '+f+' in stock':f+' sold out');b.classList.toggle('is-out',!(n>0));var pp=price[id+'-'+f],pt='';b.querySelector('span:last-child').textContent=n>0?t+pt+' \u00b7 '+n+' left':t+pt+' \u00b7 sold out'});return}
  if(NOSTOCK[id])return;var n=stock[id],b=c.querySelector('.stock-badge');if(n==null||!b)return;b.setAttribute('aria-label',n+' items in stock');var s=b.querySelector('span:last-child');s.textContent='';if(n>0){s.appendChild(document.createTextNode(n+' '));var m=document.createElement('small');m.textContent='IN STOCK';s.appendChild(m)}else s.textContent='SOLD OUT'});showStock()}
@@ -1940,7 +2047,7 @@ cards.forEach(function(c,i){if(SPLIT[IDS[i]])[].forEach.call(c.querySelectorAll(
 cards.forEach(function(c,i){[].forEach.call(c.querySelectorAll('.primary-action'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();window.__orderAt=Date.now();var ab=c.querySelector('.nfc-finish-btn.is-active'),fin=ab?(ab.getAttribute('data-pl-choice')||ab.getAttribute('data-finish-choice')):null;if(IDS[i]==='profile')openPick();else openOrder(IDS[i],fin)})})});
 
 var pdlg=document.getElementById('pickDlg');
-function openPick(){document.getElementById('pickP1').textContent=fmt(priceOf('profile')||349);document.getElementById('pickP2').textContent=fmt(priceOf('plainprofile')||249);if(pdlg.showModal)pdlg.showModal();else pdlg.setAttribute('open','')}
+function openPick(){document.getElementById('pickP1').textContent=fmt(priceOf('profile')||349);var pw=document.getElementById('pickW'),pp=priceOf('profile');pw.textContent=pctOff(ORIG.profile,pp)?'PHP '+fmt(ORIG.profile):'';pw.hidden=!pctOff(ORIG.profile,pp);var ps=document.getElementById('pickS');ps.textContent=pctOff(ORIG.profile,pp)?'You save PHP '+fmt(ORIG.profile-pp)+' ('+pctOff(ORIG.profile,pp)+'% off)':'';ps.hidden=!pctOff(ORIG.profile,pp);document.getElementById('pickP2').textContent=fmt(priceOf('plainprofile')||249);if(pdlg.showModal)pdlg.showModal();else pdlg.setAttribute('open','')}
 function closePick(){if(pdlg.close)pdlg.close();else pdlg.removeAttribute('open')}
 [].forEach.call(pdlg.querySelectorAll('[data-pick]'),function(b){b.addEventListener('click',function(){var id=b.getAttribute('data-pick');closePick();window.__orderAt=Date.now();openOrder(id)})});
 document.getElementById('pickCancel').addEventListener('click',closePick);
@@ -1967,7 +2074,7 @@ of.addEventListener('submit',function(e){e.preventDefault();
  if(!NOF[id])rows.push(['Finish',fin]);
  rows.push(['Quantity',String(q)]);
  rows.push(['Name',nm],['Email',ct]);
- if(unit!=null)rows.push(['Total','PHP '+fmt(unit*q),1]);else if(id==='business')rows.push(['Price','Custom quotation',1]);
+ var og=origOf(id,fin.toLowerCase());if(unit!=null&&pctOff(og,unit))rows.push(['You save','PHP '+fmt((og-unit)*q)]);if(unit!=null)rows.push(['Total','PHP '+fmt(unit*q),1]);else if(id==='business')rows.push(['Price','Custom quotation',1]);
  confirmBox({title:PRE[id]?'Confirm your pre-order?':'Confirm your order?',text:'Please review the details below before we send it.',rows:rows,yes:PRE[id]?'Yes, place pre-order':'Yes, place order',no:'Review details'}).then(function(ok){
   if(!ok){msg(om,'');return}
   lock(of,true);msg(om,'Placing your order...','load');showLoading(PRE[id]?'Placing your pre-order':'Placing your order','Please wait, do not close this page.',{progress:3000});
