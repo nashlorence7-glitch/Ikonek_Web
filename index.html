@@ -1921,11 +1921,20 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <div class="sb-msg" role="status" aria-live="polite"></div>
 </form></dialog>
 
-<style>#authDlg [hidden],#trackDlg [hidden]{display:none!important}</style>
+<style>#authDlg [hidden],#trackDlg [hidden]{display:none!important}
+#authDlg p,#authDlg .sb-msg,#trackDlg p,#trackDlg .sb-msg{font-family:Inter,system-ui,sans-serif}
+.auth-stat{display:flex;align-items:center;gap:12px;margin:8px 0 2px;color:#5be3a1;font-weight:600;font-family:Inter,system-ui,sans-serif;font-size:15px}
+.auth-stat small{display:block;margin-top:2px;font-size:12px;font-weight:400;color:#9FB0C4}
+.auth-ic{position:relative;width:34px;height:34px;flex:none}.auth-ic svg{position:absolute;inset:0;width:100%;height:100%}
+.auth-sp{animation:authSpin .8s linear infinite}.auth-stat.done .auth-sp,.auth-stat:not(.done) .auth-ck{display:none}
+.auth-ck path{stroke-dasharray:30;stroke-dashoffset:30;animation:authDraw .45s .1s ease forwards}
+@keyframes authSpin{to{transform:rotate(360deg)}}@keyframes authDraw{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.auth-sp{animation-duration:2.4s}.auth-ck path{animation:none;stroke-dashoffset:0}}</style>
 <dialog id="authDlg" class="sb-dlg" aria-labelledby="authTitle"><form id="authForm" class="sb-form" novalidate>
 <h3 id="authTitle">Sign in to continue</h3><p class="sb-sub" id="authSub">Enter your email and we will send you a 6-digit code. No password needed.</p>
 <label id="authEL">Email<input name="email" type="email" maxlength="200" required autocomplete="email" inputmode="email" placeholder="you@email.com"></label>
 <label id="authCL" hidden>6-digit code<input name="code" maxlength="8" autocomplete="one-time-code" inputmode="numeric" placeholder="123456"></label>
+<div class="auth-stat" id="authStat" role="status" aria-live="polite" hidden><span class="auth-ic" aria-hidden="true"><svg class="auth-sp" viewBox="0 0 34 34"><circle cx="17" cy="17" r="14" fill="none" stroke="rgba(91,227,161,.2)" stroke-width="3"/><circle cx="17" cy="17" r="14" fill="none" stroke="#5be3a1" stroke-width="3" stroke-linecap="round" stroke-dasharray="22 70"/></svg><svg class="auth-ck" viewBox="0 0 34 34"><circle cx="17" cy="17" r="14" fill="rgba(91,227,161,.15)" stroke="#5be3a1" stroke-width="3"/><path d="M10 17.5l5 5 9-10" fill="none" stroke="#5be3a1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span id="authStatT"></span><small id="authStatS" hidden></small></span></div>
 <div class="sb-actions"><button class="sb-btn" type="button" id="authResend" hidden>Resend code</button><button class="sb-btn" type="button" id="authCancel">Cancel</button><button class="sb-btn go" type="submit" id="authGo">Send code</button></div>
 <div class="sb-msg" role="status" aria-live="polite"></div></form></dialog>
 <dialog id="trackDlg" class="sb-dlg" aria-labelledby="trkTitle"><div class="sb-form">
@@ -1962,21 +1971,22 @@ function fresh(){if(!S)return Promise.resolve(null);if(S.expires_at-60>Date.now(
 var $=function(i){return document.getElementById(i)},ad=$('authDlg'),af=$('authForm'),am=af.querySelector('.sb-msg'),td=$('trackDlg'),step=1;
 function say(el,t,c){el.textContent=t;el.className='sb-msg'+(c?' '+c:'')}
 function openD(d){d.showModal?d.showModal():d.setAttribute('open','')}function closeD(d){d.close?d.close():d.removeAttribute('open')}
-function need(cb){after=cb;step=1;clearInterval(cd);$('authResend').hidden=true;$('authSub').textContent='Enter your email and we will send you a 6-digit code. No password needed.';af.reset();$('authEL').hidden=false;$('authCL').hidden=true;$('authGo').textContent='Send code';$('authTitle').textContent='Sign in to continue';say(am,'');openD(ad);af.email.focus()}
+function need(cb){after=cb;step=1;clearInterval(cd);stat(null);$('authResend').hidden=true;$('authSub').textContent='Enter your email and we will send you a 6-digit code. No password needed.';af.reset();$('authEL').hidden=false;$('authCL').hidden=true;$('authGo').textContent='Send code';$('authTitle').textContent='Sign in to continue';say(am,'');openD(ad);af.email.focus()}
 var cd=null;
 function cool(n){var r=$('authResend');clearInterval(cd);r.hidden=false;r.disabled=true;r.textContent='Resend code ('+n+'s)';cd=setInterval(function(){n--;if(n<=0){clearInterval(cd);r.disabled=false;r.textContent='Resend code';return}r.textContent='Resend code ('+n+'s)'},1000)}
-function send(em,b){b.disabled=true;say(am,'Sending code...','load');
- post('/auth/v1/otp',{email:em,create_user:true}).then(function(r){b.disabled=false;if(!r.ok){say(am,r.status===429?'Please wait a moment before asking for another code.':'Could not send the code. Please try again.','err');return}
-  step=2;$('authEL').hidden=true;$('authCL').hidden=false;b.textContent='Verify';$('authTitle').textContent='Check your email';$('authSub').textContent='We sent a 6-digit code to '+em+'.';
-  say(am,'\u2713 Code sent! Check your inbox. If you do not see it, look in your spam or junk folder.','ok');cool(30);af.code.focus()}).catch(function(){b.disabled=false;say(am,'Network problem. Please try again.','err')})}
+function stat(m,t,sub){var e=$('authStat');if(!m){e.hidden=true;return}e.hidden=false;e.classList.toggle('done',m==='done');$('authStatT').textContent=t||'';var x=$('authStatS');x.textContent=sub||'';x.hidden=!sub}
+function send(em,b){b.disabled=true;$('authResend').disabled=true;say(am,'');stat('load','Sending code...');
+ post('/auth/v1/otp',{email:em,create_user:true}).then(function(r){if(!r.ok){b.disabled=false;$('authResend').disabled=false;stat(null);say(am,r.status===429?'Please wait a moment before asking for another code.':'Could not send the code. Please try again.','err');return}
+  stat('done','Code sent','Not in your inbox? Check your spam folder.');
+  setTimeout(function(){b.disabled=false;step=2;$('authEL').hidden=true;$('authCL').hidden=false;b.textContent='Verify';$('authTitle').textContent='Check your email';$('authSub').textContent='We sent a 6-digit code to '+em+'.';cool(30);af.code.focus()},1000)}).catch(function(){b.disabled=false;$('authResend').disabled=false;stat(null);say(am,'Network problem. Please try again.','err')})}
 $('authResend').addEventListener('click',function(){send(af.email.value.trim().toLowerCase(),$('authGo'))});
 af.addEventListener('submit',function(e){e.preventDefault();var em=af.email.value.trim().toLowerCase(),b=$('authGo');
  if(step===1){if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){say(am,'Please enter a valid email address.','err');return}send(em,b);return}
  var c=af.code.value.replace(/\s/g,'');if(c.length<6){say(am,'Enter the code from your email.','err');return}
- b.disabled=true;say(am,'Checking...','load');
+ b.disabled=true;say(am,'');stat('load','Verifying...');
  post('/auth/v1/verify',{type:'email',email:em,token:c}).then(function(r){return r.json().catch(function(){return{}}).then(function(j){b.disabled=false;
-  if(!r.ok||!j.access_token){say(am,'That code did not work. Check it and try again.','err');return}
-  keep(j);closeD(ad);paintNav();var f=after;after=null;if(f)f()})}).catch(function(){b.disabled=false;say(am,'Network problem. Please try again.','err')})});
+  if(!r.ok||!j.access_token){stat(null);say(am,'That code did not work. Check it and try again.','err');return}
+  keep(j);stat(null);closeD(ad);paintNav();var f=after;after=null;if(f)f()})}).catch(function(){b.disabled=false;stat(null);say(am,'Network problem. Please try again.','err')})});
 $('authCancel').addEventListener('click',function(){after=null;closeD(ad)});
 var PN={plain:'Plain NFC Card',nfc:'NFC Card',profile:'iKONEK Card + Digital Profile',plainprofile:'Plain Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'},ST=['received','accepted','shipped'],SL=['Received','Accepted','Shipped'];
 function norm(x){x=String(x||'').toLowerCase();return x==='accepted'?'accepted':x==='finished'?'shipped':x==='declined'?'cancelled':'received'}
