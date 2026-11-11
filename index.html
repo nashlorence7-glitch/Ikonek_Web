@@ -1066,6 +1066,87 @@ body.ks-lock{overflow:hidden}
 .pick-d{grid-column:1;font-size:12.5px;color:#9FB0C4}
 .pick-p{grid-column:2;grid-row:1 / span 2;font-size:12px;color:#9FB0C4;white-space:nowrap}
 .pick-p b{font:700 20px 'Montserrat',sans-serif;color:#fff}
+
+/* ===== Reviews / testimonials ===== */
+@media(min-width:961px) and (max-width:1120px){.navlinks{gap:20px!important;font-size:14px!important}}
+#reviews{position:relative;overflow:hidden;background:#070B11;border-top:1px solid #152234;border-bottom:1px solid #152234}
+#reviews:before{content:"";position:absolute;inset:-20% -10% auto auto;width:560px;height:560px;border-radius:50%;background:radial-gradient(closest-side,rgba(27,156,255,.16),transparent);pointer-events:none;animation:rvFloat 14s ease-in-out infinite alternate}
+@keyframes rvFloat{to{transform:translate(-60px,50px) scale(1.12)}}
+.rv-wrap{position:relative;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
+.rv-head{display:flex;flex-direction:column;gap:14px;max-width:680px}
+.rv-eyebrow{font-size:14px;letter-spacing:.14em;color:var(--accent);font-weight:600}
+.rv-head h2{margin:0;font:700 clamp(32px,4.5vw,52px)/1.08 'Montserrat',sans-serif;letter-spacing:-.02em}
+.rv-head p{margin:0;color:#9FB0C4;font-size:15px;line-height:1.6}
+.rv-summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:36px;align-items:center;padding:28px 32px;border:1px solid #152234;border-radius:24px;background:linear-gradient(180deg,rgba(16,26,40,.85),rgba(10,15,23,.85));box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.rv-score{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:150px}
+.rv-avg{font:700 64px/1 'Montserrat',sans-serif;letter-spacing:-.03em;background:linear-gradient(180deg,#fff,#9fd3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rv-count{font-size:13px;color:#9FB0C4}
+.rv-bars{display:flex;flex-direction:column;gap:8px;min-width:0}
+.rv-bar{display:grid;grid-template-columns:34px minmax(0,1fr) 28px;gap:10px;align-items:center;font-size:12.5px;color:#9FB0C4}
+.rv-bar i{display:block;height:8px;border-radius:99px;background:#13213a;overflow:hidden}
+.rv-bar i b{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#1B9CFF,#7fd0ff);transition:width 1.1s cubic-bezier(.2,.7,.2,1) calc(var(--k)*90ms)}
+.rv-summary.in .rv-bar i b{width:var(--w)}
+.rv-bar span:last-child{text-align:right}
+.rv-write{border:0;cursor:pointer;font:600 15px/1 'Inter',sans-serif;color:#fff;background:var(--accent);padding:16px 26px;border-radius:999px;white-space:nowrap;display:inline-flex;align-items:center;gap:10px;box-shadow:0 0 28px rgba(27,156,255,.4);transition:transform .2s,box-shadow .2s}
+.rv-write:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(27,156,255,.55)}
+.rv-write:active{transform:scale(.97)}
+.rv-write svg{width:18px;height:18px;transition:transform .35s}
+.rv-write:hover svg{transform:rotate(-12deg) scale(1.15)}
+.rv-stars{display:inline-flex;gap:3px;line-height:1}
+.rv-star{display:inline-block;font-size:18px;color:#2a3d57;transform-origin:50% 60%}
+.rv-star.on{color:#FFC857;text-shadow:0 0 12px rgba(255,200,87,.45)}
+.rv-filters{display:flex;flex-wrap:wrap;gap:10px}
+.rv-chip{font:600 13px/1 'Inter',sans-serif;color:#9FB0C4;background:transparent;border:1px solid #1c2d44;border-radius:999px;padding:10px 16px;cursor:pointer;transition:all .2s}
+.rv-chip:hover{border-color:var(--accent);color:#fff}
+.rv-chip.is-active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 22px rgba(27,156,255,.35)}
+.rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px;align-items:stretch}
+.rv-card{position:relative;display:flex;flex-direction:column;gap:16px;padding:26px;border:1px solid #152234;border-radius:20px;background:#0A0F17;overflow:hidden;opacity:0;transform:translateY(28px) scale(.97);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1),border-color .25s,box-shadow .25s;transition-delay:var(--d,0ms),var(--d,0ms),0s,0s}
+.rv-card.in{opacity:1;transform:none}
+.rv-card.in:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 18px 50px rgba(27,156,255,.2);transition-delay:0s}
+.rv-card:before{content:"\201C";position:absolute;right:18px;top:-6px;font:700 110px/1 'Playfair Display',Georgia,serif;color:rgba(27,156,255,.1);pointer-events:none}
+.rv-card .rv-star{transform:scale(0) rotate(-40deg);transition:transform .45s cubic-bezier(.3,1.6,.5,1);transition-delay:calc(var(--d,0ms) + 250ms + var(--i)*70ms)}
+.rv-card.in .rv-star{transform:none}
+.rv-msg{margin:0;color:#DCE7F3;font-size:15.5px;line-height:1.65;overflow-wrap:anywhere;flex:1}
+.rv-who{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid #152234}
+.rv-av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;font:700 15px/1 'Montserrat',sans-serif;color:#fff;background:linear-gradient(135deg,hsl(var(--h) 80% 52%),hsl(calc(var(--h) + 40) 70% 32%));box-shadow:0 0 0 3px #0A0F17,0 0 0 4px rgba(255,255,255,.1)}
+.rv-nm{font:600 14.5px/1.3 'Inter',sans-serif;color:#fff;overflow-wrap:anywhere}
+.rv-sub{font-size:12.5px;color:#7F91A6;margin-top:2px;overflow-wrap:anywhere}
+.rv-sk{height:230px;border-radius:20px;border:1px solid #152234;background:linear-gradient(90deg,rgba(255,255,255,.03) 25%,rgba(255,255,255,.09) 50%,rgba(255,255,255,.03) 75%);background-size:200% 100%;animation:rvSh 1.3s linear infinite}
+@keyframes rvSh{to{background-position:-200% 0}}
+.rv-more{display:flex;justify-content:center}
+.rv-more button{font:600 15px/1 'Inter',sans-serif;color:#EEF3F9;background:transparent;border:1px solid #1c2d44;border-radius:999px;padding:14px 26px;cursor:pointer;transition:all .2s}
+.rv-more button:hover{border-color:var(--accent);color:#fff;transform:translateY(-2px)}
+.rv-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:56px 24px;border:1px dashed #22364E;border-radius:24px;color:#9FB0C4}
+.rv-empty[hidden],.rv-more[hidden],.rv-filters[hidden],.rv-grid[hidden],.rv-score[hidden],.rv-bars[hidden]{display:none}
+.rv-empty h3{margin:0;color:#fff;font:700 22px 'Montserrat',sans-serif}
+.rv-empty p{margin:0;max-width:420px;line-height:1.6}
+.rv-empty .rv-bigstars{font-size:34px;letter-spacing:6px;color:#FFC857;animation:rvBob 2.4s ease-in-out infinite}
+@keyframes rvBob{50%{transform:translateY(-6px)}}
+@media(max-width:820px){.rv-summary{grid-template-columns:1fr;gap:22px;padding:24px 20px}.rv-write{justify-content:center}.rv-avg{font-size:54px}}
+@media(max-width:520px){#reviews{padding:72px 16px!important}.rv-grid{grid-template-columns:1fr}}
+/* review dialog */
+#rvDlg .sb-form{gap:16px}
+.rv-pick{display:flex;flex-direction:column;gap:8px}
+.rv-pick>span{font:600 12px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#7fc4ff}
+.rv-pickrow{display:flex;align-items:center;gap:6px}
+.rv-pickrow button{border:0;background:none;padding:2px;cursor:pointer;font-size:34px;line-height:1;color:#2a3d57;transition:transform .2s cubic-bezier(.3,1.6,.5,1),color .15s;-webkit-tap-highlight-color:transparent}
+.rv-pickrow button.on{color:#FFC857;text-shadow:0 0 14px rgba(255,200,87,.5)}
+.rv-pickrow button:hover{transform:scale(1.25) rotate(-8deg)}
+.rv-pickrow button.pop{animation:rvPop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes rvPop{0%{transform:scale(.6)}60%{transform:scale(1.4)}100%{transform:scale(1)}}
+.rv-pickrow button:focus-visible{outline:2px solid #1B9CFF;border-radius:8px}
+.rv-lbl{min-width:74px;font-size:14px;color:#FFC857;font-weight:600}
+.rv-cnt{align-self:flex-end;font-size:12px;color:#7F91A6;margin-top:-8px}
+.rv-done{padding:48px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.rv-done[hidden]{display:none}
+.rv-done h3{margin:0;font:700 26px/1.2 'Montserrat',sans-serif}
+.rv-done p{margin:0;color:#9FB0C4;font-size:15px;line-height:1.55;max-width:380px}
+.rv-done .msg-check{animation:rvPop .6s cubic-bezier(.3,1.6,.5,1)}
+.rv-done .msg-check path{stroke-dasharray:30;stroke-dashoffset:30;animation:rvDraw .6s .3s ease forwards}
+@keyframes rvDraw{to{stroke-dashoffset:0}}
+.rv-shake{animation:rvShake .4s}
+@keyframes rvShake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@media(prefers-reduced-motion:reduce){#reviews:before,.rv-empty .rv-bigstars,.rv-sk{animation:none}.rv-card,.rv-card .rv-star,.rv-bar i b{transition:none}.rv-card{opacity:1;transform:none}.rv-card .rv-star{transform:none}.rv-summary .rv-bar i b{width:var(--w)}}
 </style></head>
 <body>
 <div id="ikLoader" role="status" aria-label="Loading iKONEK">
@@ -1090,6 +1171,7 @@ body.ks-lock{overflow:hidden}
 <a class="navlink" href="#demo">Prototypes</a>
 <a class="navlink" href="#how">How it works</a>
 <a class="navlink" href="#packages">Packages</a>
+<a class="navlink" href="#reviews">Reviews</a>
 <a class="navlink" href="#faq">FAQ</a>
 </nav>
 <div class="hdr-right">
@@ -1105,6 +1187,7 @@ body.ks-lock{overflow:hidden}
 <a class="mlink" href="#demo">Prototypes</a>
 <a class="mlink" href="#how">How it works</a>
 <a class="mlink" href="#packages">Packages</a>
+<a class="mlink" href="#reviews">Reviews</a>
 <a class="mlink" href="#faq">FAQ</a>
 </nav>
 <div class="mnav-cta"><a class="btn btn-primary" href="#contact">Get your card</a><a class="mnav-inq" id="mnavInq" href="#contact">Inquire</a></div>
@@ -1450,6 +1533,114 @@ body.ks-lock{overflow:hidden}
 </div></section>
 
 <!-- FAQ -->
+<section id="reviews" style="padding: 104px 24px">
+<div class="rv-wrap">
+<div class="rv-head reveal">
+<div class="rv-eyebrow">TESTIMONIALS</div>
+<h2>What our customers say.</h2>
+<p>Real words from people and businesses who tap with iKONEK. Used our card or profile? Tell others how it went.</p>
+</div>
+<div class="rv-summary reveal" id="rvSummary">
+<div class="rv-score" id="rvScore" hidden><div class="rv-avg" id="rvAvg">0.0</div><div class="rv-stars" id="rvAvgStars" aria-hidden="true"></div><div class="rv-count" id="rvCount"></div></div>
+<div class="rv-bars" id="rvBars" hidden></div>
+<button class="rv-write" id="rvWrite" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Write a review</button>
+</div>
+<div class="rv-filters" id="rvFilters" role="group" aria-label="Filter reviews by rating" hidden></div>
+<div class="rv-grid" id="rvGrid" aria-live="polite"><div class="rv-sk"></div><div class="rv-sk"></div><div class="rv-sk"></div></div>
+<div class="rv-empty" id="rvEmpty" hidden><div class="rv-bigstars" aria-hidden="true">★★★★★</div><h3>No reviews yet</h3><p>Be the first to share your experience with iKONEK. It takes less than a minute.</p></div>
+<div class="rv-more" id="rvMore" hidden><button type="button">Show more reviews</button></div>
+</div>
+</section>
+<dialog id="rvDlg" class="sb-dlg" aria-labelledby="rvTitle">
+<form id="rvForm" class="sb-form" novalidate>
+<h3 id="rvTitle">Share your experience</h3>
+<p class="sb-sub">Your review appears on the site after we approve it.</p>
+<input class="sb-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave this field empty">
+<div class="rv-pick"><span id="rvRateL">Your rating *</span><div class="rv-pickrow" role="radiogroup" aria-labelledby="rvRateL" id="rvPick"></div></div>
+<div class="sb-row"><label>Your name *<input name="name" maxlength="60" required autocomplete="name" placeholder="Juan Dela Cruz"></label><label>Business <em style="text-transform:none;letter-spacing:0;font-weight:400;color:#7F91A6">(optional)</em><input name="business" maxlength="80" autocomplete="organization" placeholder="e.g. Santos Bakery"></label></div>
+<label>Your review *<textarea name="message" maxlength="500" required placeholder="What did you like? How is the card or profile working for you?"></textarea></label>
+<div class="rv-cnt" id="rvCnt">0 / 500</div>
+<div class="sb-actions"><button class="sb-btn" type="button" id="rvCancel">Cancel</button><button class="sb-btn go" type="submit">Submit review</button></div>
+<div class="sb-msg" role="status" aria-live="polite" id="rvMsg"></div>
+</form>
+<div class="rv-done" id="rvDone" hidden tabindex="-1"><div class="msg-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#5be3a1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>Thank you!</h3><p>Your review was received. It will show up here once we approve it.</p><button class="sb-btn go" type="button" id="rvDoneClose">Close</button></div>
+</dialog>
+<script>
+(function(){
+var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc',PAGE=6;
+var $=function(id){return document.getElementById(id)};
+var grid=$('rvGrid'),filters=$('rvFilters'),empty=$('rvEmpty'),more=$('rvMore'),summary=$('rvSummary'),dlg=$('rvDlg'),form=$('rvForm'),msg=$('rvMsg');
+var all=[],filter=0,shown=PAGE,rating=0,openedAt=0,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+var LABELS=['','Poor','Fair','Good','Very good','Excellent'];
+function starsEl(n,cls){var w=document.createElement('span');w.className='rv-stars'+(cls?' '+cls:'');w.setAttribute('role','img');w.setAttribute('aria-label',n+' out of 5 stars');for(var i=0;i<5;i++){var x=document.createElement('span');x.className='rv-star'+(i<Math.round(n)?' on':'');x.style.setProperty('--i',i);x.setAttribute('aria-hidden','true');x.textContent='\u2605';w.appendChild(x)}return w}
+function hue(str){var h=0;for(var i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))%360;return 190+(h%90)}
+function ago(d){var t=new Date(d).getTime();if(isNaN(t))return'';var s=(Date.now()-t)/1000,u=[['year',31536000],['month',2592000],['week',604800],['day',86400],['hour',3600],['minute',60]];try{var f=new Intl.RelativeTimeFormat('en',{numeric:'auto'});for(var i=0;i<u.length;i++){if(s>=u[i][1])return f.format(-Math.floor(s/u[i][1]),u[i][0])}return'just now'}catch(e){return''}}
+function initials(n){var p=n.trim().split(/\s+/);return((p[0]||'?')[0]+(p.length>1?p[p.length-1][0]:'')).toUpperCase()}
+function io(cb,opts){if(!('IntersectionObserver' in window)||reduce)return null;return new IntersectionObserver(cb,opts)}
+var cardIO=io(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');cardIO.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+function card(r,i){var c=document.createElement('article');c.className='rv-card';c.style.setProperty('--d',(i%PAGE)*80+'ms');
+ c.appendChild(starsEl(r.rating));
+ var p=document.createElement('p');p.className='rv-msg';p.textContent=r.message;c.appendChild(p);
+ var w=document.createElement('div');w.className='rv-who';
+ var av=document.createElement('div');av.className='rv-av';av.style.setProperty('--h',hue(r.name));av.textContent=initials(r.name);av.setAttribute('aria-hidden','true');
+ var t=document.createElement('div'),n=document.createElement('div');n.className='rv-nm';n.textContent=r.name;var sb=document.createElement('div');sb.className='rv-sub';sb.textContent=[r.business,ago(r.created_at)].filter(Boolean).join(' \u00b7 ');
+ t.appendChild(n);t.appendChild(sb);w.appendChild(av);w.appendChild(t);c.appendChild(w);
+ if(cardIO)cardIO.observe(c);else c.classList.add('in');return c}
+function list(){return all.filter(function(r){return !filter||(filter===3?r.rating<=3:r.rating===filter)})}
+function render(append){var l=list(),from=append?grid.children.length:0;if(!append)grid.textContent='';
+ l.slice(from,shown).forEach(function(r,i){grid.appendChild(card(r,i))});
+ more.hidden=l.length<=shown;grid.hidden=!l.length}
+function chips(){filters.textContent='';var defs=[[0,'All'],[5,'5 \u2605'],[4,'4 \u2605'],[3,'3 \u2605 & below']];
+ defs.forEach(function(d){var n=all.filter(function(r){return !d[0]||(d[0]===3?r.rating<=3:r.rating===d[0])}).length;if(d[0]&&!n)return;
+  var b=document.createElement('button');b.type='button';b.className='rv-chip'+(filter===d[0]?' is-active':'');b.textContent=d[1]+' ('+n+')';b.setAttribute('aria-pressed',filter===d[0]);
+  b.onclick=function(){filter=d[0];shown=PAGE;chips();grid.style.opacity=0;setTimeout(function(){render();grid.style.opacity=1},150)};filters.appendChild(b)});
+ filters.hidden=all.length<2}
+grid.style.transition='opacity .15s';
+function countUp(el,to,dec){if(reduce){el.textContent=to.toFixed(dec);return}var t0=null,d=1100;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);el.textContent=(to*e).toFixed(dec);if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+function stats(){var n=all.length,sc=$('rvScore'),bars=$('rvBars');sc.hidden=bars.hidden=!n;summary.style.gridTemplateColumns=n?'':'1fr';if(!n)return;
+ var avg=all.reduce(function(a,r){return a+r.rating},0)/n;$('rvCount').textContent='Based on '+n+' review'+(n>1?'s':'');
+ var as=$('rvAvgStars');as.textContent='';as.appendChild(starsEl(avg));$('rvAvgStars').firstChild.querySelectorAll('.rv-star').forEach(function(x){x.style.transform='none'});
+ bars.textContent='';for(var k=5;k>=1;k--){var c=all.filter(function(r){return r.rating===k}).length,row=document.createElement('div');row.className='rv-bar';row.style.setProperty('--k',5-k);row.style.setProperty('--w',(c/n*100)+'%');row.innerHTML='<span>'+k+' \u2605</span><i><b></b></i><span>'+c+'</span>';bars.appendChild(row)}
+ var run=function(){summary.classList.add('in');countUp($('rvAvg'),avg,1)};
+ var o=io(function(es){if(es[0].isIntersecting){run();o.disconnect()}},{threshold:.4});if(o)o.observe(summary);else run()}
+function load(){fetch(URL_+'/rest/v1/reviews?select=name,business,rating,message,created_at&approved=eq.true&order=created_at.desc&limit=100',{cache:'no-store',headers:{apikey:KEY}})
+ .then(function(r){return r.ok?r.json():[]}).catch(function(){return[]}).then(function(rows){
+  all=(rows||[]).filter(function(r){return r&&r.name&&r.message&&r.rating>=1&&r.rating<=5});grid.textContent='';
+  if(!all.length){grid.hidden=true;empty.hidden=false;return}
+  empty.hidden=true;stats();chips();render()})}
+more.firstChild.onclick=function(){var before=grid.children.length;shown+=PAGE;render(true);var n=grid.children[before];if(n&&n.scrollIntoView&&!reduce)n.scrollIntoView({behavior:'smooth',block:'center'})};
+// star picker
+var pick=$('rvPick'),lbl=document.createElement('span');lbl.className='rv-lbl';
+function paintPick(v){[].forEach.call(pick.querySelectorAll('button'),function(b,i){b.classList.toggle('on',i<v)});lbl.textContent=LABELS[v]||''}
+for(var i=1;i<=5;i++)(function(i){var b=document.createElement('button');b.type='button';b.textContent='\u2605';b.setAttribute('role','radio');b.setAttribute('aria-checked','false');b.setAttribute('aria-label',i+' star'+(i>1?'s':'')+' - '+LABELS[i]);
+ b.onmouseenter=function(){paintPick(i)};b.onfocus=function(){paintPick(i)};b.onmouseleave=b.onblur=function(){paintPick(rating)};
+ b.onclick=function(){rating=i;paintPick(i);[].forEach.call(pick.querySelectorAll('button'),function(x,k){x.setAttribute('aria-checked',k===i-1);x.classList.remove('pop')});void b.offsetWidth;b.classList.add('pop');msg.textContent='';msg.className='sb-msg'};
+ pick.appendChild(b)})(i);
+pick.appendChild(lbl);
+function say(t,c){msg.textContent=t;msg.className='sb-msg'+(c?' '+c:'')}
+function openDlg(){form.reset();form.hidden=false;$('rvDone').hidden=true;rating=0;paintPick(0);$('rvCnt').textContent='0 / 500';say('');openedAt=Date.now();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
+function closeDlg(){if(dlg.close)dlg.close();else dlg.removeAttribute('open')}
+$('rvWrite').onclick=openDlg;empty.onclick=null;$('rvCancel').onclick=closeDlg;$('rvDoneClose').onclick=closeDlg;
+dlg.addEventListener('click',function(e){if(e.target===dlg)closeDlg()});
+form.message.addEventListener('input',function(){$('rvCnt').textContent=form.message.value.length+' / 500'});
+function bad(el,t){say(t,'err');el.classList.remove('rv-shake');void el.offsetWidth;el.classList.add('rv-shake');if(el.focus&&el.tagName!=='DIV')el.focus()}
+form.addEventListener('submit',function(e){e.preventDefault();
+ var nm=form.name.value.trim(),bz=form.business.value.trim(),tx=form.message.value.trim();
+ if(form.website.value){form.hidden=true;$('rvDone').hidden=false;return}
+ if(!rating){bad(pick,'Please choose a star rating.');return}
+ if(nm.length<2){bad(form.name,'Please enter your name.');return}
+ if(tx.length<10){bad(form.message,'Please write at least 10 characters.');return}
+ if(/https?:\/\/|www\./i.test(tx+nm+bz)){bad(form.message,'Please remove links from your review.');return}
+ if(Date.now()-openedAt<3000){say('Please take a moment to review your message, then submit again.','err');return}
+ try{var last=+localStorage.getItem('ik_rv_t')||0;if(Date.now()-last<60000){say('You just sent a review. Please wait a minute before sending another.','err');return}}catch(_){}
+ var btn=form.querySelector('.sb-btn.go');btn.disabled=true;btn.classList.add('is-loading');say('Sending...','load');form.setAttribute('aria-busy','true');
+ fetch(URL_+'/rest/v1/reviews',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name:nm,business:bz||null,rating:rating,message:tx})})
+ .then(function(r){if(!r.ok)throw 0;try{localStorage.setItem('ik_rv_t',String(Date.now()))}catch(_){}form.hidden=true;var d=$('rvDone');d.hidden=false;d.focus()})
+ .catch(function(){say('Could not send your review. Please try again in a moment or message us.','err')})
+ .then(function(){btn.disabled=false;btn.classList.remove('is-loading');form.setAttribute('aria-busy','false')})});
+load();
+})();
+</script>
 <section id="faq" style="padding: 104px 24px; background: #070B11; border-top: 1px solid #152234">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
 <div class="reveal" style="display: flex; flex-direction: column; gap: 14px">
