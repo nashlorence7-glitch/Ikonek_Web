@@ -1255,6 +1255,7 @@ body.ks-lock{overflow:hidden}
 <a class="navlink" href="#demo">Prototypes</a>
 <a class="navlink" href="#how">How it works</a>
 <a class="navlink" href="#packages">Packages</a>
+<a class="navlink" href="#track" data-track>Track order</a>
 <a class="navlink" href="#faq">FAQ</a>
 </nav>
 <div class="hdr-right">
@@ -1271,6 +1272,7 @@ body.ks-lock{overflow:hidden}
 <a class="mlink" href="#demo">Prototypes</a>
 <a class="mlink" href="#how">How it works</a>
 <a class="mlink" href="#packages">Packages</a>
+<a class="mlink" href="#track" data-track>Track order</a>
 <a class="mlink" href="#faq">FAQ</a>
 </nav>
 <div class="mnav-cta"><a class="btn btn-primary" href="#contact">Get your card</a><a class="mnav-inq" id="mnavInq" href="#contact">Inquire</a></div>
@@ -1919,6 +1921,17 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <div class="sb-msg" role="status" aria-live="polite"></div>
 </form></dialog>
 
+<dialog id="authDlg" class="sb-dlg" aria-labelledby="authTitle"><form id="authForm" class="sb-form" novalidate>
+<h3 id="authTitle">Sign in to continue</h3><p class="sb-sub" id="authSub">Enter your email and we will send you a 6-digit code. No password needed.</p>
+<label id="authEL">Email<input name="email" type="email" maxlength="200" required autocomplete="email" inputmode="email" placeholder="you@email.com"></label>
+<label id="authCL" hidden>6-digit code<input name="code" maxlength="8" autocomplete="one-time-code" inputmode="numeric" placeholder="123456"></label>
+<div class="sb-actions"><button class="sb-btn" type="button" id="authCancel">Cancel</button><button class="sb-btn go" type="submit" id="authGo">Send code</button></div>
+<div class="sb-msg" role="status" aria-live="polite"></div></form></dialog>
+<dialog id="trackDlg" class="sb-dlg" aria-labelledby="trkTitle"><div class="sb-form">
+<h3 id="trkTitle">Track your orders</h3><p class="sb-sub" id="trkWho"></p>
+<div id="trkList" style="display:grid;gap:14px;margin:6px 0"></div>
+<div class="sb-actions"><button class="sb-btn" type="button" id="trkOut">Sign out</button><button class="sb-btn go" type="button" id="trkClose">Close</button></div>
+<div class="sb-msg" role="status" aria-live="polite" id="trkMsg"></div></div></dialog>
 <dialog id="pickDlg" class="sb-dlg" aria-labelledby="pickTitle"><div class="sb-form">
 <h3 id="pickTitle">Choose your card</h3><p class="sb-sub">Both come with your digital profile page.</p>
 <div class="pick-list">
@@ -1936,6 +1949,52 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <div id="ikToasts" popover="manual" role="region" aria-live="polite" aria-label="Notifications"></div>
 
 <script>
+// iKONEK sign-in (Supabase email code) + order tracking
+(function(){
+var U='https://avukmhbcpqhigdcwxlxw.supabase.co',K='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc',SK='ik-auth',S=null,after=null;
+try{S=JSON.parse(localStorage.getItem(SK)||'null')}catch(e){}
+function save(x){S=x;try{x?localStorage.setItem(SK,JSON.stringify(x)):localStorage.removeItem(SK)}catch(e){}}
+function post(path,body,tok){return fetch(U+path,{method:'POST',headers:{apikey:K,'Content-Type':'application/json',Authorization:'Bearer '+(tok||K)},body:JSON.stringify(body||{})})}
+function keep(j){if(j&&j.access_token&&j.user)save({access_token:j.access_token,refresh_token:j.refresh_token,expires_at:Math.floor(Date.now()/1000)+(j.expires_in||3600),email:j.user.email})}
+function fresh(){if(!S)return Promise.resolve(null);if(S.expires_at-60>Date.now()/1000)return Promise.resolve(S.access_token);
+ return post('/auth/v1/token?grant_type=refresh_token',{refresh_token:S.refresh_token}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j){keep(j);return S&&S.access_token}save(null);return null}).catch(function(){return S&&S.access_token})}
+var $=function(i){return document.getElementById(i)},ad=$('authDlg'),af=$('authForm'),am=af.querySelector('.sb-msg'),td=$('trackDlg'),step=1;
+function say(el,t,c){el.textContent=t;el.className='sb-msg'+(c?' '+c:'')}
+function openD(d){d.showModal?d.showModal():d.setAttribute('open','')}function closeD(d){d.close?d.close():d.removeAttribute('open')}
+function need(cb){after=cb;step=1;af.reset();$('authEL').hidden=false;$('authCL').hidden=true;$('authGo').textContent='Send code';$('authTitle').textContent='Sign in to continue';say(am,'');openD(ad);af.email.focus()}
+af.addEventListener('submit',function(e){e.preventDefault();var em=af.email.value.trim().toLowerCase(),b=$('authGo');
+ if(step===1){if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){say(am,'Please enter a valid email address.','err');return}
+  b.disabled=true;say(am,'Sending code...','load');
+  post('/auth/v1/otp',{email:em,create_user:true}).then(function(r){b.disabled=false;if(!r.ok){say(am,'Could not send the code. Please try again.','err');return}
+   step=2;$('authEL').hidden=true;$('authCL').hidden=false;b.textContent='Verify';$('authSub').textContent='We sent a code to '+em+'. Enter it below.';say(am,'');af.code.focus()}).catch(function(){b.disabled=false;say(am,'Network problem. Please try again.','err')});return}
+ var c=af.code.value.replace(/\s/g,'');if(c.length<6){say(am,'Enter the code from your email.','err');return}
+ b.disabled=true;say(am,'Checking...','load');
+ post('/auth/v1/verify',{type:'email',email:em,token:c}).then(function(r){return r.json().catch(function(){return{}}).then(function(j){b.disabled=false;
+  if(!r.ok||!j.access_token){say(am,'That code did not work. Check it and try again.','err');return}
+  keep(j);closeD(ad);paintNav();var f=after;after=null;if(f)f()})}).catch(function(){b.disabled=false;say(am,'Network problem. Please try again.','err')})});
+$('authCancel').addEventListener('click',function(){after=null;closeD(ad)});
+var PN={plain:'Plain NFC Card',nfc:'NFC Card',profile:'iKONEK Card + Digital Profile',plainprofile:'Plain Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'},ST=['received','accepted','shipped'],SL=['Received','Accepted','Shipped'];
+function norm(x){x=String(x||'').toLowerCase();return x==='accepted'?'accepted':x==='finished'?'shipped':x==='declined'?'cancelled':'received'}
+function row(o){var w=document.createElement('div');w.style.cssText='border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px';
+ var id=String(o.product_id||'').replace(/-(black|white)$/,''),t=document.createElement('strong');t.textContent=(PN[id]||id||'Order')+(o.quantity>1?' x'+o.quantity:'');w.appendChild(t);
+ var d=document.createElement('div');d.style.cssText='font-size:13px;opacity:.7;margin:2px 0 10px';d.textContent='Order #'+String(o.id).slice(0,8).toUpperCase()+' \u00b7 '+new Date(o.created_at).toLocaleDateString('en-PH',{year:'numeric',month:'short',day:'numeric'});w.appendChild(d);
+ var st=norm(o.status);if(st==='cancelled'){var c=document.createElement('div');c.textContent='We could not accept this order. Message us if you have questions.';w.appendChild(c);return w}
+ var i=ST.indexOf(st),bar=document.createElement('ol');bar.style.cssText='display:flex;list-style:none;margin:0;padding:0;gap:6px';
+ SL.forEach(function(l,k){var li=document.createElement('li');li.style.cssText='flex:1;text-align:center;font-size:13px';var s=document.createElement('div');s.style.cssText='height:6px;border-radius:99px;margin-bottom:6px;background:'+(k<=i?'#5be3a1':'rgba(255,255,255,.18)');li.appendChild(s);var n=document.createElement('span');n.textContent=l;n.style.fontWeight=k===i?'700':'400';n.style.opacity=k<=i?'1':'.55';li.appendChild(n);if(k===i)li.setAttribute('aria-current','step');bar.appendChild(li)});
+ w.appendChild(bar);return w}
+function openTrack(){fresh().then(function(tok){if(!tok){need(openTrack);return}
+ $('trkWho').textContent='Signed in as '+S.email;var L=$('trkList'),m=$('trkMsg');L.textContent='';say(m,'Loading your orders...','load');openD(td);
+ fetch(U+'/rest/v1/rpc/my_orders',{method:'POST',headers:{apikey:K,Authorization:'Bearer '+tok,'Content-Type':'application/json'},body:'{}'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(rows){
+  say(m,'');if(!rows.length){say(m,'No orders yet. Orders you place while signed in will show up here.');return}rows.forEach(function(o){L.appendChild(row(o))});say(m,'We email you every time your order status changes.')}).catch(function(){say(m,'Could not load your orders. Please try again.','err')})})}
+$('trkClose').addEventListener('click',function(){closeD(td)});
+$('trkOut').addEventListener('click',function(){save(null);closeD(td);paintNav()});
+[].forEach.call(document.querySelectorAll('[data-track]'),function(a){a.addEventListener('click',function(e){e.preventDefault();var mn=document.getElementById('mnav');if(mn)document.querySelector('.menu-btn')&&document.querySelector('.menu-btn').getAttribute('aria-expanded')==='true'&&document.querySelector('.menu-btn').click();openTrack()})});
+function paintNav(){}
+window.ikAuth={email:function(){return S&&S.email||null},token:function(){return S&&S.access_token||null},need:need,fresh:fresh,openTrack:openTrack};
+if(location.hash==='#track')setTimeout(openTrack,400);
+})();
+</script>
+<script>
 // Supabase connection (publishable key is safe to expose; Row Level Security protects the data)
 (function(){
 var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc';
@@ -1943,7 +2002,7 @@ var IDS=['plain','nfc','profile','digital','google','business'],DEF={plainprofil
 function fmt(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:2})}
 function priceOf(id,f){if(FIXED[id]!=null)return FIXED[id];var v=SPLIT[id]?price[id+'-'+(f||sel[id])]:price[id];if((v==null||isNaN(v))&&DEF[id]!=null)v=DEF[id];return(v==null||isNaN(v))?null:v}
 function sendConfirm(d){return fetch(URL_+'/functions/v1/order-confirmation',{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.ok}).catch(function(){return false})}
-function api(path,body){var o={cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json'}};if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
+function api(path,body){var o={cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json'}};if(body&&window.ikAuth&&ikAuth.token())o.headers.Authorization='Bearer '+ikAuth.token();if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
 var cards=[].slice.call(document.querySelectorAll('#packages .package-card'));
 
 var LBL={plain:'Plain NFC Card',nfc:'NFC Card',profile:'Card + Digital Profile',plainprofile:'Plain Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'};
@@ -2042,7 +2101,8 @@ function showStock(){var id=of.product.value,n=stock[pid()];document.getElementB
  [['plain','Plain NFC Card'],['nfc','NFC Card'],['profile','iKONEK Card + Digital Profile'],['plainprofile','Plain Card + Digital Profile'],['digital','Digital Profile'],['google','Google Review Card']].forEach(function(p){var o=of.product.querySelector('option[value="'+p[0]+'"]'),v=priceOf(p[0],of.finish.value.toLowerCase());if(o&&v!=null)o.textContent=p[1]+' - PHP '+fmt(v)+(PRE[p[0]]?' (pre-order)':'')});
  if(PRE[id])of.qty.max=100;else if(n!=null)of.qty.max=Math.max(1,Math.min(100,n));var pk=document.getElementById('ordPkg'),po=of.product.selectedOptions[0];if(pk&&po)pk.textContent=po.textContent}
 of.finish.addEventListener('change',showStock);
-function openOrder(id,fin){of.reset();of.product.value=id;if(fin&&SPLIT[id])of.finish.value=fin==='white'?'White':'Black';msg(om,'');showStock();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
+function openOrder(id,fin){if(!ikAuth.email()){ikAuth.need(function(){openOrder(id,fin)});return}
+ of.reset();of.contact.value=ikAuth.email();of.contact.readOnly=true;of.product.value=id;if(fin&&SPLIT[id])of.finish.value=fin==='white'?'White':'Black';msg(om,'');showStock();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
 cards.forEach(function(c,i){if(SPLIT[IDS[i]])[].forEach.call(c.querySelectorAll('[data-pl-choice],[data-finish-choice]'),function(b){b.addEventListener('click',function(){var nf=b.getAttribute('data-pl-choice')||b.getAttribute('data-finish-choice');sel[IDS[i]]=nf;paint()})})});
 cards.forEach(function(c,i){[].forEach.call(c.querySelectorAll('.primary-action'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();window.__orderAt=Date.now();var ab=c.querySelector('.nfc-finish-btn.is-active'),fin=ab?(ab.getAttribute('data-pl-choice')||ab.getAttribute('data-finish-choice')):null;if(IDS[i]==='profile')openPick();else openOrder(IDS[i],fin)})})});
 
@@ -2053,7 +2113,7 @@ function closePick(){if(pdlg.close)pdlg.close();else pdlg.removeAttribute('open'
 document.getElementById('pickCancel').addEventListener('click',closePick);
 pdlg.addEventListener('click',function(e){if(e.target===pdlg)closePick()});
 function closeOrder(){if(dlg.close)dlg.close();else dlg.removeAttribute('open')}
-function orderDirty(){return !!(of.name.value.trim()||of.contact.value.trim()||of.qty.value!=='1')}
+function orderDirty(){return !!(of.name.value.trim()||of.qty.value!=='1')}
 function requestCloseOrder(){
  if(of.getAttribute('aria-busy')==='true')return;
  if(!orderDirty()){closeOrder();return}
@@ -2078,9 +2138,10 @@ of.addEventListener('submit',function(e){e.preventDefault();
  confirmBox({title:PRE[id]?'Confirm your pre-order?':'Confirm your order?',text:'Please review the details below before we send it.',rows:rows,yes:PRE[id]?'Yes, place pre-order':'Yes, place order',no:'Review details'}).then(function(ok){
   if(!ok){msg(om,'');return}
   lock(of,true);msg(om,'Placing your order...','load');showLoading(PRE[id]?'Placing your pre-order':'Placing your order','Please wait, do not close this page.',{progress:3000});
-  api('/rest/v1/rpc/place_order',{p_product_id:pid(),p_quantity:q,p_name:nm,p_contact:ct,p_finish:NOF[id]?null:fin,p_link:null,p_notes:PRE[id]?'[PRE-ORDER]':null})
+  ikAuth.fresh().then(function(t){if(!t){throw new Error('auth')}return api('/rest/v1/rpc/place_order',{p_product_id:pid(),p_quantity:q,p_name:nm,p_contact:ct,p_finish:NOF[id]?null:fin,p_link:null,p_notes:PRE[id]?'[PRE-ORDER]':null})})
   .then(function(r){return endLoad(r.ok,PRE[id]?'Pre-order placed!':'Order placed!').then(function(){if(r.ok){var okt=PRE[id]?'Your pre-order was received. We will email you once it is accepted.':'Your order was received. We will email you once it is accepted.';msg(om,'Thanks! '+okt,'ok');toast('ok',PRE[id]?'Pre-order placed!':'Order placed!','We will email you once it is accepted.',6000);
    of.reset();of.product.value=id;loadStock();closeOrder();return}
+   if(r.status===401||r.status===403){closeOrder();ikAuth.need(function(){openOrder(id)});return}
    return r.json().catch(function(){return{}}).then(function(j){var et=/out_of_stock/.test(j.message||'')?'Sorry, there is not enough stock for that quantity.':/rate_limited/.test(j.message||'')?'Too many orders from this email recently. Please wait a little while, or message us.':'Could not place the order. Please try again or message us.';msg(om,et,'err');toast('err','Order failed',et);loadStock()})})})
   .catch(function(){return endLoad(false).then(function(){msg(om,'Network problem. Please try again.','err');toast('err','Network problem','Your order was not sent. Please try again.')})}).then(function(){lock(of,false)})})});
 
