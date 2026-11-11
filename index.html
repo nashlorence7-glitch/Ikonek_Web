@@ -1921,11 +1921,12 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <div class="sb-msg" role="status" aria-live="polite"></div>
 </form></dialog>
 
+<style>#authDlg [hidden],#trackDlg [hidden]{display:none!important}</style>
 <dialog id="authDlg" class="sb-dlg" aria-labelledby="authTitle"><form id="authForm" class="sb-form" novalidate>
 <h3 id="authTitle">Sign in to continue</h3><p class="sb-sub" id="authSub">Enter your email and we will send you a 6-digit code. No password needed.</p>
 <label id="authEL">Email<input name="email" type="email" maxlength="200" required autocomplete="email" inputmode="email" placeholder="you@email.com"></label>
 <label id="authCL" hidden>6-digit code<input name="code" maxlength="8" autocomplete="one-time-code" inputmode="numeric" placeholder="123456"></label>
-<div class="sb-actions"><button class="sb-btn" type="button" id="authCancel">Cancel</button><button class="sb-btn go" type="submit" id="authGo">Send code</button></div>
+<div class="sb-actions"><button class="sb-btn" type="button" id="authResend" hidden>Resend code</button><button class="sb-btn" type="button" id="authCancel">Cancel</button><button class="sb-btn go" type="submit" id="authGo">Send code</button></div>
 <div class="sb-msg" role="status" aria-live="polite"></div></form></dialog>
 <dialog id="trackDlg" class="sb-dlg" aria-labelledby="trkTitle"><div class="sb-form">
 <h3 id="trkTitle">Track your orders</h3><p class="sb-sub" id="trkWho"></p>
@@ -1961,12 +1962,16 @@ function fresh(){if(!S)return Promise.resolve(null);if(S.expires_at-60>Date.now(
 var $=function(i){return document.getElementById(i)},ad=$('authDlg'),af=$('authForm'),am=af.querySelector('.sb-msg'),td=$('trackDlg'),step=1;
 function say(el,t,c){el.textContent=t;el.className='sb-msg'+(c?' '+c:'')}
 function openD(d){d.showModal?d.showModal():d.setAttribute('open','')}function closeD(d){d.close?d.close():d.removeAttribute('open')}
-function need(cb){after=cb;step=1;af.reset();$('authEL').hidden=false;$('authCL').hidden=true;$('authGo').textContent='Send code';$('authTitle').textContent='Sign in to continue';say(am,'');openD(ad);af.email.focus()}
+function need(cb){after=cb;step=1;clearInterval(cd);$('authResend').hidden=true;$('authSub').textContent='Enter your email and we will send you a 6-digit code. No password needed.';af.reset();$('authEL').hidden=false;$('authCL').hidden=true;$('authGo').textContent='Send code';$('authTitle').textContent='Sign in to continue';say(am,'');openD(ad);af.email.focus()}
+var cd=null;
+function cool(n){var r=$('authResend');clearInterval(cd);r.hidden=false;r.disabled=true;r.textContent='Resend code ('+n+'s)';cd=setInterval(function(){n--;if(n<=0){clearInterval(cd);r.disabled=false;r.textContent='Resend code';return}r.textContent='Resend code ('+n+'s)'},1000)}
+function send(em,b){b.disabled=true;say(am,'Sending code...','load');
+ post('/auth/v1/otp',{email:em,create_user:true}).then(function(r){b.disabled=false;if(!r.ok){say(am,r.status===429?'Please wait a moment before asking for another code.':'Could not send the code. Please try again.','err');return}
+  step=2;$('authEL').hidden=true;$('authCL').hidden=false;b.textContent='Verify';$('authTitle').textContent='Check your email';$('authSub').textContent='We sent a 6-digit code to '+em+'.';
+  say(am,'\u2713 Code sent! Check your inbox. If you do not see it, look in your spam or junk folder.','ok');cool(30);af.code.focus()}).catch(function(){b.disabled=false;say(am,'Network problem. Please try again.','err')})}
+$('authResend').addEventListener('click',function(){send(af.email.value.trim().toLowerCase(),$('authGo'))});
 af.addEventListener('submit',function(e){e.preventDefault();var em=af.email.value.trim().toLowerCase(),b=$('authGo');
- if(step===1){if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){say(am,'Please enter a valid email address.','err');return}
-  b.disabled=true;say(am,'Sending code...','load');
-  post('/auth/v1/otp',{email:em,create_user:true}).then(function(r){b.disabled=false;if(!r.ok){say(am,'Could not send the code. Please try again.','err');return}
-   step=2;$('authEL').hidden=true;$('authCL').hidden=false;b.textContent='Verify';$('authSub').textContent='We sent a code to '+em+'. Enter it below.';say(am,'');af.code.focus()}).catch(function(){b.disabled=false;say(am,'Network problem. Please try again.','err')});return}
+ if(step===1){if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){say(am,'Please enter a valid email address.','err');return}send(em,b);return}
  var c=af.code.value.replace(/\s/g,'');if(c.length<6){say(am,'Enter the code from your email.','err');return}
  b.disabled=true;say(am,'Checking...','load');
  post('/auth/v1/verify',{type:'email',email:em,token:c}).then(function(r){return r.json().catch(function(){return{}}).then(function(j){b.disabled=false;
