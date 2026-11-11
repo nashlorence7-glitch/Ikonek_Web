@@ -1057,6 +1057,15 @@ img{height:auto}
 .ks-sheet input[type=color]{width:60px;height:44px}
 .ks-sheet .ks-x{width:44px;min-height:44px}
 body.ks-lock{overflow:hidden}
+
+/* Card choice dialog */
+.pick-list{display:grid;gap:10px;margin:6px 0 4px}
+.pick-opt{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center;text-align:left;width:100%;padding:14px 16px;border-radius:14px;border:1px solid #29415d;background:#0e1826;color:#EAF3FC;font:inherit;cursor:pointer;transition:border-color .2s,background .2s}
+.pick-opt:hover,.pick-opt:focus-visible{border-color:#1B9CFF;background:#112238;outline:0}
+.pick-t{font:700 15px/1.25 'Montserrat',sans-serif}
+.pick-d{grid-column:1;font-size:12.5px;color:#9FB0C4}
+.pick-p{grid-column:2;grid-row:1 / span 2;font-size:12px;color:#9FB0C4;white-space:nowrap}
+.pick-p b{font:700 20px 'Montserrat',sans-serif;color:#fff}
 </style></head>
 <body>
 <div id="ikLoader" role="status" aria-label="Loading iKONEK">
@@ -1378,7 +1387,7 @@ body.ks-lock{overflow:hidden}
 <span class="cd-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 8.5a5 5 0 0 1 0 7"/><path d="M11 6a9 9 0 0 1 0 12"/><path d="M15 3.5a13 13 0 0 1 0 17"/></svg>Tap once. Profile opens.</span>
 <img width="900" height="568" decoding="async" class="cd-card" alt="iKONEK NFC card" src="img-5-7f93c93e.webp">
 <div class="cd-phone" aria-hidden="true"><div class="cd-screen cd-shot"><div class="pf"><img width="605" height="1203" decoding="async" loading="lazy" src="img-1-8dc9c4bc.webp" alt=""></div></div></div></div>
-<div class="back-copy"><h3>Card + digital profile</h3><p>Tap your NFC card and your mobile profile opens: contact details, links, QR code and a save-to-contacts button, always up to date.</p><strong>PHP 349</strong></div>
+<div class="back-copy"><h3>Card + digital profile</h3><p>Tap your NFC card and your mobile profile opens: contact details, links, QR code and a save-to-contacts button, always up to date. Choose the iKONEK card or a plain card when you order.</p><strong>PHP 349</strong></div>
 <a class="package-action primary-action" href="#contact">Get the full package <span>→</span></a>
 </div></div></article>
 <article class="package-card" tabindex="0" role="button" aria-label="Digital Profile. Tap to flip and preview product" aria-pressed="false">
@@ -1610,7 +1619,7 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <div class="msg-quick" style="display:none" aria-hidden="true"><a href="tel:09949954822">Call 0994 995 4822</a><a href="mailto:ikonek79@gmail.com">Email us</a><a id="msgFb" href="#" target="_blank" rel="noopener" hidden>Messenger</a></div>
 <div class="msg-or" style="display:none" aria-hidden="true"><span>or send a message here</span></div>
 <input class="sb-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave this field empty">
-<fieldset class="msg-fs" style="display:none"><legend>What are you interested in? <em>(optional)</em></legend><div class="msg-chips"><label class="msg-chip"><input type="radio" name="interest" value="Plain NFC Card"><span>Plain NFC Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Custom NFC Card"><span>Custom NFC Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Card + Digital Profile"><span>Card + Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Digital Profile"><span>Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Google Review Card"><span>Google Review Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Business Website"><span>Business Website</span></label><label class="msg-chip"><input type="radio" name="interest" value="Just a question"><span>Just a question</span></label></div></fieldset>
+<fieldset class="msg-fs" style="display:none"><legend>What are you interested in? <em>(optional)</em></legend><div class="msg-chips"><label class="msg-chip"><input type="radio" name="interest" value="Plain NFC Card"><span>Plain NFC Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Custom NFC Card"><span>Custom NFC Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Card + Digital Profile"><span>Card + Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Plain Card + Digital Profile"><span>Plain Card + Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Digital Profile"><span>Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Google Review Card"><span>Google Review Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Business Website"><span>Business Website</span></label><label class="msg-chip"><input type="radio" name="interest" value="Just a question"><span>Just a question</span></label></div></fieldset>
 <div class="sb-row" style="grid-template-columns:1fr"><label>Your name *<input name="name" maxlength="120" required autocomplete="name" placeholder="Juan Dela Cruz"></label><label style="display:none">Business name<input name="business" maxlength="120" autocomplete="organization" placeholder="e.g. Santos Bakery"></label></div>
 <fieldset class="msg-fs"><legend>Best way to reach you *</legend><div class="msg-chips"><label class="msg-chip"><input type="radio" name="method" value="Messenger" checked><span>Messenger</span></label><label class="msg-chip"><input type="radio" name="method" value="Call or text"><span>Call / text</span></label><label class="msg-chip"><input type="radio" name="method" value="Email"><span>Email</span></label></div></fieldset>
 <label><span id="msgCtLabel">Messenger name or profile link *</span><input name="contact" maxlength="150" required autocomplete="off" placeholder="Your name on Messenger or Facebook link"></label>
@@ -1628,7 +1637,7 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <h3 id="ordTitle">Order your card</h3><p class="sb-sub" id="ordStock"></p>
 <input class="sb-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave this field empty">
 <div class="sb-row"><div class="ord-pkg"><span>Package</span><strong id="ordPkg"></strong><select name="product" hidden aria-hidden="true" tabindex="-1" aria-label="Product">
-<option value="plain">Plain NFC Card - PHP 99</option><option value="nfc">NFC Card - PHP 149</option><option value="profile">Card + Digital Profile - PHP 349</option><option value="digital">Digital Profile - PHP 149</option><option value="google">Google Review Card - PHP 999</option><option value="business">Business Website - custom quotation</option></select></div>
+<option value="plain">Plain NFC Card - PHP 99</option><option value="nfc">NFC Card - PHP 149</option><option value="profile">iKONEK Card + Digital Profile - PHP 349</option><option value="plainprofile">Plain Card + Digital Profile - PHP 249</option><option value="digital">Digital Profile - PHP 149</option><option value="google">Google Review Card - PHP 999</option><option value="business">Business Website - custom quotation</option></select></div>
 <label>Quantity<input name="qty" type="number" min="1" max="100" value="1"></label></div>
 <label id="ordFinishL">Finish<select name="finish"><option value="Black">Black</option><option value="White">White</option></select></label>
 <div class="sb-row"><label>Your name<input name="name" maxlength="120" required autocomplete="name"></label><label>Email<input name="contact" type="email" maxlength="200" required autocomplete="email" inputmode="email" placeholder="you@email.com"></label></div>
@@ -1636,6 +1645,14 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <div class="sb-msg" role="status" aria-live="polite"></div>
 </form></dialog>
 
+<dialog id="pickDlg" class="sb-dlg" aria-labelledby="pickTitle"><div class="sb-form">
+<h3 id="pickTitle">Choose your card</h3><p class="sb-sub">Both come with your digital profile page.</p>
+<div class="pick-list">
+<button type="button" class="pick-opt" data-pick="profile"><span class="pick-t">iKONEK Card + Digital Profile</span><span class="pick-d">Custom-designed iKONEK NFC card</span><span class="pick-p">PHP <b id="pickP1">349</b></span></button>
+<button type="button" class="pick-opt" data-pick="plainprofile"><span class="pick-t">Plain Card + Digital Profile</span><span class="pick-d">Plain NFC card, no printed design</span><span class="pick-p">PHP <b id="pickP2">249</b></span></button>
+</div>
+<div class="sb-actions"><button class="sb-btn" type="button" id="pickCancel">Cancel</button></div>
+</div></dialog>
 <dialog id="ldDlg" class="ld-dlg" aria-labelledby="ldTitle" aria-describedby="ldText" role="alert"><div class="ld-box"><div class="ld-ring" aria-hidden="true"><div class="ld-spin"></div><svg class="ld-svg" viewBox="0 0 64 64" width="64" height="64"><circle class="ld-track" cx="32" cy="32" r="28"/><circle class="ld-fill" cx="32" cy="32" r="32"/><circle class="ld-prog" cx="32" cy="32" r="28" pathLength="100"/><path class="ld-check" d="M19 33.5 L28 42 L45 23" pathLength="1"/></svg></div><h3 id="ldTitle">Loading</h3><p id="ldText"></p></div></dialog>
 <dialog id="cfmDlg" class="sb-dlg" aria-labelledby="cfmTitle" aria-describedby="cfmText"><div class="sb-form">
 <h3 id="cfmTitle">Are you sure?</h3><p class="sb-sub" id="cfmText"></p>
@@ -1648,14 +1665,14 @@ document.querySelectorAll('.package-card').forEach(function(card){
 // Supabase connection (publishable key is safe to expose; Row Level Security protects the data)
 (function(){
 var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc';
-var IDS=['plain','nfc','profile','digital','google','business'],NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={},NOSTOCK={profile:1,digital:1,business:1,nfc:1},PRE={nfc:1},sel={plain:'black',nfc:'black'};
+var IDS=['plain','nfc','profile','digital','google','business'],DEF={plainprofile:249},NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={},NOSTOCK={profile:1,plainprofile:1,digital:1,business:1,nfc:1},PRE={nfc:1},sel={plain:'black',nfc:'black'};
 function fmt(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:2})}
-function priceOf(id,f){if(FIXED[id]!=null)return FIXED[id];var v=SPLIT[id]?price[id+'-'+(f||sel[id])]:price[id];return(v==null||isNaN(v))?null:v}
+function priceOf(id,f){if(FIXED[id]!=null)return FIXED[id];var v=SPLIT[id]?price[id+'-'+(f||sel[id])]:price[id];if((v==null||isNaN(v))&&DEF[id]!=null)v=DEF[id];return(v==null||isNaN(v))?null:v}
 function sendConfirm(d){return fetch(URL_+'/functions/v1/order-confirmation',{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.ok}).catch(function(){return false})}
 function api(path,body){var o={cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json'}};if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
 var cards=[].slice.call(document.querySelectorAll('#packages .package-card'));
 
-var LBL={plain:'Plain NFC Card',nfc:'NFC Card',profile:'Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'};
+var LBL={plain:'Plain NFC Card',nfc:'NFC Card',profile:'Card + Digital Profile',plainprofile:'Plain Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'};
 var tc=document.getElementById('ikToasts');
 function toast(type,title,text,ms){
  ms=ms||(type==='err'?7000:5000);
@@ -1724,12 +1741,19 @@ function msg(el,text,cls){el.textContent=text;el.className='sb-msg'+(cls?' '+cls
 function pid(){var id=of.product.value;return SPLIT[id]?id+'-'+of.finish.value.toLowerCase():id}
 function showStock(){var id=of.product.value,n=stock[pid()];document.getElementById('ordTitle').textContent=PRE[id]?'Pre-order your card':'Order your card';of.querySelector('.sb-btn.go').textContent=PRE[id]?'Place pre-order':'Place order';document.getElementById('ordStock').textContent=PRE[id]?'Pre-order':(n==null||NOSTOCK[id])?'':(n>0?n+' in stock':'Sold out');document.getElementById('ordFinishL').style.display=NOF[id]?'none':'';
  [].forEach.call(of.finish.options,function(o){var k=stock[id+'-'+o.value.toLowerCase()];o.textContent=o.value+(SPLIT[id]&&k!=null?(k>0?' ('+k+' left)':' (sold out)'):'')});
- [['plain','Plain NFC Card'],['nfc','NFC Card'],['digital','Digital Profile'],['google','Google Review Card']].forEach(function(p){var o=of.product.querySelector('option[value="'+p[0]+'"]'),v=priceOf(p[0],of.finish.value.toLowerCase());if(o&&v!=null)o.textContent=p[1]+' - PHP '+fmt(v)+(PRE[p[0]]?' (pre-order)':'')});
+ [['plain','Plain NFC Card'],['nfc','NFC Card'],['profile','iKONEK Card + Digital Profile'],['plainprofile','Plain Card + Digital Profile'],['digital','Digital Profile'],['google','Google Review Card']].forEach(function(p){var o=of.product.querySelector('option[value="'+p[0]+'"]'),v=priceOf(p[0],of.finish.value.toLowerCase());if(o&&v!=null)o.textContent=p[1]+' - PHP '+fmt(v)+(PRE[p[0]]?' (pre-order)':'')});
  if(PRE[id])of.qty.max=100;else if(n!=null)of.qty.max=Math.max(1,Math.min(100,n));var pk=document.getElementById('ordPkg'),po=of.product.selectedOptions[0];if(pk&&po)pk.textContent=po.textContent}
 of.finish.addEventListener('change',showStock);
 function openOrder(id,fin){of.reset();of.product.value=id;if(fin&&SPLIT[id])of.finish.value=fin==='white'?'White':'Black';msg(om,'');showStock();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
 cards.forEach(function(c,i){if(SPLIT[IDS[i]])[].forEach.call(c.querySelectorAll('[data-pl-choice],[data-finish-choice]'),function(b){b.addEventListener('click',function(){var nf=b.getAttribute('data-pl-choice')||b.getAttribute('data-finish-choice');sel[IDS[i]]=nf;paint()})})});
-cards.forEach(function(c,i){[].forEach.call(c.querySelectorAll('.primary-action'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();window.__orderAt=Date.now();var ab=c.querySelector('.nfc-finish-btn.is-active'),fin=ab?(ab.getAttribute('data-pl-choice')||ab.getAttribute('data-finish-choice')):null;openOrder(IDS[i],fin)})})});
+cards.forEach(function(c,i){[].forEach.call(c.querySelectorAll('.primary-action'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();window.__orderAt=Date.now();var ab=c.querySelector('.nfc-finish-btn.is-active'),fin=ab?(ab.getAttribute('data-pl-choice')||ab.getAttribute('data-finish-choice')):null;if(IDS[i]==='profile')openPick();else openOrder(IDS[i],fin)})})});
+
+var pdlg=document.getElementById('pickDlg');
+function openPick(){document.getElementById('pickP1').textContent=fmt(priceOf('profile')||349);document.getElementById('pickP2').textContent=fmt(priceOf('plainprofile')||249);if(pdlg.showModal)pdlg.showModal();else pdlg.setAttribute('open','')}
+function closePick(){if(pdlg.close)pdlg.close();else pdlg.removeAttribute('open')}
+[].forEach.call(pdlg.querySelectorAll('[data-pick]'),function(b){b.addEventListener('click',function(){var id=b.getAttribute('data-pick');closePick();window.__orderAt=Date.now();openOrder(id)})});
+document.getElementById('pickCancel').addEventListener('click',closePick);
+pdlg.addEventListener('click',function(e){if(e.target===pdlg)closePick()});
 function closeOrder(){if(dlg.close)dlg.close();else dlg.removeAttribute('open')}
 function orderDirty(){return !!(of.name.value.trim()||of.contact.value.trim()||of.qty.value!=='1')}
 function requestCloseOrder(){
