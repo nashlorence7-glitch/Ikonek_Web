@@ -905,6 +905,20 @@ img{height:auto}
 #packages .package-card .package-front .flip-hint span{display:none!important}
 #packages .package-card .package-front .flip-hint::after{content:"\21BB  Back to product";font-size:13px;color:#1B9CFF}
 }
+/* ===== Default face: price and Order are the first thing people see; flipping is an obvious "What's included" pill ===== */
+#packages .package-card .package-back .back-copy strong{color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:32px;letter-spacing:-.01em;margin-top:10px;line-height:1.1}
+#packages .package-card .package-back .back-close{border:1px solid rgba(27,156,255,.55);background:rgba(27,156,255,.12);border-radius:999px;padding:6px 12px;cursor:pointer}
+#packages .package-card .package-back .back-close::after{content:"What's included \21BB"!important;font-size:12px!important;font-weight:600}
+#packages .package-card .package-back .package-action{box-shadow:0 0 26px rgba(27,156,255,.35)}
+#packages .package-card.web-package .package-back .back-copy strong{font-size:24px!important}
+/* One consistent silver for every price (front and back, promo or not) */
+#packages:not(.data-loading) .package-card .price-num,#packages:not(.data-loading) .package-card .package-back .back-copy strong{background:linear-gradient(180deg,#F4F7FB,#AFBDCE)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent;text-shadow:none!important}
+#packages .package-card .price-cur{color:#9FB0C4!important}
+@media(max-width:620px){
+#packages .package-card .package-back .back-copy strong{font-size:22px!important;margin-top:4px!important}
+#packages .package-card .package-back .back-close{padding:4px 8px}
+#packages .package-card .package-back .back-close::after{font-size:10px!important}
+}
 </style>
 <style>/* ===== iKONEK Card Studio (scoped: .ks-*) ===== */
 .ks-wrap{width:100%;margin-top:8px;border:1px solid #1d2f45;background:#0A0F17;border-radius:20px;overflow:hidden;max-width:560px}
@@ -1492,6 +1506,7 @@ load();
 <div style="font-size: 14px; letter-spacing: 0.14em; color: var(--accent); font-weight: 600">TRY IT YOURSELF</div>
 <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(32px, 4.5vw, 52px); line-height: 1.08; letter-spacing: -0.02em">Design your card. Watch it change live.</h2>
 <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #9FB0C4; max-width: 500px">Pick a theme, swap the layout, change fonts and colors, add your own photo and links. This is the same kind of profile people see when they tap your card.</p>
+<a class="btn btn-ghost" href="https://nash-onetap-card.vercel.app/" target="_blank" rel="noopener noreferrer" style="align-self: flex-start; border: 1px solid var(--accent); color: var(--accent); font-weight: 600; font-size: 15px; padding: 12px 22px; border-radius: 999px">See a real profile ↗</a>
 <p style="margin: 0; font-size: 13px; color: #7F91A6">Your edits stay on your device until you tap "Send my design". Then we build it for you.</p>
 <div class="ks-wrap" id="ksWrap" aria-label="Customize your card">
 <div class="ks-tabs" role="tablist" id="ksTabs">
@@ -1602,7 +1617,7 @@ load();
 <div class="reveal" style="display: flex; flex-direction: column; gap: 14px; max-width: 680px">
 <div style="font-size: 14px; letter-spacing: 0.14em; color: var(--accent); font-weight: 600">PACKAGES</div>
 <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(32px, 4.5vw, 52px); line-height: 1.08; letter-spacing: -0.02em">Pick what fits your business.</h2>
-<p style="margin:0;color:#9FB0C4;font-size:15px">Tap any package to preview the product and what is included.</p>
+<p style="margin:0;color:#9FB0C4;font-size:15px">Every card shows its price and an Order button. Tap “What’s included” to see the full features.</p>
 </div>
 <div class="package-grid">
 <article class="package-card" tabindex="0" role="button" aria-label="Plain NFC Card. Tap to flip and preview product" aria-pressed="false">
