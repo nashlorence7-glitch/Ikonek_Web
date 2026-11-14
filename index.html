@@ -2454,6 +2454,7 @@ function closeMsg(){if(md.close)md.close();else md.removeAttribute('open')}
 document.getElementById('msgBtn').addEventListener('click',function(e){e.preventDefault();openMsg()});
 ['hdrInq','mnavInq'].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener('click',function(e){e.preventDefault();openMsg()})});
 document.getElementById('quoteBtn').addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openMsg('Business Website')});
+window.ikOpenMsg=openMsg;
 function msgDirty(){return !!(!mf.hidden&&(mf.name.value.trim()||mf.business.value.trim()||mf.contact.value.trim()||mf.message.value.trim()))}
 function requestCloseMsg(){
  if(mf.getAttribute('aria-busy')==='true')return;
@@ -2666,4 +2667,52 @@ if(window.ResizeObserver)new ResizeObserver(fit).observe(stage);
 mq.addEventListener&&mq.addEventListener('change',function(){if(!mq.matches)close()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
 })();
-</script></body></html>
+</script><style>
+#chatFab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:80;display:grid;justify-items:end;gap:10px;font-family:'Inter',system-ui,sans-serif;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .35s,transform .35s}
+#chatFab.on{opacity:1;transform:none;pointer-events:auto}
+.cf-btn{display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:0 20px 0 16px;border:0;border-radius:999px;background:#1B9CFF;color:#fff;font:700 15px/1 'Inter',system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 28px rgba(27,156,255,.45),0 2px 8px rgba(0,0,0,.4);transition:transform .15s,background .2s}
+.cf-btn:hover{background:#3aa9ff}.cf-btn:active{transform:scale(.97)}
+.cf-btn:focus-visible,.cf-opt:focus-visible,.cf-x:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.cf-btn svg{flex:none}
+.cf-short{display:none}
+.cf-pop,.cf-nudge{width:min(300px,calc(100vw - 32px));padding:16px;border-radius:18px;background:#0A0F17;border:1px solid #1d3550;box-shadow:0 16px 48px rgba(0,0,0,.55);color:#EEF3F9}
+.cf-pop[hidden],.cf-nudge[hidden]{display:none}
+.cf-t{margin:0;font:700 16px/1.3 'Inter',sans-serif}
+.cf-s{margin:4px 0 14px;font:400 14px/1.45 'Inter',sans-serif;color:#9FB0C4}
+.cf-opt{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin-top:8px;border-radius:999px;border:1px solid #1B9CFF;background:#1B9CFF;color:#fff;text-decoration:none;font:600 15px/1 'Inter',sans-serif;cursor:pointer}
+.cf-opt:hover{background:#3aa9ff}
+.cf-alt{background:transparent;color:#EEF3F9;border-color:#2a4058}.cf-alt:hover{background:rgba(27,156,255,.12);border-color:#1B9CFF}
+.cf-nudge{position:relative;padding:14px 38px 14px 16px;cursor:pointer;font:500 14px/1.4 'Inter',sans-serif}
+.cf-nudge b{display:block;font:700 15px/1.3 'Inter',sans-serif}
+.cf-x{position:absolute;top:6px;right:6px;width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:#9FB0C4;font:400 20px/1 'Inter',sans-serif;cursor:pointer}
+@media(max-width:520px){.cf-long{display:none}.cf-short{display:inline}.cf-btn{min-height:56px;padding:0 20px 0 16px}}
+@media(prefers-reduced-motion:reduce){#chatFab{transition:none}}
+</style>
+<div id="chatFab">
+<div class="cf-nudge" id="cfNudge" hidden><button type="button" class="cf-x" id="cfNudgeX" aria-label="Dismiss">&times;</button><b>Does it work on my phone?</b>Ask us before you order.</div>
+<div class="cf-pop" id="cfPop" hidden role="dialog" aria-label="Chat with us">
+<p class="cf-t">Questions before you order?</p><p class="cf-s">Ask if it works on your phone. We reply as soon as we can.</p>
+<a class="cf-opt" id="cfMsgr" href="https://m.me/61596054820328" target="_blank" rel="noopener noreferrer">Chat on Messenger</a>
+<button type="button" class="cf-opt cf-alt" id="cfForm">Send a message here</button>
+</div>
+<button type="button" class="cf-btn" id="cfBtn" aria-expanded="false" aria-controls="cfPop"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.9 1.44 5.48 3.7 7.17V22l3.4-1.87c.9.25 1.86.39 2.9.39 5.52 0 10-4.14 10-9.27C22 6.14 17.52 2 12 2zm1.1 12.45-2.55-2.72-4.98 2.72 5.48-5.82 2.61 2.72 4.92-2.72-5.48 5.82z"/></svg><span class="cf-long">Chat with us</span><span class="cf-short">Chat</span></button>
+</div>
+<script>
+(function(){
+var fab=document.getElementById('chatFab'),btn=document.getElementById('cfBtn'),pop=document.getElementById('cfPop'),nud=document.getElementById('cfNudge');
+function seen(){try{return sessionStorage.getItem('ik-nudge')}catch(e){return null}}
+function mark(){try{sessionStorage.setItem('ik-nudge','1')}catch(e){}}
+function hideNudge(){nud.hidden=true;mark()}
+function toggle(open){pop.hidden=!open;btn.setAttribute('aria-expanded',String(open));if(open)hideNudge()}
+btn.addEventListener('click',function(){toggle(pop.hidden)});
+nud.addEventListener('click',function(){toggle(true)});
+document.getElementById('cfNudgeX').addEventListener('click',function(e){e.stopPropagation();hideNudge()});
+document.getElementById('cfMsgr').addEventListener('click',function(){toggle(false)});
+document.getElementById('cfForm').addEventListener('click',function(){toggle(false);if(window.ikOpenMsg)window.ikOpenMsg()});
+document.addEventListener('click',function(e){if(!pop.hidden&&!fab.contains(e.target))toggle(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!pop.hidden){toggle(false);btn.focus()}});
+setTimeout(function(){fab.classList.add('on')},1500);
+if(!seen())setTimeout(function(){if(pop.hidden&&!seen()&&!document.querySelector('dialog[open]')){nud.hidden=false;setTimeout(hideNudge,9000)}},7000);
+})();
+</script>
+</body></html>
