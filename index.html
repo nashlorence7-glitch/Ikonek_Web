@@ -2358,7 +2358,7 @@ function endLoad(ok,doneTitle){return new Promise(function(r){
  setTimeout(function(){if(!ld.open){r();return}closeLd(r)},w2)})}
 // Original (crossed-out) prices. Edit these numbers to change them. The bundle's original = card + digital profile.
 var ORIG={nfc:{black:499,white:489},digital:499};ORIG.profile=ORIG.nfc.black+ORIG.digital;
-function origOf(id,f){if(id==='nfc')return ORIG.nfc[f||'black'];if(id==='digital')return ORIG.digital;if(id==='profile')return ORIG.profile;return null}
+function origOf(id,f){if(id==='plainprofile')return(priceOf('plain','black')||99)+ORIG.digital;if(id==='nfc')return ORIG.nfc[f||'black'];if(id==='digital')return ORIG.digital;if(id==='profile')return ORIG.profile;return null}
 function pctOff(o,p){return(o&&p!=null&&o>p)?Math.round((o-p)/o*100):0}
 function decorate(c,id){var front=c.querySelector('.package-front'),pr=front&&front.querySelector('.package-price');if(!pr)return;
  var fs=SPLIT[id]||[null],best=0,bestAmt=0,single=null;
