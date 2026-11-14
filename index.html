@@ -399,7 +399,7 @@ h1{text-shadow:0 0 44px rgba(27,156,255,.28)}
 #packages .package-price.price-text{font:700 26px/1.2 'Montserrat',sans-serif;color:#EEF3F9;text-shadow:none}
 @media(max-width:760px){#packages .price-num{font-size:54px}#packages .package-price,#packages .package-price.price-text{min-height:64px;padding-left:16px}}
 
-/* Card + Digital Profile preview: NFC card + sample profile */
+/* Premium Card + Digital Profile preview: NFC card + sample profile */
 .cd-stage{position:relative;height:360px;flex:0 0 auto;border-radius:16px;overflow:hidden;border:1px solid #152234;
   background:radial-gradient(70% 90% at 78% 40%,rgba(27,156,255,.32),transparent 70%),radial-gradient(50% 60% at 15% 100%,rgba(27,156,255,.16),transparent 70%),#060A11}
 .cd-chip{position:absolute;left:14px;top:14px;z-index:4;display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;
@@ -1201,6 +1201,19 @@ body.ks-lock{overflow:hidden}
 .package-card.has-promo:not(.featured) .package-front{box-shadow:inset 0 0 0 1px rgba(255,107,107,.18)}
 .back-copy .price-was{margin-left:10px;font-size:13px}
 .pick-opt{position:relative}
+.cd-plain{position:absolute;left:7%;bottom:15%;width:52%;aspect-ratio:85.6/54;border-radius:3.8%/6%;z-index:2;transform:rotate(-5deg);transition:background .3s ease,box-shadow .3s ease}
+.cd-plain[data-finish="black"]{background:#0b0b0d;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 22px 22px rgba(0,0,0,.6),0 0 16px rgba(27,156,255,.25)}
+.cd-plain[data-finish="white"]{background:#f6f6f6;box-shadow:inset 0 0 0 1px rgba(20,30,50,.08),0 22px 22px rgba(0,0,0,.5),0 0 14px rgba(220,235,255,.18)}
+@media(min-width:1001px){#packages .package-grid>.package-card.web-package{grid-column:3 / span 2}}
+@media(min-width:761px) and (max-width:1000px){#packages .package-grid>.package-card.web-package{grid-column:1/-1;justify-self:center;width:calc(50% - 14px)}}
+@media(max-width:620px){#packages .package-grid>.package-card.web-package{grid-column:1/-1!important}}
+.pick-fin-wrap{display:grid;gap:8px;margin:4px 0 12px}
+.pick-fin-lbl{font:600 11px/1 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7f93ab;text-align:center}
+.pick-fin{width:100%}.pick-fin .nfc-finish-btn{flex:1;padding:11px 12px}
+.cdp-fin{flex:none;align-self:center;width:100%;max-width:340px}
+.cdp-fin .nfc-finish-btn{flex:1}
+.cd-card{transition:opacity .17s ease}.cd-card.is-swap{opacity:0}
+@media(prefers-reduced-motion:reduce){.cd-card{transition:none}}
 .pick-p{grid-row:1 / span 3;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
 .pick-s{grid-column:1;font:700 12px/1.3 'Inter',sans-serif;color:#5be3a1}
 .pick-s[hidden]{display:none}
@@ -1671,23 +1684,51 @@ load();
 <div class="back-copy"><h3>Your custom NFC card</h3><p>A physical, custom-printed card that opens the link you choose when someone taps their phone.</p><strong>PHP 149</strong></div>
 <a class="package-action primary-action" href="#contact">Pre-order this card <span>→</span></a>
 </div></div></article>
-<article class="package-card featured" tabindex="0" role="button" aria-label="Card plus Digital Profile. Tap to flip and preview product" aria-pressed="false">
+<article class="package-card featured" tabindex="0" role="button" aria-label="Premium Card plus Digital Profile. Tap to flip and preview product" aria-pressed="false">
 <div class="package-flip">
 <div class="package-face package-front">
 <div class="stock-badge" aria-hidden="true" style="visibility:hidden"><span class="stock-dot"></span><span>0 <small>IN STOCK</small></span></div>
-<div><div class="package-title-row"><div class="package-name">Card + Digital Profile</div><span class="popular-pill">Most popular</span></div><div class="package-sub">The full iKONEK experience.</div></div>
+<div><div class="package-title-row"><div class="package-name">Premium Card + Digital Profile</div><span class="popular-pill">Most popular</span></div><div class="package-sub">The full iKONEK experience.</div></div>
 <div class="package-price"><span class="price-cur">PHP</span><span class="price-num">349</span></div>
 <ul class="package-list"><li>Custom-designed NFC card</li><li>Mobile-first digital profile page</li><li>Save-to-contacts button and QR code</li><li>Update your details anytime</li></ul>
 <div class="flip-hint">Tap card to preview <span>↻</span></div>
 </div>
 <div class="package-face package-back">
 <div class="back-top"><span class="back-kicker">PRODUCT PREVIEW</span><span class="back-close">↻ Flip back</span></div>
+<div class="nfc-finish-selector cdp-fin" role="group" aria-label="Choose card finish">
+<button class="nfc-finish-btn is-active" type="button" data-cd-choice="black" aria-pressed="true">Black finish</button>
+<button class="nfc-finish-btn" type="button" data-cd-choice="white" aria-pressed="false">White finish</button>
+</div>
 <div class="cd-stage" aria-label="NFC card and the digital profile it opens">
 <span class="cd-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 8.5a5 5 0 0 1 0 7"/><path d="M11 6a9 9 0 0 1 0 12"/><path d="M15 3.5a13 13 0 0 1 0 17"/></svg>Tap once. Profile opens.</span>
-<img width="900" height="568" decoding="async" class="cd-card" alt="iKONEK NFC card" src="img-5-7f93c93e.webp">
+<img width="900" height="568" decoding="async" class="cd-card" id="cdpCard" alt="Black iKONEK NFC card" src="img-5-7f93c93e.webp">
 <div class="cd-phone" aria-hidden="true"><div class="cd-screen cd-shot"><div class="pf"><img width="605" height="1203" decoding="async" loading="lazy" src="img-1-8dc9c4bc.webp" alt=""></div></div></div></div>
-<div class="back-copy"><h3>Card + digital profile</h3><p>Tap your NFC card and your mobile profile opens: contact details, links, QR code and a save-to-contacts button, always up to date.</p><strong>PHP 349</strong></div>
+<div class="nfc-card-caption"><span class="nfc-card-dot"></span><span class="nfc-card-caption-text" id="cdpCap">BLACK FINISH</span><span class="nfc-card-caption-divider">·</span><span>CARD + PROFILE</span></div>
+<div class="back-copy"><h3>Premium card + digital profile</h3><p>Tap your NFC card and your mobile profile opens: contact details, links, QR code and a save-to-contacts button, always up to date.</p><strong>PHP 349</strong></div>
 <a class="package-action primary-action" href="#contact">Get the full package <span>→</span></a>
+</div></div></article>
+<article class="package-card" tabindex="0" role="button" aria-label="Plain Card plus Digital Profile. Tap to flip and preview product" aria-pressed="false">
+<div class="package-flip">
+<div class="package-face package-front">
+<div class="stock-badge" aria-hidden="true" style="visibility:hidden"><span class="stock-dot"></span><span>0 <small>IN STOCK</small></span></div>
+<div><div class="package-title-row"><div class="package-name">Plain Card + Digital Profile</div></div><div class="package-sub">A plain card with your profile page.</div></div>
+<div class="package-price"><span class="price-cur">PHP</span><span class="price-num">249</span></div>
+<ul class="package-list"><li>Plain NFC card, no printed design</li><li>Mobile-first digital profile page</li><li>Save-to-contacts button and QR code</li><li>Update your details anytime</li></ul>
+<div class="flip-hint">Tap card to preview <span>↻</span></div>
+</div>
+<div class="package-face package-back">
+<div class="back-top"><span class="back-kicker">PRODUCT PREVIEW</span><span class="back-close">↻ Flip back</span></div>
+<div class="nfc-finish-selector cdp-fin" role="group" aria-label="Choose card finish">
+<button class="nfc-finish-btn is-active" type="button" data-pcd-choice="black" aria-pressed="true">Black finish</button>
+<button class="nfc-finish-btn" type="button" data-pcd-choice="white" aria-pressed="false">White finish</button>
+</div>
+<div class="cd-stage" aria-label="NFC card and the digital profile it opens">
+<span class="cd-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 8.5a5 5 0 0 1 0 7"/><path d="M11 6a9 9 0 0 1 0 12"/><path d="M15 3.5a13 13 0 0 1 0 17"/></svg>Tap once. Profile opens.</span>
+<span class="cd-plain" id="pcdCard" data-finish="black" role="img" aria-label="Plain black NFC card"></span>
+<div class="cd-phone" aria-hidden="true"><div class="cd-screen cd-shot"><div class="pf"><img width="605" height="1203" decoding="async" loading="lazy" src="img-1-8dc9c4bc.webp" alt=""></div></div></div></div>
+<div class="nfc-card-caption"><span class="nfc-card-dot"></span><span class="nfc-card-caption-text" id="pcdCap">BLACK FINISH</span><span class="nfc-card-caption-divider">·</span><span>PLAIN + PROFILE</span></div>
+<div class="back-copy"><h3>Plain card + digital profile</h3><p>Tap your plain NFC card and your mobile profile opens: contact details, links, QR code and a save-to-contacts button, always up to date.</p><strong>PHP 249</strong></div>
+<a class="package-action primary-action" href="#contact">Get plain card + profile <span>→</span></a>
 </div></div></article>
 <article class="package-card" tabindex="0" role="button" aria-label="Digital Profile. Tap to flip and preview product" aria-pressed="false">
 <div class="package-flip">
@@ -1862,6 +1903,30 @@ document.querySelectorAll('.package-card').forEach(function(card){
   toggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var flipped=toggle.classList.toggle('is-flipped');toggle.setAttribute('aria-pressed',String(flipped));sideLabel.textContent=flipped?'REVERSE SIDE':'FRONT SIDE';toggle.setAttribute('aria-label',flipped?'Show the front of the '+toggle.dataset.finish+' iKONEK NFC card':'Flip the '+toggle.dataset.finish+' iKONEK NFC card to see the reverse side');});
 })();
 
+// Premium Card + Digital Profile preview: switch the card shown beside the phone between black and white.
+(function(){
+  var img=document.getElementById('cdpCard');if(!img)return;
+  var cap=document.getElementById('cdpCap'),btns=document.querySelectorAll('[data-cd-choice]'),t=0;
+  var src={black:'img-5-7f93c93e.webp',white:'img-7-9df313c5.webp'};
+  Object.keys(src).forEach(function(k){new Image().src=src[k]});
+  function setFinish(f){
+    btns.forEach(function(b){var on=b.dataset.cdChoice===f;b.setAttribute('aria-pressed',String(on));b.classList.toggle('is-active',on)});
+    cap.textContent=f.toUpperCase()+' FINISH';
+    img.classList.add('is-swap');clearTimeout(t);
+    t=setTimeout(function(){img.src=src[f];img.alt=(f==='white'?'White':'Black')+' iKONEK NFC card';img.classList.remove('is-swap')},170);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();setFinish(b.dataset.cdChoice)})});
+})();
+
+// Plain Card + Digital Profile preview: plain black / white card beside the phone.
+(function(){
+  var c=document.getElementById('pcdCard');if(!c)return;
+  var cap=document.getElementById('pcdCap'),btns=document.querySelectorAll('[data-pcd-choice]');
+  btns.forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var f=b.dataset.pcdChoice;
+    c.dataset.finish=f;c.setAttribute('aria-label','Plain '+f+' NFC card');cap.textContent=f.toUpperCase()+' FINISH';
+    btns.forEach(function(x){var on=x===b;x.setAttribute('aria-pressed',String(on));x.classList.toggle('is-active',on)})})});
+})();
+
 // Plain NFC card preview: switch between the plain black and plain white card.
 (function(){
   var stage=document.querySelector('.pl-product-stage');
@@ -1916,7 +1981,7 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <div class="msg-quick" style="display:none" aria-hidden="true"><a href="tel:09949954822">Call 0994 995 4822</a><a href="mailto:ikonek79@gmail.com">Email us</a><a id="msgFb" href="#" target="_blank" rel="noopener" hidden>Messenger</a></div>
 <div class="msg-or" style="display:none" aria-hidden="true"><span>or send a message here</span></div>
 <input class="sb-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave this field empty">
-<fieldset class="msg-fs" style="display:none"><legend>What are you interested in? <em>(optional)</em></legend><div class="msg-chips"><label class="msg-chip"><input type="radio" name="interest" value="Plain NFC Card"><span>Plain NFC Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Custom NFC Card"><span>Custom NFC Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Card + Digital Profile"><span>Card + Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Plain Card + Digital Profile"><span>Plain Card + Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Digital Profile"><span>Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Google Review Card"><span>Google Review Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Business Website"><span>Business Website</span></label><label class="msg-chip"><input type="radio" name="interest" value="Just a question"><span>Just a question</span></label></div></fieldset>
+<fieldset class="msg-fs" style="display:none"><legend>What are you interested in? <em>(optional)</em></legend><div class="msg-chips"><label class="msg-chip"><input type="radio" name="interest" value="Plain NFC Card"><span>Plain NFC Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Custom NFC Card"><span>Custom NFC Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Premium Card + Digital Profile"><span>Premium Card + Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Plain Card + Digital Profile"><span>Plain Card + Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Digital Profile"><span>Digital Profile</span></label><label class="msg-chip"><input type="radio" name="interest" value="Google Review Card"><span>Google Review Card</span></label><label class="msg-chip"><input type="radio" name="interest" value="Business Website"><span>Business Website</span></label><label class="msg-chip"><input type="radio" name="interest" value="Just a question"><span>Just a question</span></label></div></fieldset>
 <div class="sb-row" style="grid-template-columns:1fr"><label>Your name *<input name="name" maxlength="120" required autocomplete="name" placeholder="Juan Dela Cruz"></label><label style="display:none">Business name<input name="business" maxlength="120" autocomplete="organization" placeholder="e.g. Santos Bakery"></label></div>
 <fieldset class="msg-fs"><legend>Best way to reach you *</legend><div class="msg-chips"><label class="msg-chip"><input type="radio" name="method" value="Messenger" checked><span>Messenger</span></label><label class="msg-chip"><input type="radio" name="method" value="Call or text"><span>Call / text</span></label><label class="msg-chip"><input type="radio" name="method" value="Email"><span>Email</span></label></div></fieldset>
 <label><span id="msgCtLabel">Messenger name or profile link *</span><input name="contact" maxlength="150" required autocomplete="off" placeholder="Your name on Messenger or Facebook link"></label>
@@ -2051,7 +2116,7 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <div><p class="od-step">Step 1 of 2 &middot; Your details</p><h3 id="ordTitle">Order your card</h3></div>
 <input class="sb-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave this field empty">
 <select name="product" hidden aria-hidden="true" tabindex="-1" aria-label="Product">
-<option value="plain">Plain NFC Card - PHP 99</option><option value="nfc">NFC Card - PHP 149</option><option value="profile">iKONEK Card + Digital Profile - PHP 349</option><option value="plainprofile">Plain Card + Digital Profile - PHP 249</option><option value="digital">Digital Profile - PHP 149</option><option value="google">Google Review Card - PHP 999</option><option value="business">Business Website - custom quotation</option></select>
+<option value="plain">Plain NFC Card - PHP 99</option><option value="nfc">NFC Card - PHP 149</option><option value="profile">Premium Card + Digital Profile - PHP 349</option><option value="plainprofile">Plain Card + Digital Profile - PHP 249</option><option value="digital">Digital Profile - PHP 149</option><option value="google">Google Review Card - PHP 999</option><option value="business">Business Website - custom quotation</option></select>
 <div class="od-pkg"><div><strong id="ordPkg"></strong><small id="ordPrice"></small></div><span class="od-stock" id="ordStock"></span></div>
 <div class="od-grid">
 <div class="od-l" id="ordFinishL"><span>Finish</span><select name="finish" hidden aria-hidden="true" tabindex="-1"><option value="Black">Black</option><option value="White">White</option></select><div class="od-seg" id="ordSeg" role="radiogroup" aria-label="Finish"></div></div>
@@ -2119,8 +2184,13 @@ document.querySelectorAll('.package-card').forEach(function(card){
 <div class="sb-msg" role="status" aria-live="polite" id="trkMsg"></div></div></dialog>
 <dialog id="pickDlg" class="sb-dlg" aria-labelledby="pickTitle"><div class="sb-form">
 <h3 id="pickTitle">Choose your card</h3><p class="sb-sub">Both come with your digital profile page.</p>
+<div class="pick-fin-wrap"><span class="pick-fin-lbl" id="pkFinLbl">Card finish</span>
+<div class="nfc-finish-selector pick-fin" role="group" aria-labelledby="pkFinLbl">
+<button class="nfc-finish-btn is-active" type="button" data-pk-fin="black" aria-pressed="true">Black finish</button>
+<button class="nfc-finish-btn" type="button" data-pk-fin="white" aria-pressed="false">White finish</button>
+</div></div>
 <div class="pick-list">
-<button type="button" class="pick-opt" data-pick="profile"><span class="pick-tag">MOST POPULAR</span><span class="pick-t">iKONEK Card + Digital Profile</span><span class="pick-d">Custom-designed iKONEK NFC card</span><span class="pick-s" id="pickS" hidden></span><span class="pick-p"><s class="price-was" id="pickW" hidden></s>PHP <b id="pickP1">349</b></span></button>
+<button type="button" class="pick-opt" data-pick="profile"><span class="pick-tag">MOST POPULAR</span><span class="pick-t">Premium Card + Digital Profile</span><span class="pick-d">Custom-designed iKONEK NFC card</span><span class="pick-s" id="pickS" hidden></span><span class="pick-p"><s class="price-was" id="pickW" hidden></s>PHP <b id="pickP1">349</b></span></button>
 <button type="button" class="pick-opt" data-pick="plainprofile"><span class="pick-t">Plain Card + Digital Profile</span><span class="pick-d">Plain NFC card, no printed design</span><span class="pick-p">PHP <b id="pickP2">249</b></span></button>
 </div>
 <div class="sb-actions"><button class="sb-btn" type="button" id="pickCancel">Cancel</button></div>
@@ -2163,7 +2233,7 @@ af.addEventListener('submit',function(e){e.preventDefault();var em=af.email.valu
   if(!r.ok||!j.access_token){stat(null);say(am,'That code did not work. Check it and try again.','err');return}
   keep(j);stat(null);closeD(ad);paintNav();var f=after;after=null;if(f)f()})}).catch(function(){b.disabled=false;stat(null);say(am,'Network problem. Please try again.','err')})});
 $('authCancel').addEventListener('click',function(){after=null;closeD(ad)});
-var PN={plain:'Plain NFC Card',nfc:'NFC Card',profile:'iKONEK Card + Digital Profile',plainprofile:'Plain Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'},ST=['received','accepted','shipped'],SL=['Received','Accepted','Shipped'];
+var PN={plain:'Plain NFC Card',nfc:'NFC Card',profile:'Premium Card + Digital Profile',plainprofile:'Plain Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'},ST=['received','accepted','shipped'],SL=['Received','Accepted','Shipped'];
 function norm(x){x=String(x||'').toLowerCase();return x==='accepted'?'accepted':x==='finished'?'shipped':x==='declined'?'cancelled':'received'}
 function row(o){var w=document.createElement('div');w.style.cssText='border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px';
  var id=String(o.product_id||'').replace(/-(black|white)$/,''),t=document.createElement('strong');t.textContent=(PN[id]||id||'Order')+(o.quantity>1?' x'+o.quantity:'');w.appendChild(t);
@@ -2223,14 +2293,14 @@ if(location.hash==='#track')setTimeout(openTrack,400);
 // Supabase connection (publishable key is safe to expose; Row Level Security protects the data)
 (function(){
 var URL_='https://avukmhbcpqhigdcwxlxw.supabase.co',KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc';
-var IDS=['plain','nfc','profile','digital','google','business'],DEF={plainprofile:249},NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={},NOSTOCK={profile:1,plainprofile:1,digital:1,business:1,nfc:1},PRE={nfc:1},sel={plain:'black',nfc:'black'};
+var IDS=['plain','nfc','profile','plainprofile','digital','google','business'],DEF={plainprofile:249},NOF={digital:1,google:1,business:1},stock={},price={},SPLIT={plain:['black','white'],nfc:['black','white']},FIXED={},NOSTOCK={profile:1,plainprofile:1,digital:1,business:1,nfc:1},PRE={nfc:1},sel={plain:'black',nfc:'black'};
 function fmt(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:2})}
 function priceOf(id,f){if(FIXED[id]!=null)return FIXED[id];var v=SPLIT[id]?price[id+'-'+(f||sel[id])]:price[id];if((v==null||isNaN(v))&&DEF[id]!=null)v=DEF[id];return(v==null||isNaN(v))?null:v}
 function sendConfirm(d){return fetch(URL_+'/functions/v1/order-confirmation',{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.ok}).catch(function(){return false})}
 function api(path,body){var o={cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json'}};if(body&&window.ikAuth&&ikAuth.token())o.headers.Authorization='Bearer '+ikAuth.token();if(body){o.method='POST';o.headers.Prefer='return=minimal';o.body=JSON.stringify(body)}return fetch(URL_+path,o)}
 var cards=[].slice.call(document.querySelectorAll('#packages .package-card'));
 
-var LBL={plain:'Plain NFC Card',nfc:'NFC Card',profile:'Card + Digital Profile',plainprofile:'Plain Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'};
+var LBL={plain:'Plain NFC Card',nfc:'NFC Card',profile:'Premium Card + Digital Profile',plainprofile:'Plain Card + Digital Profile',digital:'Digital Profile',google:'Google Review Card',business:'Business Website'};
 var tc=document.getElementById('ikToasts');
 function toast(type,title,text,ms){
  ms=ms||(type==='err'?7000:5000);
@@ -2329,7 +2399,7 @@ var PAY={
 };
 var NOSHIP={digital:1,business:1};
 window.ikToast=toast;
-window.ikResume=function(it){if(it&&it.order){var id=it.order[0];if(id==='profile')openPick();else openOrder(id,it.order[1])}};
+window.ikResume=function(it){if(it&&it.order){var id=it.order[0];openOrder(id,it.order[1])}};
 var payDlg=document.getElementById('payDlg'),payBox=document.getElementById('payBox'),payMain=document.getElementById('payMain'),payOk=document.getElementById('payOk'),payMsg=document.getElementById('payMsg'),payRef=document.getElementById('payRef'),payCtx={o:null,m:'GCash'};
 function pel(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function payCopy(text){
@@ -2408,7 +2478,7 @@ function msg(el,text,cls){el.textContent=text;el.className='sb-msg'+(cls?' '+cls
 function pid(){var id=of.product.value;return SPLIT[id]?id+'-'+of.finish.value.toLowerCase():id}
 function showStock(){var id=of.product.value,n=stock[pid()];document.getElementById('ordTitle').textContent=PRE[id]?'Pre-order your card':'Order your card';of.querySelector('.sb-btn.go').textContent=id==='business'?'Send request':'Continue to payment';document.getElementById('ordStock').textContent=PRE[id]?'Pre-order':(n==null||NOSTOCK[id])?'':(n>0?n+' in stock':'Sold out');document.getElementById('ordFinishL').style.display=NOF[id]?'none':'';document.getElementById('ordShip').style.display=NOSHIP[id]?'none':'';var se=document.getElementById('ordStock');se.dataset.s=/Sold/.test(se.textContent)?'out':PRE[id]?'pre':'ok';
  [].forEach.call(of.finish.options,function(o){var k=stock[id+'-'+o.value.toLowerCase()];o.textContent=o.value+(SPLIT[id]&&k!=null?(k>0?' ('+k+' left)':' (sold out)'):'')});
- [['plain','Plain NFC Card'],['nfc','NFC Card'],['profile','iKONEK Card + Digital Profile'],['plainprofile','Plain Card + Digital Profile'],['digital','Digital Profile'],['google','Google Review Card']].forEach(function(p){var o=of.product.querySelector('option[value="'+p[0]+'"]'),v=priceOf(p[0],of.finish.value.toLowerCase());if(o&&v!=null)o.textContent=p[1]+' - PHP '+fmt(v)+(PRE[p[0]]?' (pre-order)':'')});
+ [['plain','Plain NFC Card'],['nfc','NFC Card'],['profile','Premium Card + Digital Profile'],['plainprofile','Plain Card + Digital Profile'],['digital','Digital Profile'],['google','Google Review Card']].forEach(function(p){var o=of.product.querySelector('option[value="'+p[0]+'"]'),v=priceOf(p[0],of.finish.value.toLowerCase());if(o&&v!=null)o.textContent=p[1]+' - PHP '+fmt(v)+(PRE[p[0]]?' (pre-order)':'')});
  if(PRE[id])of.qty.max=100;else if(n!=null)of.qty.max=Math.max(1,Math.min(100,n));var pk=document.getElementById('ordPkg'),po=of.product.selectedOptions[0];if(pk&&po){var pt=po.textContent.split(/\s+-\s+/);pk.textContent=pt[0];document.getElementById('ordPrice').textContent=(pt[1]||'').replace(/\s*\(pre-order\)/,'')}segPaint();updTotal()}
 function segPaint(){var seg=document.getElementById('ordSeg');seg.textContent='';[].forEach.call(of.finish.options,function(o){var m=o.textContent.match(/^(\S+)\s*(?:\((.*)\))?$/),b=document.createElement('button');b.type='button';b.setAttribute('role','radio');b.setAttribute('aria-checked',String(o.value===of.finish.value));b.disabled=!!(m&&m[2]==='sold out')&&!PRE[of.product.value];b.appendChild(document.createTextNode(o.value));if(m&&m[2]){var sm=document.createElement('small');sm.textContent=m[2];b.appendChild(sm)}b.addEventListener('click',function(){of.finish.value=o.value;of.dataset.touched='1';showStock()});seg.appendChild(b)})}
 function updTotal(){var id=of.product.value,u=priceOf(id,of.finish.value.toLowerCase()),q=parseInt(of.qty.value,10)||1,t=document.getElementById('ordTotal'),nt=document.getElementById('ordTotalNote');t.textContent=u!=null?'PHP '+fmt(u*q):(id==='business'?'Custom quote':'');nt.textContent=(u==null||NOSHIP[id])?'':(PAY.shipFee===0?'Free shipping':PAY.shipFee!=null?'+ PHP '+fmt(PAY.shipFee)+' shipping':'+ shipping')}
@@ -2417,15 +2487,17 @@ function oBad(f,t){msg(om,t,'err');f.setAttribute('aria-invalid','true');f.focus
 of.addEventListener('input',function(e){if(e.target.removeAttribute)e.target.removeAttribute('aria-invalid');of.dataset.touched='1';if(e.target===of.qty)updTotal()});
 of.finish.addEventListener('change',showStock);
 function openOrder(id,fin){if(!ikAuth.email()){ikAuth.need(function(){openOrder(id,fin)},{order:[id,fin]});return}
- of.reset();of.contact.value=ikAuth.email();of.contact.readOnly=true;try{var pf=JSON.parse(localStorage.getItem('ik-prof')||'null');if(pf){of.name.value=pf.n||'';of.mobile.value=pf.m||'';of.address.value=pf.a||''}}catch(x){}of.dataset.touched='';[].forEach.call(of.querySelectorAll('[aria-invalid]'),function(f){f.removeAttribute('aria-invalid')});of.product.value=id;if(fin&&SPLIT[id])of.finish.value=fin==='white'?'White':'Black';msg(om,'');showStock();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
+ of.reset();of.contact.value=ikAuth.email();of.contact.readOnly=true;try{var pf=JSON.parse(localStorage.getItem('ik-prof')||'null');if(pf){of.name.value=pf.n||'';of.mobile.value=pf.m||'';of.address.value=pf.a||''}}catch(x){}of.dataset.touched='';[].forEach.call(of.querySelectorAll('[aria-invalid]'),function(f){f.removeAttribute('aria-invalid')});of.product.value=id;if(fin&&(SPLIT[id]||id==='profile'||id==='plainprofile'))of.finish.value=fin==='white'?'White':'Black';msg(om,'');showStock();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')}
 cards.forEach(function(c,i){if(SPLIT[IDS[i]])[].forEach.call(c.querySelectorAll('[data-pl-choice],[data-finish-choice]'),function(b){b.addEventListener('click',function(){var nf=b.getAttribute('data-pl-choice')||b.getAttribute('data-finish-choice');sel[IDS[i]]=nf;paint()})})});
-cards.forEach(function(c,i){[].forEach.call(c.querySelectorAll('.primary-action'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();window.__orderAt=Date.now();var ab=c.querySelector('.nfc-finish-btn.is-active'),fin=ab?(ab.getAttribute('data-pl-choice')||ab.getAttribute('data-finish-choice')):null;var go=function(){if(IDS[i]==='profile')openPick();else openOrder(IDS[i],fin)};if(!ikAuth.email()){ikAuth.need(go,{order:[IDS[i],fin]});return}go()})})});
+cards.forEach(function(c,i){[].forEach.call(c.querySelectorAll('.primary-action'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();window.__orderAt=Date.now();var ab=c.querySelector('.nfc-finish-btn.is-active'),fin=ab?(ab.getAttribute('data-pl-choice')||ab.getAttribute('data-finish-choice')||ab.getAttribute('data-cd-choice')||ab.getAttribute('data-pcd-choice')):null;var go=function(){openOrder(IDS[i],fin)};if(!ikAuth.email()){ikAuth.need(go,{order:[IDS[i],fin]});return}go()})})});
 
 try{var pr=JSON.parse(sessionStorage.getItem('ik-pay')||'null');if(pr&&pr.id&&ikAuth.email()){setTimeout(function(){of.reset();of.contact.value=ikAuth.email();of.product.value=pr.id;if(pr.finRaw&&SPLIT[pr.id])of.finish.value=pr.finRaw;of.qty.value=pr.q;of.name.value=pr.name;of.mobile.value=pr.mobile||'';of.address.value=pr.address||'';showStock();showPay(pr)},1200)}}catch(x){}
 var pdlg=document.getElementById('pickDlg');
-function openPick(){document.getElementById('pickP1').textContent=fmt(priceOf('profile')||349);var pw=document.getElementById('pickW'),pp=priceOf('profile');pw.textContent=pctOff(ORIG.profile,pp)?'PHP '+fmt(ORIG.profile):'';pw.hidden=!pctOff(ORIG.profile,pp);var ps=document.getElementById('pickS');ps.textContent=pctOff(ORIG.profile,pp)?'You save PHP '+fmt(ORIG.profile-pp)+' ('+pctOff(ORIG.profile,pp)+'% off)':'';ps.hidden=!pctOff(ORIG.profile,pp);document.getElementById('pickP2').textContent=fmt(priceOf('plainprofile')||249);if(pdlg.showModal)pdlg.showModal();else pdlg.setAttribute('open','')}
+var pkFinish='black';function pkFin(f){pkFinish=f==='white'?'white':'black';[].forEach.call(pdlg.querySelectorAll('[data-pk-fin]'),function(b){var on=b.getAttribute('data-pk-fin')===pkFinish;b.setAttribute('aria-pressed',String(on));b.classList.toggle('is-active',on)})}
+function openPick(f){pkFin(f);document.getElementById('pickP1').textContent=fmt(priceOf('profile')||349);var pw=document.getElementById('pickW'),pp=priceOf('profile');pw.textContent=pctOff(ORIG.profile,pp)?'PHP '+fmt(ORIG.profile):'';pw.hidden=!pctOff(ORIG.profile,pp);var ps=document.getElementById('pickS');ps.textContent=pctOff(ORIG.profile,pp)?'You save PHP '+fmt(ORIG.profile-pp)+' ('+pctOff(ORIG.profile,pp)+'% off)':'';ps.hidden=!pctOff(ORIG.profile,pp);document.getElementById('pickP2').textContent=fmt(priceOf('plainprofile')||249);if(pdlg.showModal)pdlg.showModal();else pdlg.setAttribute('open','')}
 function closePick(){if(pdlg.close)pdlg.close();else pdlg.removeAttribute('open')}
-[].forEach.call(pdlg.querySelectorAll('[data-pick]'),function(b){b.addEventListener('click',function(){var id=b.getAttribute('data-pick');closePick();window.__orderAt=Date.now();openOrder(id)})});
+[].forEach.call(pdlg.querySelectorAll('[data-pick]'),function(b){b.addEventListener('click',function(){var id=b.getAttribute('data-pick');closePick();window.__orderAt=Date.now();openOrder(id,pkFinish)})});
+[].forEach.call(pdlg.querySelectorAll('[data-pk-fin]'),function(b){b.addEventListener('click',function(){pkFin(b.getAttribute('data-pk-fin'))})});
 document.getElementById('pickCancel').addEventListener('click',closePick);
 pdlg.addEventListener('click',function(e){if(e.target===pdlg)closePick()});
 function closeOrder(){if(dlg.close)dlg.close();else dlg.removeAttribute('open')}
