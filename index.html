@@ -1005,6 +1005,29 @@ img{height:auto}
 @media(max-width:560px){.ph.ks-ph{width:300px}}
 @media(min-width:1001px){.ks-sticky{position:sticky;top:90px;align-self:flex-start}}
 
+/* ----- ready-made templates ----- */
+#ks-tpl{max-height:500px}
+.tp-top{position:sticky;top:-16px;z-index:3;margin:-16px -16px 10px;padding:14px 16px 10px;background:linear-gradient(#0A0F17 82%,rgba(10,15,23,0))}
+.tp-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding:7px 7px 7px 12px;border-radius:12px;background:rgba(27,156,255,.12);border:1px solid rgba(27,156,255,.4);color:#cfe6ff;font:600 13px Inter,sans-serif}
+.tp-bar[hidden]{display:none}
+.tp-hint{margin:0 0 12px}
+.ks-tpls{--tps:.5;display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:14px 12px}
+.ks-tpl{display:flex;flex-direction:column;gap:8px;padding:0;border:0;background:none;color:#e8eef6;text-align:left;cursor:pointer;font-family:Inter,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+.ks-tpl[hidden]{display:none}
+.tp-card{position:relative;display:block;width:100%;height:calc(var(--tps,.5)*520px);border-radius:16px;overflow:hidden;border:2px solid #1d2f45;background:#0d1622;box-shadow:0 6px 16px rgba(0,0,0,.35);transition:transform .18s,box-shadow .18s,border-color .18s}
+.tp-in{position:absolute;left:0;top:0;display:block;width:320px;height:520px;transform:scale(var(--tps,.5));transform-origin:0 0;pointer-events:none}
+.tp-in .ks-card{height:520px;overflow:hidden;border-radius:0;padding-bottom:0;transition:none}
+.tp-in .ks-photo{background-image:var(--tpphoto,none)}
+.ks-tpl:hover .tp-card{transform:translateY(-3px);border-color:rgba(27,156,255,.65);box-shadow:0 12px 24px rgba(0,0,0,.45)}
+.ks-tpl:focus-visible{outline:none}
+.ks-tpl:focus-visible .tp-card{border-color:#1B9CFF;box-shadow:0 0 0 3px rgba(27,156,255,.5)}
+.ks-tpl[aria-pressed=true] .tp-card{border-color:#1B9CFF;box-shadow:0 0 0 2px rgba(27,156,255,.35),0 10px 24px rgba(0,0,0,.45)}
+.tp-check{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:#1B9CFF;color:#04101c;display:none;place-items:center;font:800 13px Inter,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.ks-tpl[aria-pressed=true] .tp-check{display:grid}
+.tp-meta{display:block;padding:0 2px}
+.tp-meta b{display:block;font:700 13.5px/1.25 Inter,system-ui,sans-serif}
+.tp-meta small{display:block;font:500 11.5px/1.35 Inter,system-ui,sans-serif;color:#7F91A6;margin-top:1px}
+@media(prefers-reduced-motion:reduce){.tp-card{transition:none}.ks-tpl:hover .tp-card{transform:none}}
 /* ----- signature look (matches the OneTap profile) ----- */
 .ks-card{background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px,var(--bgc) center/cover}
 .ks-card.nogrid,.ks-card.light{background:var(--bgc) center/cover}
@@ -1533,9 +1556,9 @@ load();
 <p style="margin: 0; font-size: 13px; color: #7F91A6">Your edits stay on your device until you tap "Send my design". Then we build it for you.</p>
 <div class="ks-wrap" id="ksWrap" aria-label="Customize your card">
 <div class="ks-tabs" role="tablist" id="ksTabs">
-<button role="tab" aria-selected="true" data-p="theme">Theme</button><button role="tab" aria-selected="false" data-p="photo">Photo</button><button role="tab" aria-selected="false" data-p="layout">Layout</button><button role="tab" aria-selected="false" data-p="text">Text &amp; fonts</button><button role="tab" aria-selected="false" data-p="links">Links</button>
+<button role="tab" aria-selected="true" data-p="tpl">Templates</button><button role="tab" aria-selected="false" data-p="theme">Theme</button><button role="tab" aria-selected="false" data-p="photo">Photo</button><button role="tab" aria-selected="false" data-p="layout">Layout</button><button role="tab" aria-selected="false" data-p="text">Text &amp; fonts</button><button role="tab" aria-selected="false" data-p="links">Links</button>
 </div>
-<div class="ks-pane on" id="ks-theme"></div><div class="ks-pane" id="ks-photo"></div><div class="ks-pane" id="ks-layout"></div><div class="ks-pane" id="ks-text"></div><div class="ks-pane" id="ks-links"></div>
+<div class="ks-pane on" id="ks-tpl"></div><div class="ks-pane" id="ks-theme"></div><div class="ks-pane" id="ks-photo"></div><div class="ks-pane" id="ks-layout"></div><div class="ks-pane" id="ks-text"></div><div class="ks-pane" id="ks-links"></div>
 <div class="ks-foot"><button class="ks-btn" id="ksRand" type="button">🎲 Surprise me</button><button class="ks-btn" id="ksReset" type="button">Reset</button><button class="ks-btn" id="ksDl" type="button">Save file</button><button class="ks-btn pri" id="ksOrder" type="button">Send my design →</button></div>
 </div>
 <div class="ks-toast" id="ksToast" role="status" aria-live="polite"></div>
@@ -2652,15 +2675,27 @@ forest:{l:'Forest',css:'linear-gradient(160deg,#0f2a22 0%,#1d4d3c 100%)',ha:'#1d
 burgundy:{l:'Burgundy',css:'linear-gradient(160deg,#2a0f1a 0%,#5a1f36 100%)',ha:'#5a1f36',hb:'#9b2c5a',acc:'#fbb6ce'},
 sunset:{l:'Sunset',css:'linear-gradient(160deg,#2b1055 0%,#7a2c6b 55%,#e8586a 100%)',ha:'#7a2c6b',hb:'#f59e0b',acc:'#ffd166'},
 ocean:{l:'Ocean',css:'linear-gradient(160deg,#021b3a 0%,#05507a 60%,#0aa5c4 100%)',ha:'#05507a',hb:'#0aa5c4',acc:'#fde68a'},
-light:{l:'Light',css:'linear-gradient(160deg,#eef2f7 0%,#cfd9e6 100%)',ha:'#3b6ea5',hb:'#7aa7d6',acc:'#1d4ed8',light:1}};
+light:{l:'Light',css:'linear-gradient(160deg,#eef2f7 0%,#cfd9e6 100%)',ha:'#3b6ea5',hb:'#7aa7d6',acc:'#1d4ed8',light:1},
+royal:{l:'Royal Purple',css:'linear-gradient(160deg,#150a33 0%,#3b1d7a 100%)',ha:'#3b1d7a',hb:'#7c3aed',acc:'#fcd34d'},
+crimson:{l:'Crimson',css:'linear-gradient(160deg,#1a0505 0%,#7f1d1d 100%)',ha:'#7f1d1d',hb:'#dc2626',acc:'#fecaca'},
+emerald:{l:'Emerald',css:'linear-gradient(160deg,#022c22 0%,#047857 100%)',ha:'#065f46',hb:'#10b981',acc:'#fde68a'},
+carbon:{l:'Carbon Gold',css:'linear-gradient(160deg,#050505 0%,#1c1c1c 100%)',ha:'#1c1c1c',hb:'#3a3a3a',acc:'#facc15'},
+rose:{l:'Rose Gold',css:'linear-gradient(160deg,#3b1f2b 0%,#b76e79 100%)',ha:'#8e4a5a',hb:'#e3a8b0',acc:'#fff1e6'},
+neon:{l:'Neon Night',css:'linear-gradient(160deg,#0a0014 0%,#2a0a4a 55%,#0e7490 100%)',ha:'#2a0a4a',hb:'#22d3ee',acc:'#f0abfc'},
+coral:{l:'Coral Reef',css:'linear-gradient(160deg,#0c2a3a 0%,#0f766e 55%,#fb7185 100%)',ha:'#0f766e',hb:'#fb7185',acc:'#fef08a'},
+amber:{l:'Amber',css:'linear-gradient(160deg,#2a1503 0%,#92400e 60%,#f59e0b 100%)',ha:'#92400e',hb:'#f59e0b',acc:'#fff7ed'},
+navy:{l:'Navy & Red',css:'linear-gradient(160deg,#07122b 0%,#10285a 100%)',ha:'#10285a',hb:'#1e40af',acc:'#f87171'},
+mint:{l:'Fresh Mint',css:'linear-gradient(160deg,#ecfdf5 0%,#a7f3d0 100%)',ha:'#059669',hb:'#34d399',acc:'#047857',light:1},
+blush:{l:'Blush',css:'linear-gradient(160deg,#fff1f2 0%,#fecdd3 100%)',ha:'#e11d48',hb:'#fb7185',acc:'#be123c',light:1},
+sand:{l:'Sand',css:'linear-gradient(160deg,#faf5eb 0%,#e7d8bd 100%)',ha:'#a16207',hb:'#d4a24c',acc:'#78350f',light:1}};
 var FONTS=['Bebas Neue','Montserrat','Playfair Display','Bebas Neue','Inter','Poppins','Oswald','Pacifico','Space Grotesk','Cormorant Garamond','Georgia'];
 var PRE={'Montserrat':1,'Playfair Display':1,'Bebas Neue':1,'Inter':1,'Georgia':1},loaded={};
 function loadFont(n){if(PRE[n]||loaded[n])return;loaded[n]=1;var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+n.replace(/ /g,'+')+':ital,wght@0,400;0,700;1,400&display=swap';document.head.appendChild(l)}
-var TYPES={facebook:['Facebook','#1877f2','f'],instagram:['Instagram','#d6249f','Ig'],x:['X','#111','X'],youtube:['YouTube','#e11d48','▶'],tiktok:['TikTok','#111','Tk'],linkedin:['LinkedIn','#0a66c2','in'],whatsapp:['WhatsApp','#25d366','Wa'],messenger:['Messenger','#0084ff','Ms'],website:['Website','#64748b','www'],phone:['Call','#16a34a','☎'],email:['Email','#ea580c','✉'],other:['Link','#6366f1','↗']};
-var D={theme:'abyss',bgColor:'',bgImg:'',ha:'#0f2a4a',hb:'#1b4a73',acc:'#e2b866',photo:'',pz:100,px:50,py:25,bo:100,heroH:150,shape:'card',align:'left',line:true,grid:true,caps:true,biocaps:true,linkFont:'Bebas Neue',quick:['email','website','whatsapp','share'],name:'Your Name',title:'',company:'Your Brand',bio:'Your Title | Your Skill | Your Passion',phone:'',email:'',nameFont:'Bebas Neue',bioFont:'Bebas Neue',bioSize:15,bioItalic:false,ls:'stagger',bs:'glass',rad:14,dense:false,showQuick:true,save:true,saveStyle:'white',links:[{t:'facebook',l:'Facebook',u:''},{t:'instagram',l:'Instagram',u:''},{t:'tiktok',l:'TikTok',u:''},{t:'website',l:'My Website',u:''}]};
+var TYPES={facebook:['Facebook','#1877f2','f'],instagram:['Instagram','#d6249f','Ig'],x:['X','#111','X'],youtube:['YouTube','#e11d48','▶'],tiktok:['TikTok','#111','Tk'],linkedin:['LinkedIn','#0a66c2','in'],whatsapp:['WhatsApp','#25d366','Wa'],messenger:['Messenger','#0084ff','Ms'],website:['Website','#64748b','www'],phone:['Call','#16a34a','☎'],email:['Email','#ea580c','✉'],other:['Link','#6366f1','↗'],twitch:['Twitch','#9146ff','Tw'],discord:['Discord','#5865f2','Dc'],spotify:['Spotify','#1db954','Sp'],github:['GitHub','#24292f','Gh'],telegram:['Telegram','#229ed9','Tg'],shop:['Shop','#f59e0b','🛒'],book:['Book Now','#0ea5e9','📅']};
+var D={theme:'abyss',tpl:'',pat:'',bgColor:'',bgImg:'',ha:'#0f2a4a',hb:'#1b4a73',acc:'#e2b866',photo:'',pz:100,px:50,py:25,bo:100,heroH:150,shape:'card',align:'left',line:true,grid:true,caps:true,biocaps:true,linkFont:'Bebas Neue',quick:['email','website','whatsapp','share'],name:'Your Name',title:'',company:'Your Brand',bio:'Your Title | Your Skill | Your Passion',phone:'',email:'',nameFont:'Bebas Neue',bioFont:'Bebas Neue',bioSize:15,bioItalic:false,ls:'stagger',bs:'glass',rad:14,dense:false,showQuick:true,save:true,saveStyle:'white',links:[{t:'facebook',l:'Facebook',u:''},{t:'instagram',l:'Instagram',u:''},{t:'tiktok',l:'TikTok',u:''},{t:'website',l:'My Website',u:''}]};
 var S=JSON.parse(JSON.stringify(D));
 try{var sv=localStorage.getItem('ik-card-studio-v2');if(sv){var o=JSON.parse(sv);for(var k in o)if(k in D)S[k]=o[k]}}catch(e){}
-function persist(){try{localStorage.setItem('ik-card-studio-v2',JSON.stringify(S))}catch(e){}}
+function persist(){if(PREV)return;try{localStorage.setItem('ik-card-studio-v2',JSON.stringify(S))}catch(e){}}
 function toast(m){var t=$('ksToast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){t.classList.remove('on')},2200)}
 function lum(h){var n=parseInt(h.slice(1),16);return(.299*(n>>16)+.587*((n>>8)&255)+.114*(n&255))/255}
 function hex(v){return/^#[0-9a-f]{6}$/i.test(v)}
@@ -2672,6 +2707,7 @@ function apply(){
  if(S.bgImg){bg='linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),url("'+S.bgImg+'")';light=false}
  else if(hex(S.bgColor)){bg='linear-gradient(160deg,'+S.bgColor+' 0%,color-mix(in srgb,'+S.bgColor+' 60%,#000) 100%)';light=lum(S.bgColor)>.68}
  var st=card.style;
+ if(S.pat){var pl=PAT(S.pat,light);st.background=(pl?pl+',':'')+bg+' center/cover'}else st.background='';
  st.setProperty('--bgc',bg);st.setProperty('--ha',S.ha);st.setProperty('--hb',S.hb);st.setProperty('--acc',S.acc);
  st.setProperty('--accink',lum(S.acc)>.6?'#10161f':'#ffffff');
  st.setProperty('--rad',S.rad+'px');st.setProperty('--heroH',S.heroH);
@@ -2708,11 +2744,117 @@ function text(k,l,ph){return'<div class="ks-row"><label>'+l+'</label><input type
 function fontSel(k,l){return'<div class="ks-row"><label>'+l+'</label><select data-k="'+k+'">'+FONTS.map(function(f){return'<option>'+f+'</option>'}).join('')+'</select></div>'}
 function file(id,l){return'<label class="ks-btn ks-file">'+l+'<input type="file" accept="image/*" id="'+id+'"></label>'}
 var YN=[['true','On'],['false','Off']];
-$('ks-theme').innerHTML='<div class="ks-sec">Style presets</div><div class="ks-sw" id="ksSw"></div><div class="ks-sec">Fine-tune colors</div>'+color('bgColor','Page color')+color('ha','Picture 1')+color('hb','Picture 2')+color('acc','Accent')+'<div class="ks-sec">Page background image</div>'+file('ksBgFile','Upload image')+' <button class="ks-btn" id="ksBgClear" type="button">Remove</button><p class="ks-note">Images stay on your device. Nothing is uploaded.</p>';
+$('ks-theme').innerHTML='<button class="ks-btn" type="button" data-goto="tpl" style="width:100%;margin-bottom:4px">🎨 Browse ready-made templates →</button><div class="ks-sec">Style presets</div><div class="ks-sw" id="ksSw"></div><div class="ks-sec">Fine-tune colors</div>'+color('bgColor','Page color')+color('ha','Picture 1')+color('hb','Picture 2')+color('acc','Accent')+'<div class="ks-sec">Background design</div>'+chips('pat','Pattern',[['','Grid'],['none','Plain'],['dots','Dots'],['stripes','Stripes'],['plus','Plus'],['waves','Waves'],['stars','Stars'],['checker','Checker'],['rays','Rays'],['circuit','Circuit'],['hex','Hex']])+'<div class="ks-sec">Page background image</div>'+file('ksBgFile','Upload image')+' <button class="ks-btn" id="ksBgClear" type="button">Remove</button><p class="ks-note">Images stay on your device. Nothing is uploaded.</p>';
 $('ks-photo').innerHTML='<div class="ks-sec">Your picture</div>'+file('ksPhFile','Upload photo')+' <button class="ks-btn" id="ksPhClear" type="button">Remove</button><p class="ks-note">A clear, well-lit photo works best. Faces sit nicely near the top.</p>'+slider('pz','Zoom',100,260,'%')+slider('px','Left / right',0,100,'%')+slider('py','Up / down',0,100,'%')+slider('bo','Opacity',0,100,'%');
 $('ks-layout').innerHTML='<div class="ks-sec">Header</div>'+chips('shape','Edge',[['card','Card'],['wave','Wave'],['round','Curve'],['flat','Rounded']])+slider('heroH','Height',70,170,'')+chips('align','Text',[['left','Left'],['center','Center']])+chips('line','Accent line',YN)+chips('grid','Grid pattern',YN)+'<div class="ks-sec">Buttons</div>'+chips('ls','Arrangement',[['stagger','Stagger'],['list','List'],['tiles','Tiles'],['pills','Pills']])+chips('bs','Fill',[['glass','Glass'],['solid','Solid'],['out','Outline']])+slider('rad','Roundness',0,30,'px')+chips('dense','Spacing',[['false','Roomy'],['true','Compact']])+'<div class="ks-sec">Show / hide</div>'+chips('showQuick','Round icons',YN)+chips('save','Save button',YN)+chips('saveStyle','Save style',[['white','White'],['filled','Accent'],['outline','Outline']]);
 $('ks-text').innerHTML='<div class="ks-sec">Your details</div>'+text('name','Name','Your name')+text('title','Title','e.g. Photographer')+text('company','Brand','e.g. Studio 88')+'<div class="ks-row" style="align-items:flex-start"><label>Bio</label><textarea data-k="bio" maxlength="200" rows="3"></textarea></div>'+text('phone','Phone','+63 917 123 4567')+text('email','Email','you@mail.com')+'<div class="ks-sec">Fonts</div>'+fontSel('nameFont','Name font')+fontSel('bioFont','Bio font')+fontSel('linkFont','Button font')+chips('caps','Name caps',YN)+chips('biocaps','Bio caps',YN)+slider('bioSize','Bio size',11,22,'px')+chips('bioItalic','Bio style',[['true','Italic'],['false','Regular']]);
 var swb=$('ksSw');Object.keys(THEMES).forEach(function(k){var b=el('button');b.type='button';b.title=THEMES[k].l;b.setAttribute('aria-label',THEMES[k].l);b.dataset.theme=k;b.style.background=THEMES[k].css;swb.appendChild(b)});
+/* ---------- background patterns ---------- */
+function PAT(k,light){
+ var cs=light?'rgba(0,0,0,.07)':'rgba(255,255,255,.07)',c=light?'black':'white',o=light?'.10':'.10';
+ function svg(w,h,body){return'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\''+w+'\' height=\''+h+'\'>'+body+'</svg>") 0 0/'+w+'px '+h+'px'}
+ var st="stroke='"+c+"' stroke-opacity='"+o+"'",fl="fill='"+c+"' fill-opacity='"+o+"'";
+ switch(k){
+  case'dots':return'radial-gradient('+cs+' 1.6px,transparent 1.8px) 0 0/18px 18px';
+  case'stripes':return'repeating-linear-gradient(45deg,'+cs+' 0 2px,transparent 2px 14px)';
+  case'checker':return'conic-gradient('+cs+' 25%,transparent 0 50%,'+cs+' 0 75%,transparent 0) 0 0/30px 30px';
+  case'rays':return'repeating-conic-gradient(from 0deg at 50% -8%,'+cs+' 0 5deg,transparent 5deg 12deg)';
+  case'plus':return svg(28,28,"<path d='M14 9v10M9 14h10' "+st+" stroke-width='1.6' fill='none'/>");
+  case'waves':return svg(48,16,"<path d='M0 8Q12 0 24 8T48 8' "+st+" stroke-width='1.5' fill='none'/>");
+  case'stars':return svg(70,70,"<circle cx='10' cy='12' r='1.4' "+fl+"/><circle cx='46' cy='28' r='1' "+fl+"/><circle cx='26' cy='54' r='1.8' "+fl+"/><circle cx='60' cy='60' r='1.1' "+fl+"/><path d='M54 8v8M50 12h8' "+st+" stroke-width='1.2'/>");
+  case'hex':return svg(28,49,"<path d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.3l-10.99-6.35V0h-2zm0 49v-8l12.99-7.5H28v2.3l-10.99 6.35V49h-2z' "+fl+"/>");
+  case'circuit':return svg(64,64,"<path d='M0 16h20v16h12M32 32v20M44 0v14h20M0 48h14v16' "+st+" stroke-width='1.2' fill='none'/><circle cx='20' cy='16' r='2.4' "+fl+"/><circle cx='32' cy='32' r='2.4' "+fl+"/><circle cx='44' cy='14' r='2.4' "+fl+"/>");
+ }
+ return''}
+/* ---------- ready-made templates ---------- */
+var TPL={
+gamer:{n:'Gamer',e:'🎮',d:'Streamers & esports',theme:'neon',title:'Streamer | Gamer',company:'Your Gamertag',bio:'Live on stream • Rank grinder • Let\'s play',
+ s:{ha:'#1e0a3c',hb:'#7c3aed',acc:'#a3e635',shape:'card',align:'left',line:true,caps:true,biocaps:true,nameFont:'Oswald',bioFont:'Space Grotesk',linkFont:'Oswald',bioSize:13,bioItalic:false,ls:'tiles',bs:'out',rad:6,dense:false,saveStyle:'filled',pat:'circuit',heroH:150,showQuick:true,save:true,quick:['email','youtube','tiktok','share']},
+ links:[['twitch','Twitch'],['youtube','YouTube'],['discord','Join my Discord'],['tiktok','TikTok'],['facebook','Facebook Gaming'],['shop','Merch']]},
+business:{n:'Business',e:'💼',d:'Consultants & executives',theme:'navy',title:'Business Consultant',company:'Your Company',bio:'Helping businesses grow with clear strategy and honest service.',
+ s:{ha:'#10285a',hb:'#1e40af',acc:'#e2b866',shape:'flat',align:'left',line:true,caps:false,biocaps:false,nameFont:'Playfair Display',bioFont:'Inter',linkFont:'Inter',bioSize:14,bioItalic:false,ls:'list',bs:'glass',rad:10,dense:false,saveStyle:'white',pat:'none',heroH:140,showQuick:true,save:true,quick:['phone','email','whatsapp','linkedin']},
+ links:[['linkedin','LinkedIn'],['website','Company Website'],['email','Email Me'],['book','Book a Meeting'],['whatsapp','WhatsApp']]},
+influencer:{n:'Influencer',e:'✨',d:'Creators & content makers',theme:'sunset',title:'Content Creator',company:'@yourhandle',bio:'✨ Lifestyle • Fashion • Travel ✨\nCollabs open — DM me!',
+ s:{ha:'#be185d',hb:'#f59e0b',acc:'#fff1f2',shape:'round',align:'center',line:false,caps:false,biocaps:false,nameFont:'Poppins',bioFont:'Poppins',linkFont:'Poppins',bioSize:14,bioItalic:false,ls:'pills',bs:'glass',rad:24,dense:false,saveStyle:'filled',pat:'dots',heroH:160,showQuick:true,save:true,quick:['instagram','tiktok','youtube','email']},
+ links:[['instagram','Instagram'],['tiktok','TikTok'],['youtube','YouTube'],['shop','My Favorites'],['email','Collab Inquiries']]},
+photo:{n:'Photographer',e:'📷',d:'Artists & portfolios',theme:'carbon',title:'Photographer',company:'Studio Name',bio:'Capturing moments that last a lifetime.',
+ s:{ha:'#1c1c1c',hb:'#3a3a3a',acc:'#d6b36a',shape:'flat',align:'center',line:true,caps:true,biocaps:false,nameFont:'Cormorant Garamond',bioFont:'Cormorant Garamond',linkFont:'Cormorant Garamond',bioSize:17,bioItalic:true,ls:'list',bs:'out',rad:0,dense:false,saveStyle:'outline',pat:'none',heroH:170,showQuick:true,save:true,quick:['instagram','email','website','facebook']},
+ links:[['website','Portfolio'],['instagram','Instagram'],['facebook','Facebook Page'],['book','Book a Session'],['email','Email']]},
+realtor:{n:'Real Estate',e:'🏡',d:'Agents & brokers',theme:'sand',title:'Licensed Real Estate Broker',company:'Your Realty',bio:'Helping you find the home you deserve.',
+ s:{ha:'#a16207',hb:'#d4a24c',acc:'#78350f',shape:'wave',align:'left',line:true,caps:false,biocaps:false,nameFont:'Montserrat',bioFont:'Inter',linkFont:'Montserrat',bioSize:14,bioItalic:false,ls:'list',bs:'solid',rad:14,dense:false,saveStyle:'filled',pat:'stripes',heroH:150,showQuick:true,save:true,quick:['phone','whatsapp','email','facebook']},
+ links:[['phone','Call Me'],['whatsapp','WhatsApp'],['facebook','Facebook Page'],['website','View Listings'],['book','Book a Viewing']]},
+fitness:{n:'Fitness Coach',e:'💪',d:'Trainers & athletes',theme:'crimson',title:'Personal Trainer',company:'Your Gym',bio:'No excuses. Just results.',
+ s:{ha:'#7f1d1d',hb:'#dc2626',acc:'#facc15',shape:'card',align:'left',line:true,caps:true,biocaps:true,nameFont:'Bebas Neue',bioFont:'Oswald',linkFont:'Bebas Neue',bioSize:14,bioItalic:false,ls:'stagger',bs:'solid',rad:8,dense:false,saveStyle:'filled',pat:'stripes',heroH:155,showQuick:true,save:true,quick:['whatsapp','instagram','facebook','youtube']},
+ links:[['book','Join My Program'],['instagram','Instagram'],['youtube','Workout Videos'],['facebook','Facebook'],['whatsapp','WhatsApp']]},
+music:{n:'Musician / DJ',e:'🎧',d:'Bands, singers & DJs',theme:'royal',title:'Artist | Producer',company:'Stage Name',bio:'New music out now. Book me for your event.',
+ s:{ha:'#3b1d7a',hb:'#db2777',acc:'#fcd34d',shape:'wave',align:'center',line:false,caps:true,biocaps:true,nameFont:'Space Grotesk',bioFont:'Space Grotesk',linkFont:'Space Grotesk',bioSize:12,bioItalic:false,ls:'stagger',bs:'glass',rad:16,dense:false,saveStyle:'white',pat:'waves',heroH:160,showQuick:true,save:true,quick:['email','youtube','instagram','facebook']},
+ links:[['spotify','Spotify'],['youtube','YouTube'],['instagram','Instagram'],['facebook','Facebook'],['book','Book for Events']]},
+shop:{n:'Shop & Food',e:'🛍️',d:'Online sellers & cafes',theme:'amber',title:'Owner',company:'Your Shop',bio:'Fresh, local and made with love. Order today!',
+ s:{ha:'#92400e',hb:'#f59e0b',acc:'#fff7ed',shape:'round',align:'center',line:false,caps:false,biocaps:false,nameFont:'Poppins',bioFont:'Poppins',linkFont:'Poppins',bioSize:14,bioItalic:false,ls:'tiles',bs:'glass',rad:20,dense:false,saveStyle:'filled',pat:'plus',heroH:150,showQuick:true,save:true,quick:['phone','whatsapp','facebook','instagram']},
+ links:[['shop','Order Now'],['facebook','Facebook Page'],['whatsapp','Message Us'],['instagram','Instagram'],['phone','Call to Order']]},
+dev:{n:'Developer',e:'💻',d:'Tech & freelancers',theme:'forest',title:'Software Developer',company:'Your Studio',bio:'Building clean, fast and useful things for the web.',
+ s:{ha:'#064e3b',hb:'#10b981',acc:'#4ade80',shape:'flat',align:'left',line:true,caps:false,biocaps:false,nameFont:'Space Grotesk',bioFont:'Space Grotesk',linkFont:'Space Grotesk',bioSize:14,bioItalic:false,ls:'list',bs:'out',rad:6,dense:true,saveStyle:'outline',pat:'hex',heroH:140,showQuick:true,save:true,quick:['email','linkedin','website']},
+ links:[['github','GitHub'],['linkedin','LinkedIn'],['website','Portfolio'],['email','Email'],['telegram','Telegram']]},
+well:{n:'Wellness & Beauty',e:'🌿',d:'Clinics, salons & spas',theme:'mint',title:'Wellness Specialist',company:'Your Clinic',bio:'Feel good. Look good. Live well.',
+ s:{ha:'#059669',hb:'#34d399',acc:'#047857',shape:'round',align:'center',line:false,caps:false,biocaps:false,nameFont:'Playfair Display',bioFont:'Poppins',linkFont:'Poppins',bioSize:14,bioItalic:false,ls:'pills',bs:'solid',rad:22,dense:false,saveStyle:'filled',pat:'waves',heroH:155,showQuick:true,save:true,quick:['phone','whatsapp','facebook','instagram']},
+ links:[['book','Book Appointment'],['facebook','Facebook Page'],['instagram','Instagram'],['whatsapp','Message Us']]},
+clean:{n:'Minimal',e:'⚪',d:'Simple and clean',theme:'light',title:'',company:'',bio:'Your Title | Your Skill | Your Passion',
+ s:{ha:'#cbd5e1',hb:'#94a3b8',acc:'#111827',shape:'flat',align:'center',line:false,caps:false,biocaps:false,nameFont:'Inter',bioFont:'Inter',linkFont:'Inter',bioSize:14,bioItalic:false,ls:'list',bs:'out',rad:12,dense:false,saveStyle:'filled',pat:'none',heroH:130,showQuick:true,save:true,quick:['phone','email','whatsapp']},
+ links:[['facebook','Facebook'],['instagram','Instagram'],['website','My Website'],['email','Email']]}
+};
+var TCAT={gamer:'creators',influencer:'creators',music:'creators',photo:'creators',business:'pro',realtor:'pro',dev:'pro',clean:'pro',fitness:'local',shop:'local',well:'local'};
+var TCATS=[['all','All'],['creators','Creators'],['pro','Professional'],['local','Local business']];
+var PREV=false,snap=null,undoSnap=null,tplCat='all',HOVER=window.matchMedia&&matchMedia('(hover:hover)').matches;
+$('ks-tpl').innerHTML='<div class="tp-top"><div class="ks-chips" id="ksTplCats" role="group" aria-label="Template categories">'+TCATS.map(function(c){return'<button type="button" data-tcat="'+c[0]+'" aria-pressed="'+(c[0]==='all')+'">'+c[1]+'</button>'}).join('')+'</div><div class="tp-bar" id="ksTplBar" hidden><span id="ksTplName"></span><button type="button" class="ks-btn" id="ksTplUndo">Undo</button></div></div><p class="ks-note tp-hint">'+(HOVER?'Hover to preview, click to apply.':'Tap a template to apply it.')+' Previews use your name and photo. Your contact details stay.</p><div class="ks-tpls" id="ksTpls"></div>';
+function isSample(f,v){v=(v||'').trim();if(!v||v===D[f])return true;return Object.keys(TPL).some(function(k){return TPL[k][f]===v})}
+function miniCard(t){
+ var x=t.s,T=THEMES[t.theme],light=!!T.light,c=el('div','ks-card'),st=c.style,pl=PAT(x.pat,light);
+ st.background=(pl?pl+',':'')+T.css+' center/cover';
+ st.setProperty('--bgc',T.css);st.setProperty('--ha',x.ha);st.setProperty('--hb',x.hb);st.setProperty('--acc',x.acc);st.setProperty('--accink',lum(x.acc)>.6?'#10161f':'#ffffff');
+ st.setProperty('--rad',x.rad+'px');st.setProperty('--heroH',Math.round(x.heroH*.5));
+ st.setProperty('--nameff',"'"+x.nameFont+"',sans-serif");st.setProperty('--bioff',"'"+x.bioFont+"',serif");st.setProperty('--biosz',x.bioSize);st.setProperty('--linkff',"'"+x.linkFont+"',sans-serif");
+ loadFont(x.nameFont);loadFont(x.bioFont);loadFont(x.linkFont);
+ var cl=c.classList;cl.toggle('light',light);cl.toggle('left',x.align==='left');cl.toggle('dense',!!x.dense);cl.toggle('line',!!x.line);cl.toggle('caps',!!x.caps);cl.toggle('biocaps',!!x.biocaps);cl.toggle('save-out',x.saveStyle==='outline');cl.toggle('save-white',x.saveStyle==='white');cl.add('ls-'+x.ls,'btn-'+x.bs);
+ c.setAttribute('aria-hidden','true');
+ var nm=S.name.trim()||'Your Name',hero=el('div','ks-hero '+x.shape),ht=el('div','ks-htext');
+ hero.append(el('div','ks-photo'),el('div','ks-init',S.photo?'':nm.split(/\s+/).map(function(w){return w[0]||''}).join('').slice(0,2).toUpperCase()),el('div','ks-tint'));
+ ht.append(el('h3','ks-name',nm),el('p','ks-title',isSample('title',S.title)?t.title:S.title),el('p','ks-comp',isSample('company',S.company)?t.company:S.company));hero.appendChild(ht);
+ var bio=el('p','ks-bio',isSample('bio',S.bio)?t.bio:S.bio);bio.style.fontStyle=x.bioItalic?'italic':'normal';
+ var q=el('div','ks-quick');x.quick.forEach(function(k){if(k==='share')return;var T2=TYPES[k]||TYPES.other,a=el('span','ks-q tile',T2[2]);a.style.background=T2[1];q.appendChild(a)});
+ var sv=el('div','ks-save');sv.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M19 8v6M16 11h6"/></svg>Save to Contacts';
+ var ln=el('div','ks-links');t.links.slice(0,4).forEach(function(p){var T2=TYPES[p[0]]||TYPES.other,a=el('div','ks-lk'),ic=el('span','ks-ti',T2[2]);ic.style.background=T2[1];a.append(ic,el('span','t',p[1]));ln.appendChild(a)});
+ c.append(hero,bio,q,sv,ln);return c}
+function scaleTpls(){var box=$('ksTpls'),c=box&&box.querySelector('.ks-tpl:not([hidden]) .tp-card');if(!c)return;var w=c.clientWidth;if(w>20)box.style.setProperty('--tps',(w/320).toFixed(4))}
+function filterTpls(){var box=$('ksTpls');if(!box)return;box.querySelectorAll('.ks-tpl').forEach(function(b){b.hidden=!(tplCat==='all'||b.dataset.cat===tplCat)});
+ $('ksTplCats').querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.tcat===tplCat))});scaleTpls()}
+function renderTpls(){var box=$('ksTpls');if(!box)return;box.textContent='';
+ box.style.setProperty('--tpphoto',S.photo?'url("'+S.photo+'")':'none');
+ Object.keys(TPL).forEach(function(k){var t=TPL[k],b=el('button','ks-tpl');b.type='button';b.dataset.tpl=k;b.dataset.cat=TCAT[k];b.setAttribute('aria-pressed',String(S.tpl===k));
+  var card=el('span','tp-card'),inn=el('span','tp-in');inn.appendChild(miniCard(t));card.append(inn,el('span','tp-check','✓'));
+  var meta=el('span','tp-meta');meta.append(el('b',null,t.e+' '+t.n),el('small',null,t.d));b.append(card,meta);
+  if(HOVER)b.addEventListener('mouseenter',function(){startPrev(k)});
+  b.addEventListener('mouseleave',endPrev);
+  b.addEventListener('focus',function(){if(b.matches(':focus-visible'))startPrev(k)});
+  b.addEventListener('blur',endPrev);
+  box.appendChild(b)});
+ filterTpls();sync()}
+if(window.ResizeObserver)new ResizeObserver(scaleTpls).observe($('ksTpls'));
+function startPrev(k){if(PREV)return;snap=JSON.stringify(S);PREV=true;applyTpl(k,true)}
+function endPrev(){if(!PREV)return;PREV=false;S=JSON.parse(snap);snap=null;buildLinks();apply()}
+function commitTpl(k){if(PREV){PREV=false;S=JSON.parse(snap);snap=null}
+ undoSnap=JSON.stringify(S);applyTpl(k);$('ksTplName').textContent='✓ '+TPL[k].e+' '+TPL[k].n+' applied';$('ksTplBar').hidden=false}
+function hideBar(){undoSnap=null;var b=$('ksTplBar');if(b)b.hidden=true}
+function undoTpl(){if(!undoSnap)return;S=JSON.parse(undoSnap);undoSnap=null;buildLinks();apply();$('ksTplBar').hidden=true;toast('Template undone')}
+function applyTpl(id,pv){var t=TPL[id];if(!t)return;
+ S.tpl=id;S.theme=t.theme;S.bgColor='';S.bgImg='';for(var k in t.s)S[k]=t.s[k];S.quick=t.s.quick.slice();
+ ['title','company','bio'].forEach(function(f){if(isSample(f,S[f]))S[f]=t[f]});
+ var old=S.links.slice(),used={},nl=[];
+ t.links.forEach(function(p){var m=null,i,j;for(i=0;i<old.length;i++){if(!used[i]&&old[i].t===p[0]&&(old[i].u||'').trim()){m=i;break}}
+  if(m===null)for(j=0;j<old.length;j++){if(!used[j]&&old[j].t===p[0]){m=j;break}}
+  var u='';if(m!==null){used[m]=1;u=old[m].u}nl.push({t:p[0],l:p[1],u:u})});
+ old.forEach(function(l,i){if(!used[i]&&(l.u||'').trim()&&nl.length<8)nl.push(l)});
+ S.links=nl.slice(0,8);buildLinks();apply()}
+renderTpls();
 function buildLinks(){var p=$('ks-links');p.textContent='';
  S.links.forEach(function(l,i){var d=el('div','ks-link'),a=document.createElement('input');a.type='text';a.value=l.l;a.placeholder='Label';a.dataset.li=i;a.dataset.f='l';a.maxLength=30;
   var x=el('button','ks-x','✕');x.type='button';x.dataset.del=i;x.setAttribute('aria-label','Remove link');
@@ -2730,7 +2872,8 @@ function sync(){
   if(n.tagName==='BUTTON')n.setAttribute('aria-pressed',String(S[k]===cast(n.dataset.v)));
   else if(document.activeElement!==n){n.value=(k==='bgColor')?(hex(S.bgColor)?S.bgColor:'#12304f'):S[k]}});
  w.querySelectorAll('[data-o]').forEach(function(o){o.textContent=S[o.dataset.o]+o.dataset.u});
- w.querySelectorAll('#ksSw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.theme===S.theme&&!hex(S.bgColor)&&!S.bgImg))})}
+ w.querySelectorAll('#ksTpls button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.tpl===S.tpl))});
+ w.querySelectorAll('#ksSw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.theme===S.theme&&!S.tpl&&!hex(S.bgColor)&&!S.bgImg))})}
 /* ---------- events ---------- */
 var W=$('ksWrap');
 W.addEventListener('input',function(e){var n=e.target;
@@ -2738,22 +2881,26 @@ W.addEventListener('input',function(e){var n=e.target;
  else if(n.dataset.li!=null){S.links[+n.dataset.li][n.dataset.f]=n.value;apply()}});
 W.addEventListener('click',function(e){var n=e.target.closest('button');if(!n)return;
  if(n.dataset.k&&n.dataset.v!=null){S[n.dataset.k]=cast(n.dataset.v);apply()}
- else if(n.dataset.theme){var T=THEMES[n.dataset.theme];S.theme=n.dataset.theme;S.bgColor='';S.bgImg='';S.ha=T.ha;S.hb=T.hb;S.acc=T.acc;apply()}
+ else if(n.dataset.tpl){commitTpl(n.dataset.tpl)}
+ else if(n.dataset.tcat){tplCat=n.dataset.tcat;filterTpls()}
+ else if(n.dataset.goto){var tb=W.querySelector('#ksTabs button[data-p="'+n.dataset.goto+'"]');if(tb)tb.click()}
+ else if(n.id==='ksTplUndo')undoTpl()
+ else if(n.dataset.theme){var T=THEMES[n.dataset.theme];S.tpl='';S.theme=n.dataset.theme;S.bgColor='';S.bgImg='';S.ha=T.ha;S.hb=T.hb;S.acc=T.acc;apply()}
  else if(n.dataset.q){var i=S.quick.indexOf(n.dataset.q);if(i>-1)S.quick.splice(i,1);else if(S.quick.length<5)S.quick.push(n.dataset.q);else return toast('Up to 5 icons');n.setAttribute('aria-pressed',String(S.quick.indexOf(n.dataset.q)>-1));apply()}
  else if(n.dataset.del!=null){S.links.splice(+n.dataset.del,1);buildLinks();apply()}
  else if(n.id==='ksAdd'){if(S.links.length>=8)return toast('Maximum 8 links');var t=$('ksAddT').value;S.links.push({t:t,l:TYPES[t][0],u:''});buildLinks();apply()}
  else if(n.id==='ksBgClear'){S.bgImg='';apply()}
  else if(n.id==='ksPhClear'){S.photo='';apply()}
- else if(n.id==='ksReset'){S=JSON.parse(JSON.stringify(D));buildLinks();apply();toast('Back to the original')}
+ else if(n.id==='ksReset'){hideBar();S=JSON.parse(JSON.stringify(D));buildLinks();apply();toast('Back to the original')}
  else if(n.id==='ksRand')rand()
  else if(n.id==='ksOrder')order()
  else if(n.id==='ksDl')saveFile()
- else if(n.parentNode&&n.parentNode.id==='ksTabs'){W.querySelectorAll('#ksTabs button').forEach(function(b){b.setAttribute('aria-selected',String(b===n))});W.querySelectorAll('.ks-pane').forEach(function(p){p.classList.toggle('on',p.id==='ks-'+n.dataset.p)})}});
+ else if(n.parentNode&&n.parentNode.id==='ksTabs'){W.querySelectorAll('#ksTabs button').forEach(function(b){b.setAttribute('aria-selected',String(b===n))});W.querySelectorAll('.ks-pane').forEach(function(p){p.classList.toggle('on',p.id==='ks-'+n.dataset.p)});if(n.dataset.p==='tpl')renderTpls()}});
 function img(input,key,max){input.addEventListener('change',function(){var f=input.files[0];if(!f)return;if(!/^image\//.test(f.type))return toast('Please choose an image');
  var r=new FileReader();r.onload=function(){var i=new Image();i.onload=function(){var s=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);c.getContext('2d').drawImage(i,0,0,c.width,c.height);S[key]=c.toDataURL('image/jpeg',.82);apply()};i.onerror=function(){toast('Could not read that image')};i.src=r.result};r.readAsDataURL(f);input.value=''})}
 img($('ksPhFile'),'photo',900);img($('ksBgFile'),'bgImg',1000);
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
-function rand(){var k=pick(Object.keys(THEMES)),T=THEMES[k];S.theme=k;S.bgColor='';S.bgImg='';S.ha=T.ha;S.hb=T.hb;S.acc=T.acc;S.shape=pick(['card','wave','round','flat']);S.ls=pick(['stagger','list','tiles','pills']);S.bs=pick(['glass','solid','out']);S.rad=pick([4,10,14,20,28]);S.nameFont=pick(FONTS);S.bioFont=pick(FONTS);S.align=pick(['center','left']);apply()}
+function rand(){hideBar();var k=pick(Object.keys(THEMES)),T=THEMES[k];S.tpl='';S.pat=pick(['','none','dots','stripes','plus','waves','stars','checker','rays','circuit','hex']);S.theme=k;S.bgColor='';S.bgImg='';S.ha=T.ha;S.hb=T.hb;S.acc=T.acc;S.shape=pick(['card','wave','round','flat']);S.ls=pick(['stagger','list','tiles','pills']);S.bs=pick(['glass','solid','out']);S.rad=pick([4,10,14,20,28]);S.nameFont=pick(FONTS);S.bioFont=pick(FONTS);S.align=pick(['center','left']);apply()}
 function copy(t,m){var d=function(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();toast(m)};if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){toast(m)},d);else d()}
 
 var SB_URL='https://avukmhbcpqhigdcwxlxw.supabase.co',SB_KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc',MAIL='ikonek79@gmail.com';
