@@ -950,6 +950,15 @@ img{height:auto}
 .ks-link{display:grid;grid-template-columns:1fr auto;gap:7px;padding:10px;border:1px solid #1d2f45;border-radius:12px;margin-bottom:8px;background:#0b121c}
 .ks-link .full{grid-column:1/-1}
 .ks-x{border:0;background:#2a1118;color:#ff7b8f;border-radius:9px;width:34px;cursor:pointer;font-size:15px}
+.ks-prem{color:#f5c542;font-weight:700;font-size:11px;letter-spacing:.06em;margin-left:6px;text-transform:none}
+.ks-sw button{position:relative}
+.ks-sw button.prem::after{content:"\2605";position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#f5c542;color:#1b1300;font:700 11px/18px Inter,sans-serif;text-align:center}
+.ks-tier{display:flex;flex-direction:column;gap:2px;padding:10px 16px;border-top:1px solid #152234;background:#070B11;font:500 12.5px/1.4 Inter,sans-serif;color:#9FB0C4}
+.ks-tier b{font:700 13px Inter,sans-serif;color:#e8eef6}.ks-tier.premium b{color:#f5c542}
+.tp-group{grid-column:1/-1;display:flex;flex-direction:column;gap:2px;padding-top:6px}.tp-group[hidden]{display:none}
+.tp-group b{font:700 13px Inter,sans-serif;color:#e8eef6}.tp-group.premium b{color:#f5c542}.tp-group small{font:500 11.5px Inter,sans-serif;color:#7F91A6}
+.tp-prem{position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:999px;background:#f5c542;color:#1b1300;font:800 10px/1.2 Inter,sans-serif;letter-spacing:.04em;z-index:2}
+#ksSendDlg .ks-tiernote{font-weight:600;color:#f5c542}
 .ks-foot{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-top:1px solid #152234;background:#070B11}
 .ks-note{font-size:12px;color:#7F91A6;margin:10px 0 0;line-height:1.5}
 .ks-toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:#12304f;color:#fff;padding:11px 18px;border-radius:12px;font:600 14px Inter,sans-serif;opacity:0;pointer-events:none;transition:.25s;z-index:99}
@@ -997,6 +1006,7 @@ img{height:auto}
 .ks-card.ls-tiles .ks-lk{flex-direction:column;text-align:center;padding:16px 8px;gap:8px}
 .ks-card.ls-tiles .ks-lk::after{display:none}
 .ks-card.ls-tiles .ks-lk .t{white-space:normal;max-width:100%}
+.ks-card.ls-tiles .ks-lk:last-child:nth-child(odd){grid-column:1/-1}
 .ks-card.ls-pills .ks-lk{justify-content:center;border-radius:999px}
 .ks-card.ls-pills .ks-lk::after{display:none}
 .ks-card.ls-pills .ks-lk .ks-ti{display:none}
@@ -1028,6 +1038,32 @@ img{height:auto}
 .tp-meta b{display:block;font:700 13.5px/1.25 Inter,system-ui,sans-serif}
 .tp-meta small{display:block;font:500 11.5px/1.35 Inter,system-ui,sans-serif;color:#7F91A6;margin-top:1px}
 @media(prefers-reduced-motion:reduce){.tp-card{transition:none}.ks-tpl:hover .tp-card{transform:none}}
+/* ----- template details (IGN, rank, hours, rates...) ----- */
+.ks-info{margin:16px 14px 0;display:grid;gap:10px;text-align:left}
+.ks-info[hidden]{display:none}
+.ks-bwrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.ks-card.left .ks-bwrap{justify-content:flex-start}
+.ks-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font:700 12px Inter,sans-serif;color:var(--ink)}
+.ks-badge i{width:8px;height:8px;border-radius:50%;background:var(--dc,#94a3b8);box-shadow:0 0 0 3px color-mix(in srgb,var(--dc,#94a3b8) 30%,transparent)}
+.ks-igrid{display:grid;gap:8px}
+.ks-info.tiles .ks-igrid{grid-template-columns:1fr 1fr}
+.ks-ii{position:relative;display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:var(--rad);background:var(--panel);border:1px solid var(--line);text-decoration:none;color:var(--ink);min-width:0}
+.ks-ii .l{font:700 10px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.ks-ii .v{font:600 14px/1.35 var(--linkff,Inter),Inter,sans-serif;overflow-wrap:anywhere;color:var(--ink)}
+.ks-ii.wide{grid-column:1/-1}
+.ks-ii.cp{cursor:pointer;padding-right:30px}
+.ks-ii.cp::after{content:"⧉";position:absolute;top:9px;right:11px;opacity:.55;font-size:13px}
+.ks-ii.cp:active{transform:scale(.98)}
+.ks-ii.mp::after{content:"📍";position:absolute;top:8px;right:10px;font-size:12px;opacity:.8}
+.ks-ii.mp{padding-right:30px}
+.ks-info.rows .ks-ii{flex-direction:row;align-items:center;justify-content:space-between;gap:14px}
+.ks-info.rows .ks-ii .v{text-align:right}
+.ks-tag{display:inline-block;padding:3px 10px;margin:3px 5px 0 0;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.06);font:600 12px Inter,sans-serif}
+.ks-card.light .ks-tag{background:rgba(16,32,47,.06)}
+.ks-info.rows .ks-ii .v .ks-tag{margin:3px 0 0 5px}
+.tp-adds{display:block;font:600 10.5px/1.35 Inter,system-ui,sans-serif;color:#1B9CFF;margin-top:3px}
+.tp-bar [hidden]{display:none}
+.tp-bar .tp-act{display:flex;gap:6px;flex:none}
 /* ----- signature look (matches the OneTap profile) ----- */
 .ks-card{background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px,var(--bgc) center/cover}
 .ks-card.nogrid,.ks-card.light{background:var(--bgc) center/cover}
@@ -1042,10 +1078,7 @@ img{height:auto}
 .ks-q.tile{width:50px;height:50px;border:2px solid rgba(255,255,255,.9);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.35);background-clip:padding-box;backdrop-filter:none}
 .ks-card.save-white .ks-save{background:#f4f8fc;border-color:#f4f8fc;color:#10202f;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .ks-lk .t{font-family:var(--linkff);font-size:17px;letter-spacing:.04em}
-.ks-card.ls-stagger .ks-lk{box-shadow:0 8px 20px rgba(0,0,0,.28)}
-.ks-card.ls-stagger .ks-lk:nth-child(odd){margin-left:18px;transform:rotate(.5deg)}
-.ks-card.ls-stagger .ks-lk:nth-child(even){margin-right:18px;margin-left:0;transform:rotate(-.5deg)}
-.ks-card.ls-stagger .ks-lk:nth-child(3n){margin-left:9px;margin-right:9px}
+.ks-card.ls-stagger .ks-lk{box-shadow:0 8px 20px rgba(0,0,0,.28);margin:0;transform:none}
 .ks-card.ls-stagger .ks-lk:hover{transform:translateY(-2px)}
 .ks-card.light .ks-hero.card{border-color:rgba(16,32,47,.25)}
 
@@ -1556,10 +1589,10 @@ load();
 <p style="margin: 0; font-size: 13px; color: #7F91A6">Your edits stay on your device until you tap "Send my design". Then we build it for you.</p>
 <div class="ks-wrap" id="ksWrap" aria-label="Customize your card">
 <div class="ks-tabs" role="tablist" id="ksTabs">
-<button role="tab" aria-selected="true" data-p="tpl">Templates</button><button role="tab" aria-selected="false" data-p="theme">Theme</button><button role="tab" aria-selected="false" data-p="photo">Photo</button><button role="tab" aria-selected="false" data-p="layout">Layout</button><button role="tab" aria-selected="false" data-p="text">Text &amp; fonts</button><button role="tab" aria-selected="false" data-p="links">Links</button>
+<button role="tab" aria-selected="true" data-p="tpl">Templates</button><button role="tab" aria-selected="false" data-p="theme">Theme</button><button role="tab" aria-selected="false" data-p="photo">Photo</button><button role="tab" aria-selected="false" data-p="layout">Layout</button><button role="tab" aria-selected="false" data-p="text">Text &amp; fonts</button><button role="tab" aria-selected="false" data-p="details">Details</button><button role="tab" aria-selected="false" data-p="links">Links</button>
 </div>
-<div class="ks-pane on" id="ks-tpl"></div><div class="ks-pane" id="ks-theme"></div><div class="ks-pane" id="ks-photo"></div><div class="ks-pane" id="ks-layout"></div><div class="ks-pane" id="ks-text"></div><div class="ks-pane" id="ks-links"></div>
-<div class="ks-foot"><button class="ks-btn" id="ksRand" type="button">🎲 Surprise me</button><button class="ks-btn" id="ksReset" type="button">Reset</button><button class="ks-btn" id="ksDl" type="button">Save file</button><button class="ks-btn pri" id="ksOrder" type="button">Send my design →</button></div>
+<div class="ks-pane on" id="ks-tpl"></div><div class="ks-pane" id="ks-theme"></div><div class="ks-pane" id="ks-photo"></div><div class="ks-pane" id="ks-layout"></div><div class="ks-pane" id="ks-text"></div><div class="ks-pane" id="ks-details"></div><div class="ks-pane" id="ks-links"></div>
+<div class="ks-tier" id="ksTier" aria-live="polite"></div><div class="ks-foot"><button class="ks-btn" id="ksRand" type="button">🎲 Surprise me</button><button class="ks-btn" id="ksReset" type="button">Reset</button><button class="ks-btn" id="ksDl" type="button">Save file</button><button class="ks-btn pri" id="ksOrder" type="button">Send my design →</button></div>
 </div>
 <div class="ks-toast" id="ksToast" role="status" aria-live="polite"></div>
 
@@ -1569,6 +1602,7 @@ load();
 <div class="ph ks-ph"><div class="ks-card" id="ksCard">
 <div class="ks-hero wave" id="ksHero"><div class="ks-photo" id="ksPhoto"></div><div class="ks-init" id="ksInit"></div><div class="ks-tint"></div><div class="ks-htext"><h3 class="ks-name" id="ksName"></h3><p class="ks-title" id="ksTitle"></p><p class="ks-comp" id="ksComp"></p></div></div>
 <p class="ks-bio" id="ksBio"></p>
+<div class="ks-info tiles" id="ksInfo" hidden></div>
 <div class="ks-quick" id="ksQuick"></div>
 <button class="ks-save" id="ksSave" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M19 8v6M16 11h6"/></svg>Save to Contacts</button>
 <div class="ks-links" id="ksLinks"></div>
@@ -2692,7 +2726,18 @@ var FONTS=['Bebas Neue','Montserrat','Playfair Display','Bebas Neue','Inter','Po
 var PRE={'Montserrat':1,'Playfair Display':1,'Bebas Neue':1,'Inter':1,'Georgia':1},loaded={};
 function loadFont(n){if(PRE[n]||loaded[n])return;loaded[n]=1;var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+n.replace(/ /g,'+')+':ital,wght@0,400;0,700;1,400&display=swap';document.head.appendChild(l)}
 var TYPES={facebook:['Facebook','#1877f2','f'],instagram:['Instagram','#d6249f','Ig'],x:['X','#111','X'],youtube:['YouTube','#e11d48','▶'],tiktok:['TikTok','#111','Tk'],linkedin:['LinkedIn','#0a66c2','in'],whatsapp:['WhatsApp','#25d366','Wa'],messenger:['Messenger','#0084ff','Ms'],website:['Website','#64748b','www'],phone:['Call','#16a34a','☎'],email:['Email','#ea580c','✉'],other:['Link','#6366f1','↗'],twitch:['Twitch','#9146ff','Tw'],discord:['Discord','#5865f2','Dc'],spotify:['Spotify','#1db954','Sp'],github:['GitHub','#24292f','Gh'],telegram:['Telegram','#229ed9','Tg'],shop:['Shop','#f59e0b','🛒'],book:['Book Now','#0ea5e9','📅']};
-var D={theme:'abyss',tpl:'',pat:'',bgColor:'',bgImg:'',ha:'#0f2a4a',hb:'#1b4a73',acc:'#e2b866',photo:'',pz:100,px:50,py:25,bo:100,heroH:150,shape:'card',align:'left',line:true,grid:true,caps:true,biocaps:true,linkFont:'Bebas Neue',quick:['email','website','whatsapp','share'],name:'Your Name',title:'',company:'Your Brand',bio:'Your Title | Your Skill | Your Passion',phone:'',email:'',nameFont:'Bebas Neue',bioFont:'Bebas Neue',bioSize:15,bioItalic:false,ls:'stagger',bs:'glass',rad:14,dense:false,showQuick:true,save:true,saveStyle:'white',links:[{t:'facebook',l:'Facebook',u:''},{t:'instagram',l:'Instagram',u:''},{t:'tiktok',l:'TikTok',u:''},{t:'website',l:'My Website',u:''}]};
+/* ---------- Regular vs Premium digital profile (edit this one block to change the split) ---------- */
+var TIER={
+ maxLinks:5,
+ themes:['abyss','midnight','slate','forest','burgundy','sunset','ocean','light'],
+ pats:['','none'],
+ shapes:['card','flat'],
+ fonts:['Bebas Neue','Montserrat','Playfair Display','Inter','Georgia'],
+ tpl:{clean:'regular',business:'regular',realtor:'regular',well:'regular',shop:'regular',gamer:'premium',influencer:'premium',photo:'premium',fitness:'premium',music:'premium',dev:'premium'}
+};
+function pr(list,v,l){return[v,list.indexOf(v)<0?l+' \u2605':l]}
+var PATN={dots:'Dots pattern',stripes:'Stripes pattern',plus:'Plus pattern',waves:'Waves pattern',stars:'Stars pattern',checker:'Checker pattern',rays:'Rays pattern',circuit:'Circuit pattern',hex:'Hex pattern'};
+var D={theme:'abyss',tpl:'',pat:'',extra:{},showInfo:true,infoStyle:'tiles',bgColor:'',bgImg:'',ha:'#0f2a4a',hb:'#1b4a73',acc:'#e2b866',photo:'',pz:100,px:50,py:25,bo:100,heroH:150,shape:'card',align:'left',line:true,grid:true,caps:true,biocaps:true,linkFont:'Bebas Neue',quick:['email','website','whatsapp','share'],name:'Your Name',title:'',company:'Your Brand',bio:'Your Title | Your Skill | Your Passion',phone:'',email:'',nameFont:'Bebas Neue',bioFont:'Bebas Neue',bioSize:15,bioItalic:false,ls:'stagger',bs:'glass',rad:14,dense:false,showQuick:true,save:true,saveStyle:'white',links:[{t:'facebook',l:'Facebook',u:''},{t:'instagram',l:'Instagram',u:''},{t:'tiktok',l:'TikTok',u:''},{t:'website',l:'My Website',u:''}]};
 var S=JSON.parse(JSON.stringify(D));
 try{var sv=localStorage.getItem('ik-card-studio-v2');if(sv){var o=JSON.parse(sv);for(var k in o)if(k in D)S[k]=o[k]}}catch(e){}
 function persist(){if(PREV)return;try{localStorage.setItem('ik-card-studio-v2',JSON.stringify(S))}catch(e){}}
@@ -2733,6 +2778,7 @@ function apply(){
  S.links.forEach(function(l){var T2=TYPES[l.t]||TYPES.other,h=safeHref(l.t,l.u),a=el('a','ks-lk');a.href=h;
   if(h!=='#'){a.target='_blank';a.rel='noopener noreferrer'}else a.onclick=function(e){e.preventDefault()};
   var ic=el('span','ks-ti',T2[2]);ic.style.background=T2[1];a.appendChild(ic);a.appendChild(el('span','t',l.l||T2[0]));box.appendChild(a)});
+ buildInfo();
  sync();persist();
 }
 /* ---------- controls ---------- */
@@ -2741,14 +2787,14 @@ function slider(k,l,a,b,u){return'<div class="ks-row"><label>'+l+'</label><input
 function color(k,l){return'<div class="ks-row"><label>'+l+'</label><input type="color" data-k="'+k+'"></div>'}
 function chips(k,l,opts){return'<div class="ks-row" style="align-items:flex-start"><label>'+l+'</label><div class="ks-chips">'+opts.map(function(o){return'<button type="button" data-k="'+k+'" data-v="'+o[0]+'" aria-pressed="false">'+o[1]+'</button>'}).join('')+'</div></div>'}
 function text(k,l,ph){return'<div class="ks-row"><label>'+l+'</label><input type="text" data-k="'+k+'" placeholder="'+(ph||'')+'" maxlength="60"></div>'}
-function fontSel(k,l){return'<div class="ks-row"><label>'+l+'</label><select data-k="'+k+'">'+FONTS.map(function(f){return'<option>'+f+'</option>'}).join('')+'</select></div>'}
+function fontSel(k,l){return'<div class="ks-row"><label>'+l+'</label><select data-k="'+k+'">'+FONTS.map(function(f){return'<option value="'+f+'">'+f+(TIER.fonts.indexOf(f)<0?' \u2605':'')+'</option>'}).join('')+'</select></div>'}
 function file(id,l){return'<label class="ks-btn ks-file">'+l+'<input type="file" accept="image/*" id="'+id+'"></label>'}
 var YN=[['true','On'],['false','Off']];
-$('ks-theme').innerHTML='<button class="ks-btn" type="button" data-goto="tpl" style="width:100%;margin-bottom:4px">🎨 Browse ready-made templates →</button><div class="ks-sec">Style presets</div><div class="ks-sw" id="ksSw"></div><div class="ks-sec">Fine-tune colors</div>'+color('bgColor','Page color')+color('ha','Picture 1')+color('hb','Picture 2')+color('acc','Accent')+'<div class="ks-sec">Background design</div>'+chips('pat','Pattern',[['','Grid'],['none','Plain'],['dots','Dots'],['stripes','Stripes'],['plus','Plus'],['waves','Waves'],['stars','Stars'],['checker','Checker'],['rays','Rays'],['circuit','Circuit'],['hex','Hex']])+'<div class="ks-sec">Page background image</div>'+file('ksBgFile','Upload image')+' <button class="ks-btn" id="ksBgClear" type="button">Remove</button><p class="ks-note">Images stay on your device. Nothing is uploaded.</p>';
+$('ks-theme').innerHTML='<button class="ks-btn" type="button" data-goto="tpl" style="width:100%;margin-bottom:4px">🎨 Browse ready-made templates →</button><p class="ks-note">★ marks Premium features. Your profile stays Regular until you use one.</p><div class="ks-sec">Style presets</div><div class="ks-sw" id="ksSw"></div><div class="ks-sec">Fine-tune colors <span class="ks-prem">★ Premium</span></div>'+color('bgColor','Page color')+color('ha','Picture 1')+color('hb','Picture 2')+color('acc','Accent')+'<div class="ks-sec">Background design</div>'+chips('pat','Pattern',[pr(TIER.pats,'','Grid'),pr(TIER.pats,'none','Plain'),pr(TIER.pats,'dots','Dots'),pr(TIER.pats,'stripes','Stripes'),pr(TIER.pats,'plus','Plus'),pr(TIER.pats,'waves','Waves'),pr(TIER.pats,'stars','Stars'),pr(TIER.pats,'checker','Checker'),pr(TIER.pats,'rays','Rays'),pr(TIER.pats,'circuit','Circuit'),pr(TIER.pats,'hex','Hex')])+'<div class="ks-sec">Page background image <span class="ks-prem">★ Premium</span></div>'+file('ksBgFile','Upload image')+' <button class="ks-btn" id="ksBgClear" type="button">Remove</button><p class="ks-note">Images stay on your device. Nothing is uploaded.</p>';
 $('ks-photo').innerHTML='<div class="ks-sec">Your picture</div>'+file('ksPhFile','Upload photo')+' <button class="ks-btn" id="ksPhClear" type="button">Remove</button><p class="ks-note">A clear, well-lit photo works best. Faces sit nicely near the top.</p>'+slider('pz','Zoom',100,260,'%')+slider('px','Left / right',0,100,'%')+slider('py','Up / down',0,100,'%')+slider('bo','Opacity',0,100,'%');
-$('ks-layout').innerHTML='<div class="ks-sec">Header</div>'+chips('shape','Edge',[['card','Card'],['wave','Wave'],['round','Curve'],['flat','Rounded']])+slider('heroH','Height',70,170,'')+chips('align','Text',[['left','Left'],['center','Center']])+chips('line','Accent line',YN)+chips('grid','Grid pattern',YN)+'<div class="ks-sec">Buttons</div>'+chips('ls','Arrangement',[['stagger','Stagger'],['list','List'],['tiles','Tiles'],['pills','Pills']])+chips('bs','Fill',[['glass','Glass'],['solid','Solid'],['out','Outline']])+slider('rad','Roundness',0,30,'px')+chips('dense','Spacing',[['false','Roomy'],['true','Compact']])+'<div class="ks-sec">Show / hide</div>'+chips('showQuick','Round icons',YN)+chips('save','Save button',YN)+chips('saveStyle','Save style',[['white','White'],['filled','Accent'],['outline','Outline']]);
+$('ks-layout').innerHTML='<div class="ks-sec">Header</div>'+chips('shape','Edge',[pr(TIER.shapes,'card','Card'),pr(TIER.shapes,'wave','Wave'),pr(TIER.shapes,'round','Curve'),pr(TIER.shapes,'flat','Rounded')])+slider('heroH','Height',70,170,'')+chips('align','Text',[['left','Left'],['center','Center']])+chips('line','Accent line',YN)+chips('grid','Grid pattern',YN)+'<div class="ks-sec">Buttons</div>'+chips('ls','Arrangement',[['stagger','Stagger'],['list','List'],['tiles','Tiles'],['pills','Pills']])+chips('bs','Fill',[['glass','Glass'],['solid','Solid'],['out','Outline']])+slider('rad','Roundness',0,30,'px')+chips('dense','Spacing',[['false','Roomy'],['true','Compact']])+'<div class="ks-sec">Show / hide</div>'+chips('showQuick','Round icons',YN)+chips('save','Save button',YN)+chips('saveStyle','Save style',[['white','White'],['filled','Accent'],['outline','Outline']]);
 $('ks-text').innerHTML='<div class="ks-sec">Your details</div>'+text('name','Name','Your name')+text('title','Title','e.g. Photographer')+text('company','Brand','e.g. Studio 88')+'<div class="ks-row" style="align-items:flex-start"><label>Bio</label><textarea data-k="bio" maxlength="200" rows="3"></textarea></div>'+text('phone','Phone','+63 917 123 4567')+text('email','Email','you@mail.com')+'<div class="ks-sec">Fonts</div>'+fontSel('nameFont','Name font')+fontSel('bioFont','Bio font')+fontSel('linkFont','Button font')+chips('caps','Name caps',YN)+chips('biocaps','Bio caps',YN)+slider('bioSize','Bio size',11,22,'px')+chips('bioItalic','Bio style',[['true','Italic'],['false','Regular']]);
-var swb=$('ksSw');Object.keys(THEMES).forEach(function(k){var b=el('button');b.type='button';b.title=THEMES[k].l;b.setAttribute('aria-label',THEMES[k].l);b.dataset.theme=k;b.style.background=THEMES[k].css;swb.appendChild(b)});
+var swb=$('ksSw');Object.keys(THEMES).forEach(function(k){var b=el('button');b.type='button';b.title=THEMES[k].l;b.setAttribute('aria-label',THEMES[k].l);b.dataset.theme=k;if(TIER.themes.indexOf(k)<0){b.classList.add('prem');b.title+=' (Premium)'}b.style.background=THEMES[k].css;swb.appendChild(b)});
 /* ---------- background patterns ---------- */
 function PAT(k,light){
  var cs=light?'rgba(0,0,0,.07)':'rgba(255,255,255,.07)',c=light?'black':'white',o=light?'.10':'.10';
@@ -2802,10 +2848,46 @@ clean:{n:'Minimal',e:'⚪',d:'Simple and clean',theme:'light',title:'',company:'
  s:{ha:'#cbd5e1',hb:'#94a3b8',acc:'#111827',shape:'flat',align:'center',line:false,caps:false,biocaps:false,nameFont:'Inter',bioFont:'Inter',linkFont:'Inter',bioSize:14,bioItalic:false,ls:'list',bs:'out',rad:12,dense:false,saveStyle:'filled',pat:'none',heroH:130,showQuick:true,save:true,quick:['phone','email','whatsapp']},
  links:[['facebook','Facebook'],['instagram','Instagram'],['website','My Website'],['email','Email']]}
 };
+/* ---------- per-template profile fields: [key,label,placeholder,type,options] ---------- */
+var TX={
+gamer:{is:'tiles',
+ f:[['status','Status','','status',[['Online','#22c55e'],['Streaming live','#a855f7'],['Looking for team','#f59e0b'],['Offline','#64748b']]],['ign','IGN (in-game name)','xX_YourIGN_Xx','copy'],['username','Username','@yourhandle','copy'],['uid','Player ID / UID','123456789 (1234)','copy'],['game','Main game','Mobile Legends','text'],['rank','Rank','Mythic Glory','text'],['role','Role','Jungler','text'],['team','Team / Guild','Your squad','text']],
+ d:{status:'Looking for team',ign:'YourIGN',username:'@yourname',game:'Mobile Legends',rank:'Mythic Glory',role:'Jungler',team:'Your Squad'}},
+business:{is:'rows',
+ f:[['status','Availability','','status',[['Open for new clients','#22c55e'],['Limited slots','#f59e0b'],['Fully booked','#64748b']]],['services','Services','Strategy, Marketing, Coaching','tags'],['exp','Experience','10+ years','text'],['hours','Office hours','Mon–Fri · 9AM–6PM','text'],['address','Office address','Makati City, Metro Manila','map'],['langs','Languages','English, Filipino','text']],
+ d:{status:'Open for new clients',services:'Strategy, Operations, Coaching',exp:'10+ years',hours:'Mon–Fri · 9AM–6PM'}},
+influencer:{is:'tiles',
+ f:[['status','Collab status','','status',[['Open for collabs','#22c55e'],['Limited slots','#f59e0b'],['Booked this month','#64748b']]],['niche','Niche','Lifestyle, Fashion, Travel','tags'],['reach','Total reach','250K+ followers','text'],['eng','Engagement rate','6.5%','text'],['rate','Collab rates','From ₱5,000 / post','text'],['loc','Based in','Manila, PH','text']],
+ d:{status:'Open for collabs',niche:'Lifestyle, Fashion, Travel',reach:'250K+',eng:'6.5%',rate:'From ₱5,000',loc:'Manila, PH'}},
+photo:{is:'rows',
+ f:[['status','Booking status','','status',[['Booking now','#22c55e'],['Few dates left','#f59e0b'],['Fully booked','#64748b']]],['spec','Specialties','Weddings, Portraits, Events','tags'],['rate','Starting rate','From ₱8,000','text'],['area','Service area','Metro Manila & nearby','text'],['turn','Delivery time','7–10 days','text']],
+ d:{status:'Booking now',spec:'Weddings, Portraits, Events',rate:'From ₱8,000',turn:'7–10 days'}},
+realtor:{is:'rows',
+ f:[['status','Status','','status',[['Accepting clients','#22c55e'],['On leave','#64748b']]],['license','PRC license no.','0012345','copy'],['areas','Areas served','Makati, BGC, Pasig','tags'],['spec','Specialty','Condos, House & lot','tags'],['listings','Active listings','24','text']],
+ d:{status:'Accepting clients',areas:'Makati, BGC, Pasig',spec:'Condos, House & lot'}},
+fitness:{is:'tiles',
+ f:[['status','Availability','','status',[['Accepting clients','#22c55e'],['Waitlist only','#f59e0b'],['Fully booked','#64748b']]],['spec','Specialty','Weight loss, Strength, Boxing','tags'],['certs','Certifications','Certified Personal Trainer','text'],['price','Programs from','₱1,500 / month','text'],['gym','Gym / location','Anytime Fitness, Quezon City','map']],
+ d:{status:'Accepting clients',spec:'Weight loss, Strength, Boxing',price:'₱1,500 / month'}},
+music:{is:'tiles',
+ f:[['status','Gig status','','status',[['Open for gigs','#22c55e'],['Limited dates','#f59e0b'],['Booked','#64748b']]],['genre','Genre','OPM, Acoustic, Pop','tags'],['latest','Latest release','Song title (2026)','text'],['fee','Booking from','₱10,000 / set','text'],['base','Based in','Cebu City','text']],
+ d:{status:'Open for gigs',genre:'OPM, Acoustic, Pop',fee:'₱10,000 / set'}},
+shop:{is:'tiles',
+ f:[['status','Store status','','status',[['Open now','#22c55e'],['Pre-order only','#f59e0b'],['Closed','#64748b']]],['hours','Open hours','Mon–Sat · 8AM–8PM','text'],['deliv','Delivery area','Your city & nearby','text'],['pay','Payments','GCash, Maya, COD','tags'],['min','Minimum order','₱200','text'],['address','Store address','Street, Barangay, City','map']],
+ d:{status:'Open now',hours:'Mon–Sat · 8AM–8PM',deliv:'Local delivery',pay:'GCash, COD'}},
+dev:{is:'rows',
+ f:[['status','Availability','','status',[['Open to work','#22c55e'],['Freelance only','#f59e0b'],['Not available','#64748b']]],['stack','Tech stack','React, Node.js, Supabase','tags'],['exp','Experience','5+ years','text'],['loc','Location','Remote / Manila','text'],['rate','Rate','$25 / hr','text']],
+ d:{status:'Open to work',stack:'React, Node.js, Supabase',exp:'5+ years',loc:'Remote'}},
+well:{is:'rows',
+ f:[['status','Booking status','','status',[['Accepting appointments','#22c55e'],['Few slots left','#f59e0b'],['Fully booked','#64748b']]],['svc','Services','Facial, Massage, Consultation','tags'],['hours','Clinic hours','Tue–Sun · 10AM–7PM','text'],['address','Address','Street, Barangay, City','map'],['appt','Booking','By appointment · Walk-ins welcome','text'],['lic','License no.','Optional','copy']],
+ d:{status:'Accepting appointments',svc:'Facial, Massage, Consultation',hours:'Tue–Sun · 10AM–7PM',appt:'By appointment'}},
+clean:{is:'rows',f:[],d:{}}
+};
+Object.keys(TX).forEach(function(k){var x=TX[k];TPL[k].desc=TPL[k].d;TPL[k].is=x.is;TPL[k].d=x.d;TPL[k].f=x.f.map(function(a){return{k:a[0],l:a[1],p:a[2],t:a[3],o:a[4]}})});
+function isSX(k,v){v=(v||'').trim();if(!v)return true;return Object.keys(TPL).some(function(id){return TPL[id].d&&TPL[id].d[k]===v})}
 var TCAT={gamer:'creators',influencer:'creators',music:'creators',photo:'creators',business:'pro',realtor:'pro',dev:'pro',clean:'pro',fitness:'local',shop:'local',well:'local'};
 var TCATS=[['all','All'],['creators','Creators'],['pro','Professional'],['local','Local business']];
 var PREV=false,snap=null,undoSnap=null,tplCat='all',HOVER=window.matchMedia&&matchMedia('(hover:hover)').matches;
-$('ks-tpl').innerHTML='<div class="tp-top"><div class="ks-chips" id="ksTplCats" role="group" aria-label="Template categories">'+TCATS.map(function(c){return'<button type="button" data-tcat="'+c[0]+'" aria-pressed="'+(c[0]==='all')+'">'+c[1]+'</button>'}).join('')+'</div><div class="tp-bar" id="ksTplBar" hidden><span id="ksTplName"></span><button type="button" class="ks-btn" id="ksTplUndo">Undo</button></div></div><p class="ks-note tp-hint">'+(HOVER?'Hover to preview, click to apply.':'Tap a template to apply it.')+' Previews use your name and photo. Your contact details stay.</p><div class="ks-tpls" id="ksTpls"></div>';
+$('ks-tpl').innerHTML='<div class="tp-top"><div class="ks-chips" id="ksTplCats" role="group" aria-label="Template categories">'+TCATS.map(function(c){return'<button type="button" data-tcat="'+c[0]+'" aria-pressed="'+(c[0]==='all')+'">'+c[1]+'</button>'}).join('')+'</div><div class="tp-bar" id="ksTplBar" hidden><span id="ksTplName"></span><span class="tp-act"><button type="button" class="ks-btn pri" id="ksTplFill" data-goto="details" hidden>Add details</button><button type="button" class="ks-btn" id="ksTplUndo">Undo</button></span></div></div><p class="ks-note tp-hint">'+(HOVER?'Hover to preview, click to apply.':'Tap a template to apply it.')+' Previews use your name and photo. Your contact details stay.</p><div class="ks-tpls" id="ksTpls"></div>';
 function isSample(f,v){v=(v||'').trim();if(!v||v===D[f])return true;return Object.keys(TPL).some(function(k){return TPL[k][f]===v})}
 function miniCard(t){
  var x=t.s,T=THEMES[t.theme],light=!!T.light,c=el('div','ks-card'),st=c.style,pl=PAT(x.pat,light);
@@ -2825,13 +2907,16 @@ function miniCard(t){
  var ln=el('div','ks-links');t.links.slice(0,4).forEach(function(p){var T2=TYPES[p[0]]||TYPES.other,a=el('div','ks-lk'),ic=el('span','ks-ti',T2[2]);ic.style.background=T2[1];a.append(ic,el('span','t',p[1]));ln.appendChild(a)});
  c.append(hero,bio,q,sv,ln);return c}
 function scaleTpls(){var box=$('ksTpls'),c=box&&box.querySelector('.ks-tpl:not([hidden]) .tp-card');if(!c)return;var w=c.clientWidth;if(w>20)box.style.setProperty('--tps',(w/320).toFixed(4))}
-function filterTpls(){var box=$('ksTpls');if(!box)return;box.querySelectorAll('.ks-tpl').forEach(function(b){b.hidden=!(tplCat==='all'||b.dataset.cat===tplCat)});
+function filterTpls(){var box=$('ksTpls');if(!box)return;box.querySelectorAll('.ks-tpl').forEach(function(b){b.hidden=!(tplCat==='all'||b.dataset.cat===tplCat)});box.querySelectorAll('.tp-group').forEach(function(h){h.hidden=!box.querySelector('.ks-tpl[data-group="'+h.dataset.group+'"]:not([hidden])')});
  $('ksTplCats').querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.tcat===tplCat))});scaleTpls()}
 function renderTpls(){var box=$('ksTpls');if(!box)return;box.textContent='';
  box.style.setProperty('--tpphoto',S.photo?'url("'+S.photo+'")':'none');
- Object.keys(TPL).forEach(function(k){var t=TPL[k],b=el('button','ks-tpl');b.type='button';b.dataset.tpl=k;b.dataset.cat=TCAT[k];b.setAttribute('aria-pressed',String(S.tpl===k));
-  var card=el('span','tp-card'),inn=el('span','tp-in');inn.appendChild(miniCard(t));card.append(inn,el('span','tp-check','✓'));
-  var meta=el('span','tp-meta');meta.append(el('b',null,t.e+' '+t.n),el('small',null,t.d));b.append(card,meta);
+ var lastG='';Object.keys(TPL).sort(function(a,b){return(TIER.tpl[a]==='regular'?0:1)-(TIER.tpl[b]==='regular'?0:1)}).forEach(function(k){var t=TPL[k],g=TIER.tpl[k]==='regular'?'regular':'premium';
+  if(g!==lastG){lastG=g;var gh=el('div','tp-group '+g);gh.dataset.group=g;gh.append(el('b',null,g==='regular'?'Regular profile templates':'\u2605 Premium profile templates'),el('small',null,g==='regular'?'Included with the regular digital profile.':'Bolder looks and extras. Premium digital profile.'));box.appendChild(gh)}
+  var b=el('button','ks-tpl');b.type='button';b.dataset.tpl=k;b.dataset.cat=TCAT[k];b.dataset.group=g;b.setAttribute('aria-pressed',String(S.tpl===k));
+  var card=el('span','tp-card'),inn=el('span','tp-in');inn.appendChild(miniCard(t));card.append(inn,el('span','tp-check','✓'));if(g==='premium')card.appendChild(el('span','tp-prem','\u2605 Premium'));
+  var meta=el('span','tp-meta');meta.append(el('b',null,t.e+' '+t.n),el('small',null,t.desc));
+  var ad=t.f.filter(function(x){return x.t!=='status'}).slice(0,3).map(function(x){return x.l.replace(/ \(.*\)/,'')});if(ad.length)meta.appendChild(el('span','tp-adds','+ '+ad.join(', ')));b.append(card,meta);
   if(HOVER)b.addEventListener('mouseenter',function(){startPrev(k)});
   b.addEventListener('mouseleave',endPrev);
   b.addEventListener('focus',function(){if(b.matches(':focus-visible'))startPrev(k)});
@@ -2842,7 +2927,7 @@ if(window.ResizeObserver)new ResizeObserver(scaleTpls).observe($('ksTpls'));
 function startPrev(k){if(PREV)return;snap=JSON.stringify(S);PREV=true;applyTpl(k,true)}
 function endPrev(){if(!PREV)return;PREV=false;S=JSON.parse(snap);snap=null;buildLinks();apply()}
 function commitTpl(k){if(PREV){PREV=false;S=JSON.parse(snap);snap=null}
- undoSnap=JSON.stringify(S);applyTpl(k);$('ksTplName').textContent='✓ '+TPL[k].e+' '+TPL[k].n+' applied';$('ksTplBar').hidden=false}
+ undoSnap=JSON.stringify(S);applyTpl(k);$('ksTplName').textContent='✓ '+TPL[k].e+' '+TPL[k].n+' applied';$('ksTplFill').hidden=!TPL[k].f.length;$('ksTplBar').hidden=false}
 function hideBar(){undoSnap=null;var b=$('ksTplBar');if(b)b.hidden=true}
 function undoTpl(){if(!undoSnap)return;S=JSON.parse(undoSnap);undoSnap=null;buildLinks();apply();$('ksTplBar').hidden=true;toast('Template undone')}
 function applyTpl(id,pv){var t=TPL[id];if(!t)return;
@@ -2853,8 +2938,37 @@ function applyTpl(id,pv){var t=TPL[id];if(!t)return;
   if(m===null)for(j=0;j<old.length;j++){if(!used[j]&&old[j].t===p[0]){m=j;break}}
   var u='';if(m!==null){used[m]=1;u=old[m].u}nl.push({t:p[0],l:p[1],u:u})});
  old.forEach(function(l,i){if(!used[i]&&(l.u||'').trim()&&nl.length<8)nl.push(l)});
- S.links=nl.slice(0,8);buildLinks();apply()}
+ S.links=nl.slice(0,8);
+ S.showInfo=true;S.infoStyle=t.is;if(!S.extra)S.extra={};
+ t.f.forEach(function(f){var cur=(S.extra[f.k]||'').trim();
+  if(f.t==='status'){var ok=f.o.some(function(o){return o[0]===cur});if(!ok||isSX(f.k,cur))S.extra[f.k]=t.d[f.k]||''}
+  else if(isSX(f.k,cur))S.extra[f.k]=t.d[f.k]||''});
+ buildLinks();apply()}
 renderTpls();
+function buildInfo(){var box=$('ksInfo');if(!box)return;box.textContent='';
+ var t=S.tpl?TPL[S.tpl]:null;box.className='ks-info '+(S.infoStyle==='rows'?'rows':'tiles');
+ if(!t||!t.f||!t.f.length||!S.showInfo){box.hidden=true;return}
+ var bw=el('div','ks-bwrap'),gr=el('div','ks-igrid');
+ t.f.forEach(function(f){var v=String((S.extra||{})[f.k]||'').trim();if(!v)return;
+  if(f.t==='status'){var o=f.o.filter(function(x){return x[0]===v})[0],b=el('span','ks-badge');b.style.setProperty('--dc',o?o[1]:'#94a3b8');b.appendChild(el('i'));b.appendChild(document.createTextNode(v));bw.appendChild(b);return}
+  var it,vv=el('span','v');
+  if(f.t==='map'){it=el('a','ks-ii mp');it.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(v);it.target='_blank';it.rel='noopener noreferrer'}
+  else{it=el('div','ks-ii'+(f.t==='copy'?' cp':''));
+   if(f.t==='copy'){it.dataset.copy=v;it.tabIndex=0;it.setAttribute('role','button');it.setAttribute('aria-label','Copy '+f.l);
+    it.onclick=function(){copy(v,f.l+' copied')};it.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();copy(v,f.l+' copied')}}}}
+  if(f.t==='tags'){v.split(',').map(function(x){return x.trim()}).filter(Boolean).slice(0,8).forEach(function(x){vv.appendChild(el('span','ks-tag',x))});it.classList.add('wide')}
+  else vv.textContent=v;
+  it.appendChild(el('span','l',f.l));it.appendChild(vv);gr.appendChild(it)});
+ if(bw.childNodes.length)box.appendChild(bw);if(gr.childNodes.length)box.appendChild(gr);
+ box.hidden=!box.childNodes.length}
+function buildDetails(){var p=$('ks-details');if(!p)return;p.textContent='';var t=S.tpl?TPL[S.tpl]:null;
+ if(!t||!t.f.length){p.innerHTML='<div class="ks-sec">Profile details</div><p class="ks-note" style="margin-top:0">'+(t?'The Minimal template keeps things simple, so it has no extra fields. Try another template for more.':'Pick a template to unlock extra fields made for your type of profile: IGN and rank for gamers, services and hours for businesses, rates for creators and more.')+'</p><button class="ks-btn pri" type="button" data-goto="tpl" style="margin-top:12px">Browse templates →</button>';return}
+ p.innerHTML='<div class="ks-sec">'+t.e+' '+esc(t.n)+' details</div>'+chips('showInfo','Show on card',YN)+chips('infoStyle','Layout',[['tiles','Tiles'],['rows','List']]);
+ t.f.forEach(function(f){var r=el('div','ks-row'),l=el('label',null,f.l+(f.t==='copy'?' ⧉':f.t==='map'?' 📍':'')),c;
+  if(f.t==='status'){c=document.createElement('select');var o0=document.createElement('option');o0.value='';o0.textContent='Hidden';c.appendChild(o0);f.o.forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[0];c.appendChild(o)})}
+  else{c=document.createElement('input');c.type='text';c.maxLength=80;c.placeholder=f.p||''}
+  c.value=(S.extra&&S.extra[f.k])||'';c.dataset.x=f.k;c.setAttribute('aria-label',f.l);r.append(l,c);p.appendChild(r)});
+ p.appendChild(el('p','ks-note','⧉ Visitors can copy these with one tap. 📍 Opens Google Maps. Leave a field empty to hide it.'))}
 function buildLinks(){var p=$('ks-links');p.textContent='';
  S.links.forEach(function(l,i){var d=el('div','ks-link'),a=document.createElement('input');a.type='text';a.value=l.l;a.placeholder='Label';a.dataset.li=i;a.dataset.f='l';a.maxLength=30;
   var x=el('button','ks-x','✕');x.type='button';x.dataset.del=i;x.setAttribute('aria-label','Remove link');
@@ -2864,21 +2978,39 @@ function buildLinks(){var p=$('ks-links');p.textContent='';
  var b=el('button','ks-btn pri','+ Add');b.type='button';b.id='ksAdd';add.append(s,b);p.appendChild(add);
  var qs=el('div','ks-sec','Round icons under your bio');p.appendChild(qs);var qc=el('div','ks-chips');
  ['phone','email','whatsapp','website','facebook','instagram','tiktok','linkedin','youtube','share'].forEach(function(t){var b=el('button',null,t==='share'?'Share':TYPES[t][0]);b.type='button';b.dataset.q=t;b.setAttribute('aria-pressed',String(S.quick.indexOf(t)>-1));qc.appendChild(b)});p.appendChild(qc);
- p.appendChild(el('p','ks-note','Up to 8 links. Leave a link empty to preview the layout.'))}
+ p.appendChild(el('p','ks-note','Up to 8 links. Leave a link empty to preview the layout.'));buildDetails()}
 buildLinks();
 function cast(v){return v==='true'?true:v==='false'?false:v}
+function tierOf(S){
+ var r=[],tp=S.tpl&&TPL[S.tpl]?TPL[S.tpl]:null,base=tp&&TIER.tpl[S.tpl]==='regular'?tp:null,bs=base?base.s:{};
+ function add(x){if(r.indexOf(x)<0)r.push(x)}
+ if(tp&&!base)add(tp.n+' template');
+ var T=THEMES[S.theme]||THEMES.abyss;
+ if(S.bgImg)add('Background image');
+ else if(hex(S.bgColor))add('Custom page color');
+ else if(TIER.themes.indexOf(S.theme)<0&&!(base&&base.theme===S.theme))add(T.l+' theme');
+ if(!((S.ha===T.ha&&S.hb===T.hb&&S.acc===T.acc)||(base&&S.ha===bs.ha&&S.hb===bs.hb&&S.acc===bs.acc)))add('Custom colors');
+ if(TIER.pats.indexOf(S.pat||'')<0&&!(base&&bs.pat===S.pat))add(PATN[S.pat]||'Background pattern');
+ if(TIER.shapes.indexOf(S.shape)<0&&!(base&&bs.shape===S.shape))add(S.shape==='wave'?'Wave header':'Curve header');
+ ['nameFont','bioFont','linkFont'].forEach(function(k){var f=S[k];if(TIER.fonts.indexOf(f)<0&&!(base&&bs[k]===f))add(f+' font')});
+ if((S.links||[]).length>TIER.maxLinks)add((S.links.length)+' links ('+TIER.maxLinks+' included)');
+ return{tier:r.length?'premium':'regular',reasons:r}}
+function showTier(){var b=$('ksTier');if(!b)return;var t=tierOf(S);b.className='ks-tier '+t.tier;b.textContent='';
+ b.appendChild(el('b',null,t.tier==='premium'?'\u2605 Premium profile':'Regular profile'));
+ b.appendChild(el('span',null,t.tier==='premium'?'Uses: '+t.reasons.slice(0,4).join(', ')+(t.reasons.length>4?' +'+(t.reasons.length-4)+' more':''):'Everything in this design is included in the regular package.'))}
 function sync(){
  var w=$('ksWrap');w.querySelectorAll('[data-k]').forEach(function(n){var k=n.dataset.k;
   if(n.tagName==='BUTTON')n.setAttribute('aria-pressed',String(S[k]===cast(n.dataset.v)));
   else if(document.activeElement!==n){n.value=(k==='bgColor')?(hex(S.bgColor)?S.bgColor:'#12304f'):S[k]}});
  w.querySelectorAll('[data-o]').forEach(function(o){o.textContent=S[o.dataset.o]+o.dataset.u});
  w.querySelectorAll('#ksTpls button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.tpl===S.tpl))});
- w.querySelectorAll('#ksSw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.theme===S.theme&&!S.tpl&&!hex(S.bgColor)&&!S.bgImg))})}
+ w.querySelectorAll('#ksSw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.theme===S.theme&&!S.tpl&&!hex(S.bgColor)&&!S.bgImg))});if(!PREV)showTier()}
 /* ---------- events ---------- */
 var W=$('ksWrap');
 W.addEventListener('input',function(e){var n=e.target;
  if(n.dataset.k){var v=n.type==='range'?+n.value:n.value;S[n.dataset.k]=v;apply()}
- else if(n.dataset.li!=null){S.links[+n.dataset.li][n.dataset.f]=n.value;apply()}});
+ else if(n.dataset.li!=null){S.links[+n.dataset.li][n.dataset.f]=n.value;apply()}
+ else if(n.dataset.x!=null){if(!S.extra)S.extra={};S.extra[n.dataset.x]=n.value;apply()}});
 W.addEventListener('click',function(e){var n=e.target.closest('button');if(!n)return;
  if(n.dataset.k&&n.dataset.v!=null){S[n.dataset.k]=cast(n.dataset.v);apply()}
  else if(n.dataset.tpl){commitTpl(n.dataset.tpl)}
@@ -2905,19 +3037,13 @@ function copy(t,m){var d=function(){var a=document.createElement('textarea');a.v
 
 var SB_URL='https://avukmhbcpqhigdcwxlxw.supabase.co',SB_KEY='sb_publishable_NlLWQgNaHjyR75h-OlQJLw_ZXnppPmc',MAIL='ikonek79@gmail.com';
 function slug(){return(S.name||'profile').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'profile'}
-function designJSON(){return{app:'ikonek-card-design',version:1,createdAt:new Date().toISOString(),design:S}}
+function designJSON(){var t=tierOf(S);return{app:'ikonek-card-design',version:1,createdAt:new Date().toISOString(),tier:t.tier,premium:t.reasons,design:S}}
 function download(name,type,text){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1500)}
-function standalone(){
- var css='';[].slice.call(document.styleSheets).forEach(function(sh){try{[].slice.call(sh.cssRules).forEach(function(r){if(r.selectorText&&/\.ks-(card|hero|photo|tint|init|htext|name|title|comp|bio|quick|q|save|links|lk|ti)\b/.test(r.selectorText))css+=r.cssText+'\n'})}catch(e){}});
- var fonts=[S.nameFont,S.bioFont,S.linkFont].filter(function(f,i,a){return a.indexOf(f)===i&&f!=='Georgia'}).map(function(f){return'family='+f.replace(/ /g,'+')+':ital,wght@0,400;0,700;1,400'}).join('&');
- var data=JSON.stringify(designJSON()).replace(/</g,'\\u003c');
- var clone=card.cloneNode(true);clone.removeAttribute('id');
- return'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(S.name||'Digital Profile')+'</title><link href="https://fonts.googleapis.com/css2?'+fonts+'&display=swap" rel="stylesheet"><style>body{margin:0;background:#05080d;display:flex;justify-content:center}.ks-card{height:auto!important;min-height:100vh;width:100%;max-width:440px;border-radius:0!important;overflow:visible!important}'+css+'</style></head><body>'+clone.outerHTML+'<script type="application/json" id="ikonek-design">'+data+'<\/script></body></html>'}
-function saveFile(){download('ikonek-'+slug()+'.html','text/html',standalone());toast('File saved. Open it to preview your profile.')}
+function saveFile(){download('ikonek-'+slug()+'.json','application/json',JSON.stringify(designJSON(),null,2));toast('Design file saved. Send it to iKONEK and we will build your page.')}
 var dlg=document.createElement('dialog');dlg.id='ksSendDlg';
-dlg.innerHTML='<form method="dialog" id="ksSendForm" autocomplete="on"><h3>Send your design to iKONEK</h3><p>We will build this profile for you and message you to confirm.</p><label>Your name<input type="text" id="ksCn" required maxlength="80" autocomplete="name"></label><label>Phone, email or Messenger link<input type="text" id="ksCm" required maxlength="120" autocomplete="off" placeholder="So we can reach you"></label><label>Anything else? (optional)<textarea id="ksCnote" maxlength="500" rows="3"></textarea></label><input type="text" id="ksHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0"><div class="ks-dact"><button type="button" class="ks-btn" id="ksCx">Cancel</button><button type="button" class="ks-btn" id="ksCdl">Save file</button><button type="submit" class="ks-btn pri" id="ksCgo">Send</button></div><p class="ks-dmsg" id="ksDmsg" role="status"></p></form>';
+dlg.innerHTML='<form method="dialog" id="ksSendForm" autocomplete="on"><h3>Send your design to iKONEK</h3><p>We will build this profile for you and message you to confirm.</p><p class="ks-tiernote" id="ksTierNote"></p><label>Your name<input type="text" id="ksCn" required maxlength="80" autocomplete="name"></label><label>Phone, email or Messenger link<input type="text" id="ksCm" required maxlength="120" autocomplete="off" placeholder="So we can reach you"></label><label>Anything else? (optional)<textarea id="ksCnote" maxlength="500" rows="3"></textarea></label><input type="text" id="ksHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0"><div class="ks-dact"><button type="button" class="ks-btn" id="ksCx">Cancel</button><button type="button" class="ks-btn" id="ksCdl">Save file</button><button type="submit" class="ks-btn pri" id="ksCgo">Send</button></div><p class="ks-dmsg" id="ksDmsg" role="status"></p></form>';
 document.body.appendChild(dlg);
-function openSend(){$('ksDmsg').textContent='';dlg.showModal?dlg.showModal():dlg.setAttribute('open','')}
+function openSend(){var t=tierOf(S);$('ksTierNote').textContent=t.tier==='premium'?'Package: \u2605 Premium profile (uses '+t.reasons.slice(0,3).join(', ')+(t.reasons.length>3?' +'+(t.reasons.length-3)+' more':'')+')':'Package: Regular profile';$('ksDmsg').textContent='';dlg.showModal?dlg.showModal():dlg.setAttribute('open','')}
 function closeSend(){dlg.close?dlg.close():dlg.removeAttribute('open')}
 $('ksCx').onclick=closeSend;$('ksCdl').onclick=saveFile;
 dlg.addEventListener('click',function(e){if(e.target===dlg)closeSend()});
