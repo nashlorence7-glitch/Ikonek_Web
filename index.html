@@ -3256,4 +3256,57 @@ if(vv){var sync=function(){if(!ov.classList.contains('on')||!mq.matches){ov.styl
 new MutationObserver(function(){if(ov.classList.contains('on'))setState('half');else{ov.style.height='';ov.style.top=''}}).observe(ov,{attributes:true,attributeFilter:['class']});
 })();
 </script>
+<style id="ks-move-css">
+.ks-ph{touch-action:pan-y}
+.ks-grip{position:absolute;left:50%;top:20px;transform:translateX(-50%);z-index:12;display:flex;align-items:center;gap:6px;height:28px;padding:0 6px 0 12px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(6,12,20,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#e8f1fb;font:600 11.5px/1 Inter,system-ui,sans-serif;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 4px 14px rgba(0,0,0,.4);transition:opacity .2s}
+.ks-grip:hover{border-color:#1B9CFF}
+.ks-grip:active,.ks-ph.ks-dragging .ks-grip{cursor:grabbing;border-color:#1B9CFF}
+.ks-grip .dots{letter-spacing:1px;font-size:13px;line-height:1;color:#7FC4FF}
+.ks-grip .rs{display:none;width:22px;height:22px;margin-left:2px;border:0;border-radius:50%;background:#1B9CFF;color:#04101c;font:700 13px/1 Inter,sans-serif;cursor:pointer;padding:0;place-items:center}
+.ks-ph.ks-moved .ks-grip .rs{display:grid}
+.ks-sticky .ks-ph.ks-moved{position:relative;z-index:60}
+.ks-ph.ks-dragging{transition:none!important;box-shadow:0 0 90px rgba(27,156,255,.45),0 40px 80px rgba(0,0,0,.7);will-change:translate}
+.ks-ph.ks-dragging .ks-card{overflow:hidden;pointer-events:none}
+@media(max-width:820px){
+#ksOv .ks-stage{overflow:visible}
+#ksOv .ks-stage .ks-ph{z-index:30}
+#ksOv .ks-grip{height:40px;padding:0 10px 0 14px;font-size:14px;top:12px;transform-origin:50% 0}
+#ksOv .ks-grip .lbl{display:none}
+#ksOv .ks-grip .dots{font-size:20px}
+#ksOv .ks-grip .rs{width:32px;height:32px;font-size:17px}
+}
+</style>
+<script id="ks-move-js">
+(function(){
+var ph=document.querySelector('.ks-ph'),ov=document.getElementById('ksOv');if(!ph)return;
+var g=document.createElement('div');g.className='ks-grip';g.setAttribute('role','button');g.setAttribute('aria-label','Drag to move the preview');g.title='Drag to move the preview';
+g.innerHTML='<span class="dots" aria-hidden="true">\u283F</span><span class="lbl">Drag to move</span><button type="button" class="rs" aria-label="Put the preview back" title="Put it back">\u21BA</button>';
+ph.appendChild(g);
+var rs=g.querySelector('.rs'),x=0,y=0,st=null;
+function apply(){ph.style.translate=(x||y)?x+'px '+y+'px':'';ph.classList.toggle('ks-moved',!!(x||y))}
+function reset(){x=0;y=0;apply()}
+rs.addEventListener('pointerdown',function(e){e.stopPropagation()});
+rs.addEventListener('click',function(e){e.stopPropagation();reset()});
+g.addEventListener('dblclick',reset);
+g.addEventListener('pointerdown',function(e){if(e.button>0||e.target===rs)return;e.preventDefault();
+ var r=ph.getBoundingClientRect();st={id:e.pointerId,sx:e.clientX,sy:e.clientY,x:x,y:y,l:r.left,t:r.top,w:r.width,h:r.height};
+ ph.classList.add('ks-dragging');try{g.setPointerCapture(e.pointerId)}catch(_){}});
+g.addEventListener('pointermove',function(e){if(!st||e.pointerId!==st.id)return;
+ var dx=e.clientX-st.sx,dy=e.clientY-st.sy,keep=Math.min(90,st.w*.5),top=ov&&ov.classList.contains('on')?0:60;
+ var nl=Math.max(keep-st.w,Math.min(st.l+dx,innerWidth-keep)),nt=Math.max(top,Math.min(st.t+dy,innerHeight-60));
+ x=st.x+(nl-st.l);y=st.y+(nt-st.t);apply()});
+function end(e){if(!st||e.pointerId!==st.id)return;st=null;ph.classList.remove('ks-dragging')}
+g.addEventListener('pointerup',end);g.addEventListener('pointercancel',end);
+g.addEventListener('keydown',function(e){var k={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-24],ArrowDown:[0,24]}[e.key];if(k){e.preventDefault();x+=k[0];y+=k[1];apply()}else if(e.key==='Escape')reset()});
+/* keep the grip a constant, finger-friendly size even when the phone is scaled down to fit */
+function unscale(){if(!ov||!ov.classList.contains('on')){g.style.transform='';return}var s=ph.getBoundingClientRect().width/(ph.offsetWidth||1);g.style.transform='translateX(-50%) scale('+Math.min(3.2,1/Math.max(.2,s))+')'}
+new MutationObserver(unscale).observe(ph,{attributes:true,attributeFilter:['style']});
+if(ov)new MutationObserver(function(){setTimeout(unscale,60)}).observe(ov,{attributes:true,attributeFilter:['class']});
+addEventListener('resize',unscale);
+g.tabIndex=0;
+/* snap back whenever the layout switches (open/close mobile editor, resize across breakpoint) */
+if(ov)new MutationObserver(reset).observe(ov,{attributes:true,attributeFilter:['class']});
+var mq=window.matchMedia('(max-width:820px)');mq.addEventListener&&mq.addEventListener('change',reset);
+})();
+</script>
 </body></html>
