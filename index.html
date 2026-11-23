@@ -1368,7 +1368,7 @@ body.ks-lock{overflow:hidden}
 <a class="navlink" href="#services">What we make</a>
 <a class="navlink" href="#reviews">Reviews</a>
 <a class="navlink" href="#finishes">Cards</a>
-<a class="navlink" href="#demo">Prototypes</a>
+<a class="navlink" href="#templates" data-templates>Templates</a>
 <a class="navlink" href="#how">How it works</a>
 <a class="navlink" href="#packages">Packages</a>
 <a class="navlink" href="#track" data-track>Track order</a>
@@ -1377,7 +1377,7 @@ body.ks-lock{overflow:hidden}
 <div class="hdr-right">
 <button type="button" class="btn hdr-inq" id="acctBtn" style="font-family:inherit">Sign in</button>
 <a class="btn hdr-inq" id="hdrInq" href="#contact">Inquire</a>
-<a class="btn btn-primary hdr-cta" href="#contact" style="background: var(--accent); color: #FFFFFF; font-weight: 600; font-size: 15px; padding: 12px 22px; border-radius: 999px; white-space: nowrap">Get your card</a>
+<a class="btn btn-primary hdr-cta" href="#packages" style="background: var(--accent); color: #FFFFFF; font-weight: 600; font-size: 15px; padding: 12px 22px; border-radius: 999px; white-space: nowrap">Get your card</a>
 <button type="button" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
 </div>
 </div>
@@ -1386,14 +1386,14 @@ body.ks-lock{overflow:hidden}
 <a class="mlink" href="#services">What we make</a>
 <a class="mlink" href="#reviews">Reviews</a>
 <a class="mlink" href="#finishes">Cards</a>
-<a class="mlink" href="#demo">Prototypes</a>
+<a class="mlink" href="#templates" data-templates>Templates</a>
 <a class="mlink" href="#how">How it works</a>
 <a class="mlink" href="#packages">Packages</a>
 <a class="mlink" href="#track" data-track>Track order</a>
 <a class="mlink" href="#faq">FAQ</a>
 <a class="mlink" href="#" id="mAcct">Sign in</a>
 </nav>
-<div class="mnav-cta"><a class="btn btn-primary" href="#contact">Get your card</a><a class="mnav-inq" id="mnavInq" href="#contact">Inquire</a></div>
+<div class="mnav-cta"><a class="btn btn-primary" href="#packages">Get your card</a><a class="mnav-inq" id="mnavInq" href="#contact">Inquire</a></div>
 </div>
 </header>
 <div class="mscrim" aria-hidden="true"></div>
@@ -3173,6 +3173,7 @@ function vc(x){return String(x).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').re
 $('ksSave').addEventListener('click',function(){var nm=S.name.trim()||'Your Name',n=nm.split(/\s+/),w=S.links.filter(function(l){return l.t==='website'&&safeHref('website',l.u)!=='#'})[0],ph=safeHref('phone',S.phone)!=='#',em=safeHref('email',S.email)!=='#';
  var v=['BEGIN:VCARD','VERSION:3.0','N:'+vc(n.slice(1).join(' '))+';'+vc(n[0])+';;;','FN:'+vc(nm),S.company.trim()?'ORG:'+vc(S.company.trim()):'',S.title.trim()?'TITLE:'+vc(S.title.trim()):'',ph?'TEL;TYPE=CELL:'+digits(S.phone):'',em?'EMAIL:'+S.email.trim():'',w?'URL:'+safeHref('website',w.u):'','END:VCARD'].filter(Boolean).join('\r\n');
  download(slug()+'.vcf','text/vcard;charset=utf-8',v);toast(ph||em?'Contact file downloaded':'Downloaded. Add a phone or email in Text so it is useful.')});
+window.ikTemplates={list:function(){return TORD.concat(Object.keys(TPL).filter(function(k){return TORD.indexOf(k)<0})).filter(function(k){return TPL[k]}).map(function(k){var t=TPL[k];return{id:k,name:t.n,desc:t.desc,cat:TCAT[k]||'pro',adds:t.f.filter(function(x){return x.t!=='status'}).slice(0,3).map(function(x){return x.l.replace(/ \(.*\)/,'')})}})},cats:TCATS,mini:function(k){return miniCard(TPL[k])},photo:function(){return S.photo||''},use:function(k){commitTpl(k)}};
 apply();
 })();
 </script><script>(function(){
@@ -3580,4 +3581,69 @@ sync();
 }
 @media(max-width:360px){#ksOv #ksRand,#ksOv #ksReset,#ksOv #ksDl{flex-basis:50px;width:50px}}
 </style>
+<style id="tpl-page-css">
+body.tpg-lock{overflow:hidden}
+#tplPage{position:fixed;inset:0;z-index:9000;overflow-y:auto;-webkit-overflow-scrolling:touch;background:radial-gradient(110% 50% at 50% 0,#0f2a46 0,#070d15 55%,#04070c 100%);color:#EEF3F9;font-family:Inter,system-ui,sans-serif}
+#tplPage[hidden]{display:none}
+.tpg-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;padding:max(12px,env(safe-area-inset-top)) 16px 12px;background:rgba(4,7,12,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #152234}
+.tpg-bar b{flex:1;font:700 17px Montserrat,Inter,sans-serif;letter-spacing:-.01em}
+.tpg-back,.tpg-scratch{min-height:42px;padding:0 16px;border-radius:999px;border:1px solid #22364E;background:#0d1622;color:#EEF3F9;font:600 14px Inter,sans-serif;cursor:pointer;white-space:nowrap}
+.tpg-scratch{border-color:#1B9CFF;color:#8fd0ff}
+.tpg-back:hover,.tpg-scratch:hover{border-color:#1B9CFF}
+.tpg-in{max-width:1200px;margin:0 auto;padding:32px 20px max(48px,env(safe-area-inset-bottom))}
+.tpg-in h1{margin:0 0 10px;font:700 clamp(30px,5vw,52px)/1.08 Montserrat,Inter,sans-serif;letter-spacing:-.02em}
+.tpg-in>p{margin:0 0 22px;max-width:560px;color:#9FB0C4;font-size:16px;line-height:1.55}
+.tpg-chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 18px;scrollbar-width:none;position:sticky;top:67px;z-index:4}
+.tpg-chips::-webkit-scrollbar{display:none}
+.tpg-chips button{flex:none;min-height:42px;padding:0 18px;border-radius:999px;border:1px solid #22364E;background:#0d1622;color:#c9d6e6;font:600 14px Inter,sans-serif;cursor:pointer}
+.tpg-chips button[aria-pressed=true]{background:#1B9CFF;border-color:#1B9CFF;color:#04101c}
+.tpg-grid{--tps:.6;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px 22px}
+.tpg-item{display:flex;flex-direction:column;gap:10px;min-width:0}
+.tpg-item[hidden]{display:none}
+.tpg-prev{display:block;padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tpg-prev:hover .tp-card{transform:translateY(-4px);border-color:rgba(27,156,255,.7);box-shadow:0 16px 30px rgba(0,0,0,.5)}
+.tpg-prev:focus-visible{outline:none}.tpg-prev:focus-visible .tp-card{border-color:#1B9CFF;box-shadow:0 0 0 3px rgba(27,156,255,.5)}
+.tpg-item b{font:700 16px/1.25 Inter,sans-serif}
+.tpg-item small{display:block;font:500 13px/1.4 Inter,sans-serif;color:#8a9db3;margin-top:-6px}
+.tpg-use{min-height:46px;border:0;border-radius:14px;background:#1B9CFF;color:#04101c;font:700 15px Inter,sans-serif;cursor:pointer;box-shadow:0 8px 20px rgba(27,156,255,.3)}
+.tpg-use:active{transform:scale(.98)}
+@media(max-width:640px){.tpg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}.tpg-item small,.tpg-item .tp-adds{display:none}.tpg-use{font-size:14px;min-height:44px}.tpg-in{padding:22px 14px 40px}.tpg-chips{top:63px}.tpg-bar b{font-size:16px}.tpg-scratch{padding:0 12px;font-size:13px}}
+</style>
+<script>(function(){
+var T=window.ikTemplates;if(!T)return;
+var pg=document.createElement('div');pg.id='tplPage';pg.hidden=true;pg.setAttribute('role','region');pg.setAttribute('aria-label','Card templates');
+pg.innerHTML='<div class="tpg-bar"><button type="button" class="tpg-back" id="tpgBack">\u2190 Back</button><b>Templates</b><button type="button" class="tpg-scratch" id="tpgScratch">Start from scratch</button></div><div class="tpg-in"><h1 tabindex="-1" id="tpgH">Pick a template. Make it yours.</h1><p>Choose a starting point for your digital profile card. Tap \u201cUse this template\u201d and we\u2019ll take you to the designer to add your photo, details and links.</p><div class="tpg-chips" id="tpgCats" role="group" aria-label="Template categories"></div><div class="tpg-grid" id="tpgGrid"></div></div>';
+document.body.appendChild(pg);
+var grid=pg.querySelector('#tpgGrid'),cats=pg.querySelector('#tpgCats'),cat='all',viaClick=false,built=false;
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function scale(){var c=grid.querySelector('.tpg-item:not([hidden]) .tp-card');if(c&&c.clientWidth>20)grid.style.setProperty('--tps',(c.clientWidth/320).toFixed(4))}
+function build(){grid.textContent='';grid.style.setProperty('--tpphoto',T.photo()?'url("'+T.photo()+'")':'none');
+ cats.innerHTML=T.cats.map(function(c){return'<button type="button" data-c="'+c[0]+'" aria-pressed="'+(c[0]===cat)+'">'+c[1]+'</button>'}).join('');
+ T.list().forEach(function(t){var it=el('article','tpg-item');it.dataset.cat=t.cat;
+  var pv=el('button','tpg-prev');pv.type='button';pv.setAttribute('aria-label','Use the '+t.name+' template');
+  var card=el('span','tp-card'),inn=el('span','tp-in');inn.appendChild(T.mini(t.id));card.appendChild(inn);pv.appendChild(card);
+  var u=el('button','tpg-use','Use this template \u2192');u.type='button';
+  [pv,u].forEach(function(b){b.addEventListener('click',function(){use(t.id)})});
+  it.append(pv,el('b',null,t.name),el('small',null,t.desc));
+  if(t.adds.length)it.appendChild(el('span','tp-adds',t.adds.join(' \u00b7 ')));
+  it.appendChild(u);grid.appendChild(it)});
+ filter();built=true}
+function filter(){grid.querySelectorAll('.tpg-item').forEach(function(i){i.hidden=!(cat==='all'||i.dataset.cat===cat)});cats.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.c===cat))});scale()}
+cats.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cat=b.dataset.c;filter();pg.scrollTop=0});
+if(window.ResizeObserver)new ResizeObserver(scale).observe(grid);
+function open(){if(!pg.hidden)return;build();pg.hidden=false;document.body.classList.add('tpg-lock');pg.scrollTop=0;setTimeout(function(){scale();pg.querySelector('#tpgH').focus({preventScroll:true})},30)}
+function close(){if(pg.hidden)return;pg.hidden=true;document.body.classList.remove('tpg-lock')}
+function toDesigner(){history.replaceState(null,'','#demo');close();var sec=document.getElementById('demo'),hh=(document.getElementById('site-header')||{}).offsetHeight||0;
+ if(sec)window.scrollTo({top:sec.getBoundingClientRect().top+scrollY-hh+4,behavior:'smooth'});
+ if(matchMedia('(max-width:820px)').matches)setTimeout(function(){var ob=document.querySelector('.ks-openbtn'),ov=document.getElementById('ksOv');if(ob&&ov&&!ov.classList.contains('on'))ob.click()},600)}
+function use(k){T.use(k);toDesigner()}
+pg.querySelector('#tpgScratch').addEventListener('click',toDesigner);
+pg.querySelector('#tpgBack').addEventListener('click',function(){if(viaClick){viaClick=false;history.back()}else{history.replaceState(null,'','#top');close();scrollTo(0,0)}});
+addEventListener('keydown',function(e){if(e.key==='Escape'&&!pg.hidden&&!document.querySelector('dialog[open]'))pg.querySelector('#tpgBack').click()});
+addEventListener('hashchange',function(){if(location.hash==='#templates')open();else close()});
+document.addEventListener('click',function(e){var a=e.target.closest('[data-templates]');if(!a)return;e.preventDefault();
+ var hd=document.getElementById('site-header'),mb=hd&&hd.querySelector('.menu-btn');if(hd&&hd.classList.contains('menu-open')){hd.classList.remove('menu-open');if(mb){mb.setAttribute('aria-expanded','false');mb.setAttribute('aria-label','Open menu')}}
+ if(location.hash==='#templates')open();else{viaClick=true;location.hash='#templates'}});
+if(location.hash==='#templates')open();
+})();</script>
 </body></html>
