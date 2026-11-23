@@ -950,6 +950,7 @@ img{height:auto}
 .ks-link{display:grid;grid-template-columns:1fr auto;gap:7px;padding:10px;border:1px solid #1d2f45;border-radius:12px;margin-bottom:8px;background:#0b121c}
 .ks-link .full{grid-column:1/-1}
 .ks-x{border:0;background:#2a1118;color:#ff7b8f;border-radius:9px;width:34px;cursor:pointer;font-size:15px}
+.ks-tier,.ks-prem,.tp-prem,.tp-group,#ksSendDlg .ks-tiernote{display:none!important}
 .ks-prem{color:#f5c542;font-weight:700;font-size:11px;letter-spacing:.06em;margin-left:6px;text-transform:none}
 .ks-sw button{position:relative}
 .ks-sw button.prem::after{content:"\2605";position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#f5c542;color:#1b1300;font:700 11px/18px Inter,sans-serif;text-align:center}
@@ -1035,8 +1036,8 @@ img{height:auto}
 .tp-check{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:#1B9CFF;color:#04101c;display:none;place-items:center;font:800 13px Inter,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.4)}
 .ks-tpl[aria-pressed=true] .tp-check{display:grid}
 .tp-meta{display:block;padding:0 2px}
-.tp-meta b{display:block;font:700 13.5px/1.25 Inter,system-ui,sans-serif}
-.tp-meta small{display:block;font:500 11.5px/1.35 Inter,system-ui,sans-serif;color:#7F91A6;margin-top:1px}
+.tp-meta b{display:block;font:650 14px/1.25 Inter,system-ui,sans-serif;letter-spacing:-.005em;color:#f2f6fb}
+.tp-meta small{display:block;font:500 12px/1.4 Inter,system-ui,sans-serif;color:#8a9db3;margin-top:2px}
 @media(prefers-reduced-motion:reduce){.tp-card{transition:none}.ks-tpl:hover .tp-card{transform:none}}
 /* ----- template details (IGN, rank, hours, rates...) ----- */
 .ks-info{margin:16px 14px 0;display:grid;gap:10px;text-align:left}
@@ -1059,10 +1060,26 @@ img{height:auto}
 .ks-info.rows .ks-ii{flex-direction:row;align-items:center;justify-content:space-between;gap:14px}
 .ks-info.rows .ks-ii .v{text-align:right}
 .ks-tag{display:inline-block;padding:3px 10px;margin:3px 5px 0 0;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.06);font:600 12px Inter,sans-serif}
+.ks-ii.ks-menu{padding:12px 14px 6px;gap:0}
+.ks-ii.ks-menu .l{margin-bottom:6px}
+.ks-mrow{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--line)}
+.ks-mrow:first-of-type{border-top:0}
+.ks-mrow .mt{display:flex;flex-direction:column;min-width:0}
+.ks-mrow .n{font:600 14.5px/1.3 var(--linkff,Inter),Inter,sans-serif;color:var(--ink)}
+.ks-mrow small{font:400 12px/1.35 Inter,sans-serif;color:var(--sub);margin-top:1px}
+.ks-mrow .p{font:700 14px Inter,sans-serif;color:var(--acc);white-space:nowrap}
+.ks-info.rows .ks-ii.ks-menu{flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0}
+.ks-row.menu-row{flex-direction:column;align-items:stretch;gap:6px}
+.ks-row.menu-row>label{flex:none}
+.ks-wrap .menu-row textarea{width:100%;margin:0}
+.ks-wrap .menu-row textarea{min-height:140px;line-height:1.5}
 .ks-card.light .ks-tag{background:rgba(16,32,47,.06)}
 .ks-info.rows .ks-ii .v .ks-tag{margin:3px 0 0 5px}
-.tp-adds{display:block;font:600 10.5px/1.35 Inter,system-ui,sans-serif;color:#1B9CFF;margin-top:3px}
+.tp-adds{display:block;font:500 11.5px/1.45 Inter,system-ui,sans-serif;color:#b4c3d4;margin-top:8px;padding-top:8px;border-top:1px solid #1d2f45}
+.tp-adds::before{content:"Adds";display:block;font:600 9.5px/1 Inter,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#5f7892;margin-bottom:4px}
 .tp-bar [hidden]{display:none}
+#ksTplName{display:inline-flex;align-items:center}
+#ksTplName::before{content:"";width:7px;height:7px;border-radius:50%;background:#1B9CFF;margin-right:9px;flex:none}
 .tp-bar .tp-act{display:flex;gap:6px;flex:none}
 /* ----- signature look (matches the OneTap profile) ----- */
 .ks-card{background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px,var(--bgc) center/cover}
@@ -1592,7 +1609,7 @@ load();
 <button role="tab" aria-selected="true" data-p="tpl">Templates</button><button role="tab" aria-selected="false" data-p="theme">Theme</button><button role="tab" aria-selected="false" data-p="photo">Photo</button><button role="tab" aria-selected="false" data-p="layout">Layout</button><button role="tab" aria-selected="false" data-p="text">Text &amp; fonts</button><button role="tab" aria-selected="false" data-p="details">Details</button><button role="tab" aria-selected="false" data-p="links">Links</button>
 </div>
 <div class="ks-pane on" id="ks-tpl"></div><div class="ks-pane" id="ks-theme"></div><div class="ks-pane" id="ks-photo"></div><div class="ks-pane" id="ks-layout"></div><div class="ks-pane" id="ks-text"></div><div class="ks-pane" id="ks-details"></div><div class="ks-pane" id="ks-links"></div>
-<div class="ks-tier" id="ksTier" aria-live="polite"></div><div class="ks-foot"><button class="ks-btn" id="ksRand" type="button">🎲 Surprise me</button><button class="ks-btn" id="ksReset" type="button">Reset</button><button class="ks-btn" id="ksDl" type="button">Save file</button><button class="ks-btn pri" id="ksOrder" type="button">Send my design →</button></div>
+<div class="ks-tier" id="ksTier" aria-live="polite"></div><div class="ks-foot"><button class="ks-btn" id="ksRand" type="button">Surprise me</button><button class="ks-btn" id="ksReset" type="button">Reset</button><button class="ks-btn" id="ksDl" type="button">Save file</button><button class="ks-btn pri" id="ksOrder" type="button">Send my design →</button></div>
 </div>
 <div class="ks-toast" id="ksToast" role="status" aria-live="polite"></div>
 
@@ -2733,9 +2750,9 @@ var TIER={
  pats:['','none'],
  shapes:['card','flat'],
  fonts:['Bebas Neue','Montserrat','Playfair Display','Inter','Georgia'],
- tpl:{clean:'regular',business:'regular',realtor:'regular',well:'regular',shop:'regular',gamer:'premium',influencer:'premium',photo:'premium',fitness:'premium',music:'premium',dev:'premium'}
+ tpl:{clean:'regular',business:'regular',realtor:'regular',well:'regular',shop:'regular',gamer:'premium',influencer:'premium',photo:'premium',fitness:'premium',music:'premium',dev:'premium',food:'regular',barber:'regular',clinic:'regular',legal:'regular',tutor:'regular',designer:'regular',events:'regular',auto:'regular'}
 };
-function pr(list,v,l){return[v,list.indexOf(v)<0?l+' \u2605':l]}
+function pr(list,v,l){return[v,l]}
 var PATN={dots:'Dots pattern',stripes:'Stripes pattern',plus:'Plus pattern',waves:'Waves pattern',stars:'Stars pattern',checker:'Checker pattern',rays:'Rays pattern',circuit:'Circuit pattern',hex:'Hex pattern'};
 var D={theme:'abyss',tpl:'',pat:'',extra:{},showInfo:true,infoStyle:'tiles',bgColor:'',bgImg:'',ha:'#0f2a4a',hb:'#1b4a73',acc:'#e2b866',photo:'',pz:100,px:50,py:25,bo:100,heroH:150,shape:'card',align:'left',line:true,grid:true,caps:true,biocaps:true,linkFont:'Bebas Neue',quick:['email','website','whatsapp','share'],name:'Your Name',title:'',company:'Your Brand',bio:'Your Title | Your Skill | Your Passion',phone:'',email:'',nameFont:'Bebas Neue',bioFont:'Bebas Neue',bioSize:15,bioItalic:false,ls:'stagger',bs:'glass',rad:14,dense:false,showQuick:true,save:true,saveStyle:'white',links:[{t:'facebook',l:'Facebook',u:''},{t:'instagram',l:'Instagram',u:''},{t:'tiktok',l:'TikTok',u:''},{t:'website',l:'My Website',u:''}]};
 var S=JSON.parse(JSON.stringify(D));
@@ -2787,10 +2804,10 @@ function slider(k,l,a,b,u){return'<div class="ks-row"><label>'+l+'</label><input
 function color(k,l){return'<div class="ks-row"><label>'+l+'</label><input type="color" data-k="'+k+'"></div>'}
 function chips(k,l,opts){return'<div class="ks-row" style="align-items:flex-start"><label>'+l+'</label><div class="ks-chips">'+opts.map(function(o){return'<button type="button" data-k="'+k+'" data-v="'+o[0]+'" aria-pressed="false">'+o[1]+'</button>'}).join('')+'</div></div>'}
 function text(k,l,ph){return'<div class="ks-row"><label>'+l+'</label><input type="text" data-k="'+k+'" placeholder="'+(ph||'')+'" maxlength="60"></div>'}
-function fontSel(k,l){return'<div class="ks-row"><label>'+l+'</label><select data-k="'+k+'">'+FONTS.map(function(f){return'<option value="'+f+'">'+f+(TIER.fonts.indexOf(f)<0?' \u2605':'')+'</option>'}).join('')+'</select></div>'}
+function fontSel(k,l){return'<div class="ks-row"><label>'+l+'</label><select data-k="'+k+'">'+FONTS.map(function(f){return'<option value="'+f+'">'+f+''+'</option>'}).join('')+'</select></div>'}
 function file(id,l){return'<label class="ks-btn ks-file">'+l+'<input type="file" accept="image/*" id="'+id+'"></label>'}
 var YN=[['true','On'],['false','Off']];
-$('ks-theme').innerHTML='<button class="ks-btn" type="button" data-goto="tpl" style="width:100%;margin-bottom:4px">🎨 Browse ready-made templates →</button><p class="ks-note">★ marks Premium features. Your profile stays Regular until you use one.</p><div class="ks-sec">Style presets</div><div class="ks-sw" id="ksSw"></div><div class="ks-sec">Fine-tune colors <span class="ks-prem">★ Premium</span></div>'+color('bgColor','Page color')+color('ha','Picture 1')+color('hb','Picture 2')+color('acc','Accent')+'<div class="ks-sec">Background design</div>'+chips('pat','Pattern',[pr(TIER.pats,'','Grid'),pr(TIER.pats,'none','Plain'),pr(TIER.pats,'dots','Dots'),pr(TIER.pats,'stripes','Stripes'),pr(TIER.pats,'plus','Plus'),pr(TIER.pats,'waves','Waves'),pr(TIER.pats,'stars','Stars'),pr(TIER.pats,'checker','Checker'),pr(TIER.pats,'rays','Rays'),pr(TIER.pats,'circuit','Circuit'),pr(TIER.pats,'hex','Hex')])+'<div class="ks-sec">Page background image <span class="ks-prem">★ Premium</span></div>'+file('ksBgFile','Upload image')+' <button class="ks-btn" id="ksBgClear" type="button">Remove</button><p class="ks-note">Images stay on your device. Nothing is uploaded.</p>';
+$('ks-theme').innerHTML='<button class="ks-btn" type="button" data-goto="tpl" style="width:100%;margin-bottom:4px">Browse ready-made templates →</button><div class="ks-sec">Style presets</div><div class="ks-sw" id="ksSw"></div><div class="ks-sec">Fine-tune colors</div>'+color('bgColor','Page color')+color('ha','Picture 1')+color('hb','Picture 2')+color('acc','Accent')+'<div class="ks-sec">Background design</div>'+chips('pat','Pattern',[pr(TIER.pats,'','Grid'),pr(TIER.pats,'none','Plain'),pr(TIER.pats,'dots','Dots'),pr(TIER.pats,'stripes','Stripes'),pr(TIER.pats,'plus','Plus'),pr(TIER.pats,'waves','Waves'),pr(TIER.pats,'stars','Stars'),pr(TIER.pats,'checker','Checker'),pr(TIER.pats,'rays','Rays'),pr(TIER.pats,'circuit','Circuit'),pr(TIER.pats,'hex','Hex')])+'<div class="ks-sec">Page background image</div>'+file('ksBgFile','Upload image')+' <button class="ks-btn" id="ksBgClear" type="button">Remove</button><p class="ks-note">Images stay on your device. Nothing is uploaded.</p>';
 $('ks-photo').innerHTML='<div class="ks-sec">Your picture</div>'+file('ksPhFile','Upload photo')+' <button class="ks-btn" id="ksPhClear" type="button">Remove</button><p class="ks-note">A clear, well-lit photo works best. Faces sit nicely near the top.</p>'+slider('pz','Zoom',100,260,'%')+slider('px','Left / right',0,100,'%')+slider('py','Up / down',0,100,'%')+slider('bo','Opacity',0,100,'%');
 $('ks-layout').innerHTML='<div class="ks-sec">Header</div>'+chips('shape','Edge',[pr(TIER.shapes,'card','Card'),pr(TIER.shapes,'wave','Wave'),pr(TIER.shapes,'round','Curve'),pr(TIER.shapes,'flat','Rounded')])+slider('heroH','Height',70,170,'')+chips('align','Text',[['left','Left'],['center','Center']])+chips('line','Accent line',YN)+chips('grid','Grid pattern',YN)+'<div class="ks-sec">Buttons</div>'+chips('ls','Arrangement',[['stagger','Stagger'],['list','List'],['tiles','Tiles'],['pills','Pills']])+chips('bs','Fill',[['glass','Glass'],['solid','Solid'],['out','Outline']])+slider('rad','Roundness',0,30,'px')+chips('dense','Spacing',[['false','Roomy'],['true','Compact']])+'<div class="ks-sec">Show / hide</div>'+chips('showQuick','Round icons',YN)+chips('save','Save button',YN)+chips('saveStyle','Save style',[['white','White'],['filled','Accent'],['outline','Outline']]);
 $('ks-text').innerHTML='<div class="ks-sec">Your details</div>'+text('name','Name','Your name')+text('title','Title','e.g. Photographer')+text('company','Brand','e.g. Studio 88')+'<div class="ks-row" style="align-items:flex-start"><label>Bio</label><textarea data-k="bio" maxlength="200" rows="3"></textarea></div>'+text('phone','Phone','+63 917 123 4567')+text('email','Email','you@mail.com')+'<div class="ks-sec">Fonts</div>'+fontSel('nameFont','Name font')+fontSel('bioFont','Bio font')+fontSel('linkFont','Button font')+chips('caps','Name caps',YN)+chips('biocaps','Bio caps',YN)+slider('bioSize','Bio size',11,22,'px')+chips('bioItalic','Bio style',[['true','Italic'],['false','Regular']]);
@@ -2846,7 +2863,31 @@ well:{n:'Wellness & Beauty',e:'🌿',d:'Clinics, salons & spas',theme:'mint',tit
  links:[['book','Book Appointment'],['facebook','Facebook Page'],['instagram','Instagram'],['whatsapp','Message Us']]},
 clean:{n:'Minimal',e:'⚪',d:'Simple and clean',theme:'light',title:'',company:'',bio:'Your Title | Your Skill | Your Passion',
  s:{ha:'#cbd5e1',hb:'#94a3b8',acc:'#111827',shape:'flat',align:'center',line:false,caps:false,biocaps:false,nameFont:'Inter',bioFont:'Inter',linkFont:'Inter',bioSize:14,bioItalic:false,ls:'list',bs:'out',rad:12,dense:false,saveStyle:'filled',pat:'none',heroH:130,showQuick:true,save:true,quick:['phone','email','whatsapp']},
- links:[['facebook','Facebook'],['instagram','Instagram'],['website','My Website'],['email','Email']]}
+ links:[['facebook','Facebook'],['instagram','Instagram'],['website','My Website'],['email','Email']]},
+food:{n:'Restaurant',e:'',d:'Restaurants & eateries',theme:'crimson',title:'Owner',company:'Your Restaurant',bio:'Good food, good company. Dine in, take out or order for delivery.',
+ s:{ha:'#7f1d1d',hb:'#dc2626',acc:'#facc15',shape:'card',align:'center',line:false,caps:false,biocaps:false,nameFont:'Playfair Display',bioFont:'Inter',linkFont:'Playfair Display',bioSize:14,bioItalic:false,ls:'list',bs:'solid',rad:14,dense:false,saveStyle:'filled',pat:'checker',heroH:150,showQuick:true,save:true,quick:['phone','whatsapp','facebook','instagram']},
+ links:[['book','Reserve a Table'],['shop','Order Online'],['facebook','Facebook Page'],['instagram','Instagram'],['phone','Call Us']]},
+barber:{n:'Barber & Grooming',e:'',d:'Barbershops & grooming',theme:'carbon',title:'Master Barber',company:'Your Barbershop',bio:'Clean cuts. Sharp fades. Walk-ins welcome.',
+ s:{ha:'#111111',hb:'#3a3a3a',acc:'#e5b94e',shape:'flat',align:'left',line:true,caps:true,biocaps:false,nameFont:'Bebas Neue',bioFont:'Oswald',linkFont:'Oswald',bioSize:14,bioItalic:false,ls:'list',bs:'out',rad:4,dense:false,saveStyle:'filled',pat:'stripes',heroH:150,showQuick:true,save:true,quick:['phone','messenger','facebook','instagram']},
+ links:[['book','Book a Cut'],['facebook','Facebook Page'],['instagram','Instagram'],['messenger','Message Us'],['phone','Call the Shop']]},
+clinic:{n:'Clinic & Health',e:'',d:'Doctors, dentists & clinics',theme:'light',title:'Physician',company:'Your Clinic',bio:'Caring, patient-centered health care for the whole family.',
+ s:{ha:'#0e7490',hb:'#22d3ee',acc:'#0369a1',shape:'flat',align:'left',line:true,caps:false,biocaps:false,nameFont:'Montserrat',bioFont:'Inter',linkFont:'Montserrat',bioSize:14,bioItalic:false,ls:'list',bs:'solid',rad:12,dense:false,saveStyle:'filled',pat:'none',heroH:140,showQuick:true,save:true,quick:['phone','whatsapp','email','facebook']},
+ links:[['book','Book Appointment'],['phone','Call the Clinic'],['facebook','Facebook Page'],['website','Website'],['email','Email']]},
+legal:{n:'Legal & Finance',e:'',d:'Lawyers, accountants & advisors',theme:'burgundy',title:'Attorney at Law',company:'Your Firm',bio:'Clear advice you can rely on. Confidential consultations.',
+ s:{ha:'#5a1f36',hb:'#9b2c5a',acc:'#e2b866',shape:'flat',align:'left',line:true,caps:false,biocaps:false,nameFont:'Georgia',bioFont:'Inter',linkFont:'Inter',bioSize:14,bioItalic:false,ls:'list',bs:'out',rad:6,dense:false,saveStyle:'outline',pat:'none',heroH:140,showQuick:true,save:true,quick:['phone','email','linkedin','website']},
+ links:[['book','Book a Consultation'],['linkedin','LinkedIn'],['website','Firm Website'],['email','Email'],['phone','Call the Office']]},
+tutor:{n:'Tutor & Educator',e:'',d:'Teachers, tutors & coaches',theme:'ocean',title:'Tutor',company:'Your Learning Studio',bio:'Patient, practical lessons that build confidence.',
+ s:{ha:'#05507a',hb:'#0aa5c4',acc:'#fde68a',shape:'round',align:'center',line:false,caps:false,biocaps:false,nameFont:'Poppins',bioFont:'Poppins',linkFont:'Poppins',bioSize:14,bioItalic:false,ls:'pills',bs:'glass',rad:20,dense:false,saveStyle:'filled',pat:'dots',heroH:150,showQuick:true,save:true,quick:['messenger','email','facebook','youtube']},
+ links:[['book','Book a Lesson'],['facebook','Facebook Page'],['youtube','Lesson Videos'],['messenger','Message Me'],['email','Email']]},
+designer:{n:'Designer & Artist',e:'',d:'Designers, illustrators & makers',theme:'blush',title:'Graphic Designer',company:'Studio Name',bio:'Brands, illustrations and ideas made to be noticed.',
+ s:{ha:'#e11d48',hb:'#fb7185',acc:'#be123c',shape:'wave',align:'left',line:true,caps:false,biocaps:false,nameFont:'Poppins',bioFont:'Inter',linkFont:'Poppins',bioSize:14,bioItalic:false,ls:'tiles',bs:'solid',rad:18,dense:false,saveStyle:'filled',pat:'none',heroH:160,showQuick:true,save:true,quick:['instagram','facebook','website','email']},
+ links:[['website','Portfolio'],['instagram','Instagram'],['facebook','Facebook Page'],['shop','Shop My Work'],['email','Commissions']]},
+events:{n:'Events & Weddings',e:'',d:'Planners, hosts & suppliers',theme:'rose',title:'Event Planner',company:'Your Events Co.',bio:'Making your big day effortless and unforgettable.',
+ s:{ha:'#8e4a5a',hb:'#e3a8b0',acc:'#fff1e6',shape:'round',align:'center',line:false,caps:false,biocaps:false,nameFont:'Cormorant Garamond',bioFont:'Cormorant Garamond',linkFont:'Cormorant Garamond',bioSize:17,bioItalic:true,ls:'pills',bs:'glass',rad:24,dense:false,saveStyle:'white',pat:'stars',heroH:155,showQuick:true,save:true,quick:['messenger','phone','facebook','instagram']},
+ links:[['book','Request a Quote'],['instagram','Instagram'],['facebook','Facebook Page'],['messenger','Message Us'],['website','Packages & Gallery']]},
+auto:{n:'Auto & Repair',e:'',d:'Mechanics, detailers & dealers',theme:'slate',title:'Owner',company:'Your Auto Shop',bio:'Honest repairs, fair prices, work done right.',
+ s:{ha:'#3e4c59',hb:'#f59e0b',acc:'#f59e0b',shape:'card',align:'left',line:true,caps:true,biocaps:false,nameFont:'Oswald',bioFont:'Inter',linkFont:'Oswald',bioSize:14,bioItalic:false,ls:'list',bs:'solid',rad:8,dense:false,saveStyle:'filled',pat:'rays',heroH:150,showQuick:true,save:true,quick:['phone','messenger','facebook','website']},
+ links:[['phone','Call the Shop'],['messenger','Message Us'],['facebook','Facebook Page'],['book','Book a Service'],['website','Services & Prices']]}
 };
 /* ---------- per-template profile fields: [key,label,placeholder,type,options] ---------- */
 var TX={
@@ -2880,11 +2921,47 @@ dev:{is:'rows',
 well:{is:'rows',
  f:[['status','Booking status','','status',[['Accepting appointments','#22c55e'],['Few slots left','#f59e0b'],['Fully booked','#64748b']]],['svc','Services','Facial, Massage, Consultation','tags'],['hours','Clinic hours','Tue–Sun · 10AM–7PM','text'],['address','Address','Street, Barangay, City','map'],['appt','Booking','By appointment · Walk-ins welcome','text'],['lic','License no.','Optional','copy']],
  d:{status:'Accepting appointments',svc:'Facial, Massage, Consultation',hours:'Tue–Sun · 10AM–7PM',appt:'By appointment'}},
+food:{is:'tiles',
+ f:[['status','Store status','','status',[['Open now','#22c55e'],['Busy, expect a wait','#f59e0b'],['Closed','#64748b']]],['cuisine','Cuisine','Filipino, Grill, Desserts','tags'],['hours','Open hours','Daily · 10AM–9PM','text'],['mode','Service','Dine-in, Takeout, Delivery','tags'],['pay','Payments','GCash, Cards, Cash','tags'],['price','Average spend','From ₱250 per person','text'],['address','Address','Street, Barangay, City','map']],
+ d:{status:'Open now',cuisine:'Filipino, Grill, Desserts',hours:'Daily · 10AM–9PM',mode:'Dine-in, Takeout',pay:'GCash, Cash'}},
+barber:{is:'rows',
+ f:[['status','Shop status','','status',[['Walk-ins welcome','#22c55e'],['Appointments only','#f59e0b'],['Fully booked today','#64748b']]],['svc','Services','Haircut, Fade, Beard trim, Shave','tags'],['price','Haircut from','₱150','text'],['hours','Shop hours','Daily · 9AM–8PM','text'],['chairs','Barbers','3 barbers on duty','text'],['address','Shop address','Street, Barangay, City','map']],
+ d:{status:'Walk-ins welcome',svc:'Haircut, Fade, Beard trim',price:'₱150',hours:'Daily · 9AM–8PM'}},
+clinic:{is:'rows',
+ f:[['status','Clinic status','','status',[['Accepting patients','#22c55e'],['Limited slots','#f59e0b'],['Fully booked','#64748b'],['On leave','#64748b']]],['spec','Specialty','General Medicine, Pediatrics','tags'],['license','PRC license no.','0012345','copy'],['hours','Clinic hours','Mon–Sat · 9AM–5PM','text'],['hmo','HMO accepted','Maxicare, Intellicare','tags'],['address','Clinic address','Building, Street, City','map']],
+ d:{status:'Accepting patients',spec:'General Medicine',hours:'Mon–Sat · 9AM–5PM'}},
+legal:{is:'rows',
+ f:[['status','Availability','','status',[['Accepting new clients','#22c55e'],['Limited slots','#f59e0b'],['Not accepting','#64748b']]],['areas','Practice areas','Corporate, Family, Labor','tags'],['license','Roll / license no.','Optional','copy'],['exp','Experience','10+ years','text'],['fee','Consultation','By appointment','text'],['hours','Office hours','Mon–Fri · 9AM–5PM','text'],['address','Office address','Building, Street, City','map']],
+ d:{status:'Accepting new clients',areas:'Corporate, Family, Labor',exp:'10+ years',fee:'By appointment'}},
+tutor:{is:'tiles',
+ f:[['status','Student slots','','status',[['Taking students','#22c55e'],['Waitlist only','#f59e0b'],['Fully booked','#64748b']]],['subj','Subjects','Math, Science, English','tags'],['level','Levels','Grade school to college','text'],['mode','Format','Online and in-person','text'],['rate','Rate','From ₱400 / hour','text'],['sched','Schedule','Weekdays after 4PM','text']],
+ d:{status:'Taking students',subj:'Math, Science, English',level:'Grade school to college',mode:'Online and in-person',rate:'From ₱400 / hour'}},
+designer:{is:'tiles',
+ f:[['status','Commissions','','status',[['Open for commissions','#22c55e'],['Limited slots','#f59e0b'],['Closed','#64748b']]],['spec','Specialties','Logos, Branding, Illustration','tags'],['tools','Tools','Figma, Illustrator, Procreate','tags'],['rate','Starting rate','From ₱3,000 / project','text'],['turn','Turnaround','3–5 days','text'],['loc','Based in','Manila, PH','text']],
+ d:{status:'Open for commissions',spec:'Logos, Branding, Illustration',rate:'From ₱3,000 / project',turn:'3–5 days'}},
+events:{is:'rows',
+ f:[['status','Booking status','','status',[['Taking bookings','#22c55e'],['Few dates left','#f59e0b'],['Fully booked','#64748b']]],['svc','Services','Weddings, Birthdays, Corporate','tags'],['area','Service area','Metro Manila and nearby','text'],['pkg','Packages','From ₱25,000','text'],['lead','Lead time','Book 2–3 months ahead','text'],['cap','Guest capacity','50–300 guests','text']],
+ d:{status:'Taking bookings',svc:'Weddings, Birthdays, Corporate',pkg:'From ₱25,000',lead:'Book 2–3 months ahead'}},
+auto:{is:'rows',
+ f:[['status','Shop status','','status',[['Open now','#22c55e'],['Fully booked today','#f59e0b'],['Closed','#64748b']]],['svc','Services','Oil change, Tune-up, Aircon','tags'],['brands','Brands serviced','Toyota, Honda, Mitsubishi','tags'],['hours','Shop hours','Mon–Sat · 8AM–6PM','text'],['warranty','Service warranty','30 days','text'],['address','Shop address','Street, Barangay, City','map']],
+ d:{status:'Open now',svc:'Oil change, Tune-up, Aircon',hours:'Mon–Sat · 8AM–6PM',warranty:'30 days'}},
 clean:{is:'rows',f:[],d:{}}
 };
 Object.keys(TX).forEach(function(k){var x=TX[k];TPL[k].desc=TPL[k].d;TPL[k].is=x.is;TPL[k].d=x.d;TPL[k].f=x.f.map(function(a){return{k:a[0],l:a[1],p:a[2],t:a[3],o:a[4]}})});
+var MENUS={
+food:['Menu highlights',"Kare-kare | ₱395 | Oxtail in peanut sauce\nChicken adobo | ₱225\nPork sisig | ₱275 | Sizzling and spicy\nSinigang na baboy | ₱285\nHalo-halo | ₱135 | House special",''],
+shop:['Products & prices',"Ube cheesecake | ₱450 | 8-inch\nBanana loaf | ₱180\nIced coffee | ₱95\nMilk tea | ₱85\nSandwich of the day | ₱140",''],
+barber:['Services & prices',"Classic cut | ₱150\nSkin fade | ₱200 | Best seller\nBeard trim | ₱100\nHot towel shave | ₱180\nCut + beard | ₱230",'svc,price'],
+well:['Services & prices',"Facial | ₱800 | 60 min\nFull body massage | ₱650 | 60 min\nManicure & pedicure | ₱450\nHair treatment | ₱900\nConsultation | ₱300",'svc'],
+auto:['Services & prices',"Change oil | ₱1,200 | Synthetic\nTune-up | ₱2,500\nAircon cleaning | ₱1,800\nBrake service | ₱1,500\nCar wash & detail | ₱600",'svc'],
+clinic:['Services & fees',"Consultation | ₱500\nDental cleaning | ₱800\nX-ray | ₱350\nVaccination | From ₱600\nHealth certificate | ₱300",''],
+fitness:['Programs & rates',"Monthly program | ₱1,500\nPersonal training | ₱500 | Per session\nBoxing class | ₱250 | Drop-in\nMeal plan | ₱800\nOnline coaching | ₱1,200 | Monthly",''],
+events:['Packages & rates',"Birthday package | From ₱25,000\nDebut package | From ₱60,000\nWedding coordination | From ₱45,000\nHosting | ₱8,000 | Per event\nSound & lights | ₱10,000",'']};
+Object.keys(MENUS).forEach(function(k){var m=MENUS[k],t=TPL[k];if(!t)return;var drop=m[2]?m[2].split(','):[];
+ t.f=t.f.filter(function(f){return drop.indexOf(f.k)<0});
+ t.f.splice(1,0,{k:'menu',l:m[0],p:'Name | Price | Note (optional)\nOne item per line',t:'menu'});t.d.menu=m[1];drop.forEach(function(x){delete t.d[x]})});
 function isSX(k,v){v=(v||'').trim();if(!v)return true;return Object.keys(TPL).some(function(id){return TPL[id].d&&TPL[id].d[k]===v})}
-var TCAT={gamer:'creators',influencer:'creators',music:'creators',photo:'creators',business:'pro',realtor:'pro',dev:'pro',clean:'pro',fitness:'local',shop:'local',well:'local'};
+var TCAT={gamer:'creators',influencer:'creators',music:'creators',photo:'creators',business:'pro',realtor:'pro',dev:'pro',clean:'pro',fitness:'local',shop:'local',well:'local',food:'local',barber:'local',auto:'local',events:'local',clinic:'pro',legal:'pro',tutor:'pro',designer:'creators'};
 var TCATS=[['all','All'],['creators','Creators'],['pro','Professional'],['local','Local business']];
 var PREV=false,snap=null,undoSnap=null,tplCat='all',HOVER=window.matchMedia&&matchMedia('(hover:hover)').matches;
 $('ks-tpl').innerHTML='<div class="tp-top"><div class="ks-chips" id="ksTplCats" role="group" aria-label="Template categories">'+TCATS.map(function(c){return'<button type="button" data-tcat="'+c[0]+'" aria-pressed="'+(c[0]==='all')+'">'+c[1]+'</button>'}).join('')+'</div><div class="tp-bar" id="ksTplBar" hidden><span id="ksTplName"></span><span class="tp-act"><button type="button" class="ks-btn pri" id="ksTplFill" data-goto="details" hidden>Add details</button><button type="button" class="ks-btn" id="ksTplUndo">Undo</button></span></div></div><p class="ks-note tp-hint">'+(HOVER?'Hover to preview, click to apply.':'Tap a template to apply it.')+' Previews use your name and photo. Your contact details stay.</p><div class="ks-tpls" id="ksTpls"></div>';
@@ -2909,14 +2986,15 @@ function miniCard(t){
 function scaleTpls(){var box=$('ksTpls'),c=box&&box.querySelector('.ks-tpl:not([hidden]) .tp-card');if(!c)return;var w=c.clientWidth;if(w>20)box.style.setProperty('--tps',(w/320).toFixed(4))}
 function filterTpls(){var box=$('ksTpls');if(!box)return;box.querySelectorAll('.ks-tpl').forEach(function(b){b.hidden=!(tplCat==='all'||b.dataset.cat===tplCat)});box.querySelectorAll('.tp-group').forEach(function(h){h.hidden=!box.querySelector('.ks-tpl[data-group="'+h.dataset.group+'"]:not([hidden])')});
  $('ksTplCats').querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.tcat===tplCat))});scaleTpls()}
+var TORD=['business','realtor','legal','clinic','tutor','dev','clean','shop','food','barber','well','fitness','auto','events','influencer','photo','designer','music','gamer'];
 function renderTpls(){var box=$('ksTpls');if(!box)return;box.textContent='';
  box.style.setProperty('--tpphoto',S.photo?'url("'+S.photo+'")':'none');
- var lastG='';Object.keys(TPL).sort(function(a,b){return(TIER.tpl[a]==='regular'?0:1)-(TIER.tpl[b]==='regular'?0:1)}).forEach(function(k){var t=TPL[k],g=TIER.tpl[k]==='regular'?'regular':'premium';
-  if(g!==lastG){lastG=g;var gh=el('div','tp-group '+g);gh.dataset.group=g;gh.append(el('b',null,g==='regular'?'Regular profile templates':'\u2605 Premium profile templates'),el('small',null,g==='regular'?'Included with the regular digital profile.':'Bolder looks and extras. Premium digital profile.'));box.appendChild(gh)}
+ var lastG='';TORD.concat(Object.keys(TPL).filter(function(k){return TORD.indexOf(k)<0})).filter(function(k){return TPL[k]}).forEach(function(k){var t=TPL[k],g=TIER.tpl[k]==='regular'?'regular':'premium';
+  if(g!==lastG){lastG=g;var gh=el('div','tp-group '+g);gh.dataset.group=g;}
   var b=el('button','ks-tpl');b.type='button';b.dataset.tpl=k;b.dataset.cat=TCAT[k];b.dataset.group=g;b.setAttribute('aria-pressed',String(S.tpl===k));
-  var card=el('span','tp-card'),inn=el('span','tp-in');inn.appendChild(miniCard(t));card.append(inn,el('span','tp-check','✓'));if(g==='premium')card.appendChild(el('span','tp-prem','\u2605 Premium'));
-  var meta=el('span','tp-meta');meta.append(el('b',null,t.e+' '+t.n),el('small',null,t.desc));
-  var ad=t.f.filter(function(x){return x.t!=='status'}).slice(0,3).map(function(x){return x.l.replace(/ \(.*\)/,'')});if(ad.length)meta.appendChild(el('span','tp-adds','+ '+ad.join(', ')));b.append(card,meta);
+  var card=el('span','tp-card'),inn=el('span','tp-in');inn.appendChild(miniCard(t));card.append(inn,el('span','tp-check','✓'));
+  var meta=el('span','tp-meta');meta.append(el('b',null,t.n),el('small',null,t.desc));
+  var ad=t.f.filter(function(x){return x.t!=='status'}).slice(0,3).map(function(x){return x.l.replace(/ \(.*\)/,'')});if(ad.length)meta.appendChild(el('span','tp-adds',ad.join(' \u00b7 ')));b.append(card,meta);
   if(HOVER)b.addEventListener('mouseenter',function(){startPrev(k)});
   b.addEventListener('mouseleave',endPrev);
   b.addEventListener('focus',function(){if(b.matches(':focus-visible'))startPrev(k)});
@@ -2927,7 +3005,7 @@ if(window.ResizeObserver)new ResizeObserver(scaleTpls).observe($('ksTpls'));
 function startPrev(k){if(PREV)return;snap=JSON.stringify(S);PREV=true;applyTpl(k,true)}
 function endPrev(){if(!PREV)return;PREV=false;S=JSON.parse(snap);snap=null;buildLinks();apply()}
 function commitTpl(k){if(PREV){PREV=false;S=JSON.parse(snap);snap=null}
- undoSnap=JSON.stringify(S);applyTpl(k);$('ksTplName').textContent='✓ '+TPL[k].e+' '+TPL[k].n+' applied';$('ksTplFill').hidden=!TPL[k].f.length;$('ksTplBar').hidden=false}
+ undoSnap=JSON.stringify(S);applyTpl(k);$('ksTplName').textContent=TPL[k].n+' applied';$('ksTplFill').hidden=!TPL[k].f.length;$('ksTplBar').hidden=false}
 function hideBar(){undoSnap=null;var b=$('ksTplBar');if(b)b.hidden=true}
 function undoTpl(){if(!undoSnap)return;S=JSON.parse(undoSnap);undoSnap=null;buildLinks();apply();$('ksTplBar').hidden=true;toast('Template undone')}
 function applyTpl(id,pv){var t=TPL[id];if(!t)return;
@@ -2951,6 +3029,9 @@ function buildInfo(){var box=$('ksInfo');if(!box)return;box.textContent='';
  var bw=el('div','ks-bwrap'),gr=el('div','ks-igrid');
  t.f.forEach(function(f){var v=String((S.extra||{})[f.k]||'').trim();if(!v)return;
   if(f.t==='status'){var o=f.o.filter(function(x){return x[0]===v})[0],b=el('span','ks-badge');b.style.setProperty('--dc',o?o[1]:'#94a3b8');b.appendChild(el('i'));b.appendChild(document.createTextNode(v));bw.appendChild(b);return}
+  if(f.t==='menu'){var mi=el('div','ks-ii wide ks-menu');mi.appendChild(el('span','l',f.l));
+   v.split('\n').map(function(x){return x.trim()}).filter(Boolean).slice(0,14).forEach(function(line){var a=line.split('|').map(function(x){return x.trim()}),row=el('div','ks-mrow'),mt=el('span','mt');mt.appendChild(el('span','n',a[0]));if(a[2])mt.appendChild(el('small',null,a[2]));row.appendChild(mt);if(a[1])row.appendChild(el('span','p',a[1]));mi.appendChild(row)});
+   gr.appendChild(mi);return}
   var it,vv=el('span','v');
   if(f.t==='map'){it=el('a','ks-ii mp');it.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(v);it.target='_blank';it.rel='noopener noreferrer'}
   else{it=el('div','ks-ii'+(f.t==='copy'?' cp':''));
@@ -2963,12 +3044,13 @@ function buildInfo(){var box=$('ksInfo');if(!box)return;box.textContent='';
  box.hidden=!box.childNodes.length}
 function buildDetails(){var p=$('ks-details');if(!p)return;p.textContent='';var t=S.tpl?TPL[S.tpl]:null;
  if(!t||!t.f.length){p.innerHTML='<div class="ks-sec">Profile details</div><p class="ks-note" style="margin-top:0">'+(t?'The Minimal template keeps things simple, so it has no extra fields. Try another template for more.':'Pick a template to unlock extra fields made for your type of profile: IGN and rank for gamers, services and hours for businesses, rates for creators and more.')+'</p><button class="ks-btn pri" type="button" data-goto="tpl" style="margin-top:12px">Browse templates →</button>';return}
- p.innerHTML='<div class="ks-sec">'+t.e+' '+esc(t.n)+' details</div>'+chips('showInfo','Show on card',YN)+chips('infoStyle','Layout',[['tiles','Tiles'],['rows','List']]);
- t.f.forEach(function(f){var r=el('div','ks-row'),l=el('label',null,f.l+(f.t==='copy'?' ⧉':f.t==='map'?' 📍':'')),c;
+ p.innerHTML='<div class="ks-sec">'+esc(t.n)+' details</div>'+chips('showInfo','Show on card',YN)+chips('infoStyle','Layout',[['tiles','Tiles'],['rows','List']]);
+ t.f.forEach(function(f){var r=el('div','ks-row'),l=el('label',null,f.l+(f.t==='copy'?' (tap to copy)':f.t==='map'?' (opens Maps)':'')),c;
   if(f.t==='status'){c=document.createElement('select');var o0=document.createElement('option');o0.value='';o0.textContent='Hidden';c.appendChild(o0);f.o.forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[0];c.appendChild(o)})}
+  else if(f.t==='menu'){c=document.createElement('textarea');c.rows=7;c.maxLength=900;c.placeholder=f.p||''}
   else{c=document.createElement('input');c.type='text';c.maxLength=80;c.placeholder=f.p||''}
-  c.value=(S.extra&&S.extra[f.k])||'';c.dataset.x=f.k;c.setAttribute('aria-label',f.l);r.append(l,c);p.appendChild(r)});
- p.appendChild(el('p','ks-note','⧉ Visitors can copy these with one tap. 📍 Opens Google Maps. Leave a field empty to hide it.'))}
+  c.value=(S.extra&&S.extra[f.k])||'';c.dataset.x=f.k;c.setAttribute('aria-label',f.l);r.append(l,c);if(f.t==='menu')r.classList.add('menu-row');p.appendChild(r);if(f.t==='menu')p.appendChild(el('p','ks-note','One item per line: Name | Price | Note. The note is optional. Up to 14 items.'))});
+ p.appendChild(el('p','ks-note','Leave a field empty to hide it from your card.'))}
 function buildLinks(){var p=$('ks-links');p.textContent='';
  S.links.forEach(function(l,i){var d=el('div','ks-link'),a=document.createElement('input');a.type='text';a.value=l.l;a.placeholder='Label';a.dataset.li=i;a.dataset.f='l';a.maxLength=30;
   var x=el('button','ks-x','✕');x.type='button';x.dataset.del=i;x.setAttribute('aria-label','Remove link');
@@ -3043,7 +3125,7 @@ function saveFile(){download('ikonek-'+slug()+'.json','application/json',JSON.st
 var dlg=document.createElement('dialog');dlg.id='ksSendDlg';
 dlg.innerHTML='<form method="dialog" id="ksSendForm" autocomplete="on"><h3>Send your design to iKONEK</h3><p>We will build this profile for you and message you to confirm.</p><p class="ks-tiernote" id="ksTierNote"></p><label>Your name<input type="text" id="ksCn" required maxlength="80" autocomplete="name"></label><label>Phone, email or Messenger link<input type="text" id="ksCm" required maxlength="120" autocomplete="off" placeholder="So we can reach you"></label><label>Anything else? (optional)<textarea id="ksCnote" maxlength="500" rows="3"></textarea></label><input type="text" id="ksHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0"><div class="ks-dact"><button type="button" class="ks-btn" id="ksCx">Cancel</button><button type="button" class="ks-btn" id="ksCdl">Save file</button><button type="submit" class="ks-btn pri" id="ksCgo">Send</button></div><p class="ks-dmsg" id="ksDmsg" role="status"></p></form>';
 document.body.appendChild(dlg);
-function openSend(){var t=tierOf(S);$('ksTierNote').textContent=t.tier==='premium'?'Package: \u2605 Premium profile (uses '+t.reasons.slice(0,3).join(', ')+(t.reasons.length>3?' +'+(t.reasons.length-3)+' more':'')+')':'Package: Regular profile';$('ksDmsg').textContent='';dlg.showModal?dlg.showModal():dlg.setAttribute('open','')}
+function openSend(){$('ksDmsg').textContent='';dlg.showModal?dlg.showModal():dlg.setAttribute('open','')}
 function closeSend(){dlg.close?dlg.close():dlg.removeAttribute('open')}
 $('ksCx').onclick=closeSend;$('ksCdl').onclick=saveFile;
 dlg.addEventListener('click',function(e){if(e.target===dlg)closeSend()});
@@ -3169,7 +3251,8 @@ items.forEach(function(d){d.addEventListener('toggle',function(){if(d.open)items
 /* icon tab bar */
 #ksOv .ks-tabs{gap:2px;padding:4px 6px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;position:relative}
 #ksOv .ks-tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1 0 66px;min-height:54px;padding:6px 4px;font-size:11.5px;font-weight:600;border-radius:12px;scroll-snap-align:center;position:relative}
-#ksOv .ks-tabs button .ico{font-size:17px;line-height:1;font-weight:700}
+#ksOv .ks-tabs button .ico{display:grid;place-items:center;line-height:1}
+#ksOv .ks-tabs button .ico svg{width:20px;height:20px;margin:0}
 #ksOv .ks-tabs button[aria-selected=true]{background:rgba(27,156,255,.16);color:#fff;box-shadow:inset 0 -2px 0 #1B9CFF}
 /* template carousel */
 #ksOv .ks-tpls{display:flex;grid-template-columns:none;overflow-x:auto;gap:12px;padding:2px 16px 12px;margin:0 -16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -3195,9 +3278,9 @@ items.forEach(function(d){d.addEventListener('toggle',function(){if(d.open)items
 #ksOv .ks-sheet .ks-foot{flex-wrap:nowrap;overflow:visible;gap:8px;padding:10px 14px max(10px,env(safe-area-inset-bottom))}
 #ksOv .ks-foot .ks-btn{min-height:48px;border-radius:14px}
 #ksOv #ksRand,#ksOv #ksReset,#ksOv #ksDl{flex:0 0 48px;width:48px;padding:0;font-size:0;display:grid;place-items:center}
-#ksOv #ksRand::before{content:"\1F3B2";font-size:19px}
-#ksOv #ksReset::before{content:"\21BA";font-size:21px}
-#ksOv #ksDl::before{content:"\2B07";font-size:19px}
+#ksOv #ksRand::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5'/%3E%3C/svg%3E") center/contain no-repeat}
+#ksOv #ksReset::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5'/%3E%3C/svg%3E") center/contain no-repeat}
+#ksOv #ksDl::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4v11M7 11l5 5 5-5M5 20h14'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4v11M7 11l5 5 5-5M5 20h14'/%3E%3C/svg%3E") center/contain no-repeat}
 #ksOv #ksOrder{flex:1;font-size:15px;font-weight:700}
 #ksOv .ks-pane{padding-bottom:20px}
 }
@@ -3234,9 +3317,9 @@ function end(e){if(pid!==e.pointerId)return;pid=null;sheet.classList.remove('dra
 h.addEventListener('pointerup',end);h.addEventListener('pointercancel',end);
 h.addEventListener('keydown',function(e){if(e.key==='ArrowUp'){e.preventDefault();setState(state()==='min'?'half':'full')}else if(e.key==='ArrowDown'){e.preventDefault();setState(state()==='full'?'half':'min')}});
 /* tabs: icons, keep active tab centred, expand sheet if minimised */
-var icons={tpl:'▦',theme:'◐',photo:'◉',layout:'▤',text:'Aa',details:'☰',links:'⧉'};
+var icons={tpl:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>',theme:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>',photo:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m4.5 18 5-5 3.5 3.5 2.5-2.5 4 4"/></svg>',layout:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M9.5 9.5V20"/></svg>',text:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7V5h14v2M12 5v14M9 19h6"/></svg>',details:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',links:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>'};
 var tabs=document.getElementById('ksTabs');
-if(tabs){tabs.querySelectorAll('button').forEach(function(b){if(b.querySelector('.ico'))return;var s=document.createElement('span');s.className='ico';s.setAttribute('aria-hidden','true');s.textContent=icons[b.dataset.p]||'•';b.insertBefore(s,b.firstChild)});
+if(tabs){tabs.querySelectorAll('button').forEach(function(b){if(b.querySelector('.ico'))return;var s=document.createElement('span');s.className='ico';s.setAttribute('aria-hidden','true');s.innerHTML=icons[b.dataset.p]||'';b.insertBefore(s,b.firstChild)});
  tabs.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(state()==='min')setState('half');
   setTimeout(function(){try{b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})}catch(_){}},30)})}
 /* accessible names for icon-only footer buttons */
@@ -3257,6 +3340,9 @@ new MutationObserver(function(){if(ov.classList.contains('on'))setState('half');
 })();
 </script>
 <style id="ks-move-css">
+.ks-tabs button .ico{display:inline-grid;place-items:center;margin-right:7px;vertical-align:-3px;opacity:.9}
+.ks-tabs button .ico svg{display:block}
+
 .ks-ph{touch-action:pan-y}
 .ks-grip{position:absolute;left:50%;top:20px;transform:translateX(-50%);z-index:12;display:flex;align-items:center;gap:6px;height:28px;padding:0 6px 0 12px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(6,12,20,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#e8f1fb;font:600 11.5px/1 Inter,system-ui,sans-serif;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 4px 14px rgba(0,0,0,.4);transition:opacity .2s}
 .ks-grip:hover{border-color:#1B9CFF}
@@ -3275,38 +3361,64 @@ new MutationObserver(function(){if(ov.classList.contains('on'))setState('half');
 #ksOv .ks-grip .dots{font-size:20px}
 #ksOv .ks-grip .rs{width:32px;height:32px;font-size:17px}
 }
+.ks-grip button{display:grid;place-items:center;width:22px;height:22px;margin:0;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#e8f1fb;font:700 14px/1 Inter,sans-serif;cursor:pointer;padding:0;flex:none}
+.ks-grip button:hover{background:#1B9CFF;color:#04101c}
+.ks-grip .rs{margin-left:0;background:#1B9CFF;color:#04101c}
+.ks-ph.ks-min .ks-card{display:none}
+.ks-ph.ks-min{width:auto!important;padding:8px;border-radius:999px}
+.ks-ph.ks-min .ks-grip{position:static;transform:none!important;margin:0}
+.ks-ph.ks-min .zm,.ks-ph.ks-min .zp,.ks-ph.ks-min .rs{display:none}
+.ks-ph.ks-min .lbl{display:inline!important}
+@media(max-width:820px){
+#ksOv .ks-grip button{width:34px;height:34px;font-size:17px}
+#ksOv .ks-ph.ks-min{transform:translateX(-50%)!important;scale:none!important}
+#ksOv .ks-ph.ks-min .ks-grip{height:44px}
+}
 </style>
 <script id="ks-move-js">
 (function(){
 var ph=document.querySelector('.ks-ph'),ov=document.getElementById('ksOv');if(!ph)return;
-var g=document.createElement('div');g.className='ks-grip';g.setAttribute('role','button');g.setAttribute('aria-label','Drag to move the preview');g.title='Drag to move the preview';
-g.innerHTML='<span class="dots" aria-hidden="true">\u283F</span><span class="lbl">Drag to move</span><button type="button" class="rs" aria-label="Put the preview back" title="Put it back">\u21BA</button>';
+var g=document.createElement('div');g.className='ks-grip';g.setAttribute('role','group');g.setAttribute('aria-label','Preview controls');
+g.innerHTML='<span class="dots" aria-hidden="true">\u283F</span><span class="lbl">Drag to move</span><button type="button" class="zm" aria-label="Make the preview smaller" title="Smaller">\u2212</button><button type="button" class="zp" aria-label="Make the preview bigger" title="Bigger">+</button><button type="button" class="mn" aria-label="Minimize the preview" title="Minimize">\u2581</button><button type="button" class="rs" aria-label="Put the preview back" title="Reset">\u21BA</button>';
 ph.appendChild(g);
-var rs=g.querySelector('.rs'),x=0,y=0,st=null;
-function apply(){ph.style.translate=(x||y)?x+'px '+y+'px':'';ph.classList.toggle('ks-moved',!!(x||y))}
-function reset(){x=0;y=0;apply()}
-rs.addEventListener('pointerdown',function(e){e.stopPropagation()});
-rs.addEventListener('click',function(e){e.stopPropagation();reset()});
-g.addEventListener('dblclick',reset);
-g.addEventListener('pointerdown',function(e){if(e.button>0||e.target===rs)return;e.preventDefault();
+var zm=g.querySelector('.zm'),zp=g.querySelector('.zp'),mn=g.querySelector('.mn'),rs=g.querySelector('.rs');
+var STEPS=[.6,.8,1,1.25,1.5,1.8],zi=2,x=0,y=0,min=false,st=null;
+function inOv(){return ov&&ov.classList.contains('on')}
+function apply(){var z=STEPS[zi],comp=(inOv()&&!min)?(z-1)*ph.offsetWidth/2:0;
+ ph.style.translate=(x||y||comp)?(x+comp)+'px '+y+'px':'';
+ ph.style.scale=(z!==1&&!min)?String(z):'';
+ ph.classList.toggle('ks-min',min);
+ ph.classList.toggle('ks-moved',!!(x||y||z!==1||min));
+ zm.disabled=zi===0;zp.disabled=zi===STEPS.length-1;zm.style.opacity=zm.disabled?.4:'';zp.style.opacity=zp.disabled?.4:'';
+ mn.textContent=min?'\u2922':'\u2581';mn.title=min?'Show preview':'Minimize';mn.setAttribute('aria-label',mn.title);
+ g.querySelector('.lbl').textContent=min?'Preview':'Drag to move';
+ if(window.__ksUnscale)window.__ksUnscale()}
+function reset(){x=0;y=0;zi=2;min=false;apply()}
+[zm,zp,mn,rs].forEach(function(b){b.addEventListener('pointerdown',function(e){e.stopPropagation()})});
+zm.addEventListener('click',function(){if(zi>0){zi--;apply()}});
+zp.addEventListener('click',function(){if(zi<STEPS.length-1){zi++;apply()}});
+mn.addEventListener('click',function(){min=!min;apply()});
+rs.addEventListener('click',reset);
+g.addEventListener('dblclick',function(e){if(e.target.closest('button'))return;if(min){min=false;apply()}else reset()});
+g.addEventListener('pointerdown',function(e){if(e.button>0||e.target.closest('button'))return;e.preventDefault();
  var r=ph.getBoundingClientRect();st={id:e.pointerId,sx:e.clientX,sy:e.clientY,x:x,y:y,l:r.left,t:r.top,w:r.width,h:r.height};
  ph.classList.add('ks-dragging');try{g.setPointerCapture(e.pointerId)}catch(_){}});
 g.addEventListener('pointermove',function(e){if(!st||e.pointerId!==st.id)return;
- var dx=e.clientX-st.sx,dy=e.clientY-st.sy,keep=Math.min(90,st.w*.5),top=ov&&ov.classList.contains('on')?0:60;
+ var dx=e.clientX-st.sx,dy=e.clientY-st.sy,keep=Math.min(90,st.w*.5),top=inOv()?0:60;
  var nl=Math.max(keep-st.w,Math.min(st.l+dx,innerWidth-keep)),nt=Math.max(top,Math.min(st.t+dy,innerHeight-60));
  x=st.x+(nl-st.l);y=st.y+(nt-st.t);apply()});
 function end(e){if(!st||e.pointerId!==st.id)return;st=null;ph.classList.remove('ks-dragging')}
 g.addEventListener('pointerup',end);g.addEventListener('pointercancel',end);
-g.addEventListener('keydown',function(e){var k={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-24],ArrowDown:[0,24]}[e.key];if(k){e.preventDefault();x+=k[0];y+=k[1];apply()}else if(e.key==='Escape')reset()});
-/* keep the grip a constant, finger-friendly size even when the phone is scaled down to fit */
-function unscale(){if(!ov||!ov.classList.contains('on')){g.style.transform='';return}var s=ph.getBoundingClientRect().width/(ph.offsetWidth||1);g.style.transform='translateX(-50%) scale('+Math.min(3.2,1/Math.max(.2,s))+')'}
-new MutationObserver(unscale).observe(ph,{attributes:true,attributeFilter:['style']});
-if(ov)new MutationObserver(function(){setTimeout(unscale,60)}).observe(ov,{attributes:true,attributeFilter:['class']});
-addEventListener('resize',unscale);
+g.addEventListener('keydown',function(e){if(e.target.closest('button'))return;var k={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-24],ArrowDown:[0,24]}[e.key];
+ if(k){e.preventDefault();x+=k[0];y+=k[1];apply()}else if(e.key==='+'||e.key==='='){if(zi<STEPS.length-1){zi++;apply()}}else if(e.key==='-'){if(zi>0){zi--;apply()}}else if(e.key==='Escape')reset()});
 g.tabIndex=0;
-/* snap back whenever the layout switches (open/close mobile editor, resize across breakpoint) */
-if(ov)new MutationObserver(reset).observe(ov,{attributes:true,attributeFilter:['class']});
+function unscale(){if(!inOv()||min){g.style.transform='';return}var r=ph.getBoundingClientRect().width/(ph.offsetWidth||1);g.style.transform='translateX(-50%) scale('+Math.min(3.2,1/Math.max(.2,r))+')'}
+window.__ksUnscale=unscale;
+new MutationObserver(unscale).observe(ph,{attributes:true,attributeFilter:['style']});
+if(ov)new MutationObserver(function(){reset();setTimeout(unscale,60)}).observe(ov,{attributes:true,attributeFilter:['class']});
+addEventListener('resize',unscale);
 var mq=window.matchMedia('(max-width:820px)');mq.addEventListener&&mq.addEventListener('change',reset);
+apply();
 })();
 </script>
 </body></html>
