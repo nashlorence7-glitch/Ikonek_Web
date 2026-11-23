@@ -3478,13 +3478,12 @@ apply();
 #ksOv .ks-tabs button{font-size:12px}
 #ksOv .ks-row{margin:12px 0}#ksOv .ks-note{font-size:13.5px}
 #ksOv .ks-chips button{min-height:44px;padding:0 16px}
-.ks-openbtn.ks-top{margin-top:6px}
 }
 </style>
 <script>(function(){var ov=document.getElementById('ksOv'),w=document.getElementById('ksWrap'),d=document.getElementById('ksSendDlg'),last;
 if(ov){ov.setAttribute('aria-modal','true');new MutationObserver(function(){if(ov.classList.contains('on')){last=document.activeElement;var x=document.getElementById('ksDone');x&&x.focus()}else if(last&&last.focus)last.focus()}).observe(ov,{attributes:true,attributeFilter:['class']})}
 if(d)d.addEventListener('keydown',function(e){if(e.key==='Escape')e.stopPropagation()});
-var b=document.querySelector('.ks-openbtn');if(b&&w&&w.parentNode){var c=b.cloneNode(true);c.classList.add('ks-top');c.addEventListener('click',function(){b.click()});w.parentNode.insertBefore(c,w)}})();</script>
+})();</script>
 <style id="ks-layout">
 /* ---- profile card: one clear reading order with even spacing ---- */
 .ks-card{display:flex;flex-direction:column;gap:14px}
@@ -3522,4 +3521,58 @@ var b=document.querySelector('.ks-openbtn');if(b&&w&&w.parentNode){var c=b.clone
 var tab=document.querySelector('#ksTabs button[data-p="details"]'),ov=document.getElementById('ksOv'),ob=document.querySelector('.ks-openbtn');if(!tab)return;
 if(matchMedia('(max-width:820px)').matches&&ov&&!ov.classList.contains('on')&&ob)ob.click();
 tab.click();setTimeout(function(){var f=document.querySelector('#ks-details [data-x="'+t.dataset.edit+'"]');if(f){f.scrollIntoView({block:'center',behavior:'smooth'});f.focus({preventScroll:true})}},350)});</script>
+<style id="ks-mobile-v2">
+.ks-next{display:none}
+@media(max-width:820px){
+#ksOv{background:radial-gradient(120% 60% at 50% 0,#12304f 0,#07101b 55%,#04070c 100%)}
+#ksOv .ks-bar{padding:max(10px,env(safe-area-inset-top)) 14px 8px;gap:12px;background:transparent}
+#ksOv .ks-bar>span{display:flex;flex-direction:column;gap:2px;font:700 17px/1.1 Inter,sans-serif;letter-spacing:-.01em}
+#ksOv .ks-bar>span small{font:500 12px/1.2 Inter,sans-serif;color:#8fb4d6;letter-spacing:0}
+#ksOv .ks-bar button{min-height:42px;padding:0 18px;border-radius:999px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px)}
+#ksOv .ks-sheet{height:58dvh;border-radius:28px 28px 0 0;background:rgba(10,17,27,.94);backdrop-filter:blur(18px);border-top:1px solid rgba(120,180,255,.18);box-shadow:0 -16px 50px rgba(0,0,0,.6)}
+#ksOv .ks-sheet.full{height:90dvh}
+#ksOv .ks-handle{padding:12px 0 6px}
+#ksOv .ks-handle i{width:40px;height:4px;background:#3b5a7c}
+#ksOv .ks-tabs{gap:6px;padding:6px 12px 10px;background:transparent;border:0;-webkit-mask:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 22px),transparent);mask:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 22px),transparent)}
+#ksOv .ks-tabs button{flex:0 0 auto;flex-direction:row;gap:7px;min-height:42px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.06);color:#a9bdd3;font:600 14px Inter,sans-serif;box-shadow:none;scroll-snap-align:center}
+#ksOv .ks-tabs button .ico{margin:0}
+#ksOv .ks-tabs button .ico svg{width:18px;height:18px}
+#ksOv .ks-tabs button[aria-selected=true]{background:#1B9CFF;color:#04101c;box-shadow:0 6px 18px rgba(27,156,255,.4)}
+#ksOv .ks-pane{padding:4px 16px 12px;scroll-behavior:smooth}
+#ksOv .ks-pane.on{animation:ksIn .22s ease-out}
+@keyframes ksIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#ksOv .ks-row{margin:16px 0;padding:14px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+#ksOv input[type=text],#ksOv select,#ksOv textarea{border-radius:14px;background:#0c1622;border:1px solid #1d3248;color:#fff;min-height:48px}
+#ksOv input:focus,#ksOv select:focus,#ksOv textarea:focus{outline:0;border-color:#1B9CFF;box-shadow:0 0 0 3px rgba(27,156,255,.25)}
+#ksOv .ks-sw button{width:48px;height:48px;border-radius:50%;border:2px solid transparent;transition:transform .15s}
+#ksOv .ks-sw button[aria-pressed=true],#ksOv .ks-sw button.on,#ksOv .ks-sw button[aria-checked=true]{border-color:#fff;transform:scale(1.1);box-shadow:0 0 0 3px rgba(27,156,255,.55)}
+#ksOv .ks-chips button{border-radius:999px;min-height:44px}
+#ksOv .ks-wrap .ks-next{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 16px 10px;min-height:50px;border:1px solid rgba(27,156,255,.5);border-radius:16px;background:rgba(27,156,255,.12);color:#cfe8ff;font:700 15px Inter,sans-serif}
+#ksOv .ks-next:active{transform:scale(.98)}
+#ksOv .ks-sheet .ks-foot{background:rgba(7,11,17,.96);border-top:1px solid #152234;padding:10px 14px max(12px,env(safe-area-inset-bottom))}
+#ksOv .ks-foot .ks-btn{border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#cfe0f2}
+#ksOv #ksOrder{background:linear-gradient(135deg,#1B9CFF,#4cc2ff);color:#04101c;border:0;min-height:50px;box-shadow:0 8px 22px rgba(27,156,255,.4)}
+.ks-openbtn{border-radius:18px!important;min-height:56px;font-size:17px!important;box-shadow:0 12px 32px rgba(27,156,255,.4)!important}
+}
+</style>
+<script>(function(){
+var mq=matchMedia('(max-width:820px)'),ov=document.getElementById('ksOv'),tabs=document.getElementById('ksTabs');if(!ov||!tabs)return;
+var bs=[].slice.call(tabs.querySelectorAll('button')),bar=ov.querySelector('.ks-bar>span'),sheet=document.getElementById('ksSheet'),wrap=document.getElementById('ksWrap');
+function nm(b){return b.textContent.trim()}
+var next=document.createElement('button');next.type='button';next.className='ks-next';
+var tier=document.getElementById('ksTier');if(tier&&tier.parentNode)tier.parentNode.insertBefore(next,tier);
+function cur(){for(var i=0;i<bs.length;i++)if(bs[i].getAttribute('aria-selected')==='true')return i;return 0}
+function sync(){var i=cur();bar.innerHTML='Design your profile<small>Step '+(i+1)+' of '+bs.length+' · '+nm(bs[i])+'</small>';
+ next.textContent=i<bs.length-1?'Next: '+nm(bs[i+1])+' →':'Looks good. Send my design';
+ var b=bs[i],l=b.offsetLeft-(tabs.clientWidth-b.offsetWidth)/2;tabs.scrollTo({left:l,behavior:'smooth'});
+ var p=wrap.querySelector('.ks-pane.on');if(p)p.scrollTop=0}
+next.addEventListener('click',function(){var i=cur();if(i<bs.length-1)bs[i+1].click();else{var o=document.getElementById('ksOrder');o&&o.click()}});
+new MutationObserver(sync).observe(tabs,{attributes:true,subtree:true,attributeFilter:['aria-selected']});
+new MutationObserver(function(){if(ov.classList.contains('on'))sync()}).observe(ov,{attributes:true,attributeFilter:['class']});
+// swipe left/right on the panel to move between steps
+var x0=null,y0=0;sheet.addEventListener('touchstart',function(e){var t=e.target;if(t.closest('input,textarea,select,.ks-tpls,.ks-tabs,.ks-handle')){x0=null;return}x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+sheet.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+ if(Math.abs(dx)<70||Math.abs(dx)<Math.abs(dy)*1.5)return;var i=cur()+(dx<0?1:-1);if(bs[i])bs[i].click()},{passive:true});
+sync();
+})();</script>
 </body></html>
