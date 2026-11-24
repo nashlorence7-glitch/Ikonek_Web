@@ -2929,15 +2929,35 @@ mf.addEventListener('submit',function(e){e.preventDefault();
 
 // Visitor counter: one unique visitor per browser
 (function(){
-var box=document.getElementById('viewCounter');
-function show(d){if(!d||d.visitors==null)return;document.getElementById('visitorCount').textContent=Number(d.visitors).toLocaleString();box.dataset.ok='1';box.style.display='flex'}
+var box=document.getElementById('viewCounter'),num=document.getElementById('visitorCount');
+if(!box||!num)return;
+/* Own request on purpose: api() sends "Prefer: return=minimal", which makes the server
+   reply with an EMPTY body, so the count could never be read. Here we ask for the body
+   and send only the public key (a stale login token must never block a public counter). */
+function rpc(name,body){return fetch(URL_+'/rest/v1/rpc/'+name,{method:'POST',cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body||{})}).then(function(r){if(!r.ok)throw new Error('rpc '+r.status);return r.text()}).then(function(t){if(!t)throw new Error('empty');return JSON.parse(t)})}
+/* accept {visitors:n}, [{visitors:n}], a bare number, or a similar column name */
+function pick(d){
+ if(Array.isArray(d))d=d[0];
+ if(d&&typeof d==='object'){
+  var k=['visitors','visitor_count','unique_visitors','total_visitors','visitors_count','unique_count'];
+  for(var i=0;i<k.length;i++)if(d[k[i]]!=null&&isFinite(Number(d[k[i]])))return Number(d[k[i]]);
+  var ks=Object.keys(d);if(ks.length===1&&isFinite(Number(d[ks[0]])))return Number(d[ks[0]]);
+  return null}
+ if(d!=null&&d!==''&&isFinite(Number(d)))return Number(d);
+ return null}
+function show(n){num.textContent=n.toLocaleString('en-US');box.dataset.ok='1';box.style.display='inline-flex'}
 var isNew=false,counted=false;
 try{isNew=!localStorage.getItem('ikonek_visitor');counted=!!sessionStorage.getItem('ikonek_view')}catch(e){}
-box.style.display='flex';box.classList.add('vc-loading');var call=counted?api('/rest/v1/rpc/get_view_counts',{}):api('/rest/v1/rpc/register_view',{p_new_visitor:isNew});
-call.then(function(r){return r.ok?r.json():null}).then(function(d){
- if(!d)return;
- if(!counted){try{sessionStorage.setItem('ikonek_view','1');localStorage.setItem('ikonek_visitor','1')}catch(e){}}
- show(d)}).catch(function(){}).then(function(){box.classList.remove('vc-loading');if(!box.dataset.ok)box.style.display='none'});
+box.style.display='inline-flex';box.classList.add('vc-loading');
+function read(){return rpc('get_view_counts',{}).then(pick)}
+function run(){
+ var first=counted?read():rpc('register_view',{p_new_visitor:isNew}).then(function(d){
+  try{sessionStorage.setItem('ikonek_view','1');localStorage.setItem('ikonek_visitor','1')}catch(e){}
+  var n=pick(d);return n!=null?n:read()}).catch(function(){return read()});
+ return first}
+run().catch(function(){return new Promise(function(r){setTimeout(r,1500)}).then(read)})
+ .then(function(n){if(n!=null)show(n)}).catch(function(){})
+ .then(function(){box.classList.remove('vc-loading');if(!box.dataset.ok)box.style.display='none'});
 })();
 })();
 </script>
@@ -3775,6 +3795,12 @@ tab.click();setTimeout(function(){var f=document.querySelector('#ks-details [dat
 #ksOv .ks-foot .ks-btn{border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#cfe0f2}
 #ksOv #ksOrder{background:linear-gradient(135deg,#1B9CFF,#4cc2ff);color:#04101c;border:0;min-height:50px;box-shadow:0 8px 22px rgba(27,156,255,.4)}
 .ks-openbtn{border-radius:18px!important;min-height:56px;font-size:17px!important;box-shadow:0 12px 32px rgba(27,156,255,.4)!important}
+/* FIX: the sheet's drag handle was locked to height:28px by the base rule, so its pill + label
+   overflowed and were hidden behind the panel below. Let it size to its content, and drop the
+   duplicate pill the base rule draws with ::before (the handle already has its own <i> pill). */
+#ksOv .ks-handle{height:auto;min-height:44px;justify-content:center;gap:5px;padding:10px 0 8px;line-height:1.2;position:relative;z-index:2}
+#ksOv .ks-handle::before{display:none;content:none}
+#ksOv .ks-handle span{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 12px}
 }
 </style>
 <script>(function(){
